@@ -1,0 +1,1 @@
+insert into user_tb(`username`,`nickname`,`password`)values('ssar','최죠','1111');
