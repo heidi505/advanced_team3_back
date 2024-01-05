@@ -19,8 +19,9 @@ public class Profile {
     private Integer id;
     private String profileImage;
     private String statusMessage;
-    private String BackImage;
+    private String backImage;
     private String qrCode;
+    @Column(name = "user_id", unique = true)
     private Integer userId;
 
 
@@ -30,7 +31,7 @@ public class Profile {
         this.id = id;
         this.profileImage = profileImage;
         this.statusMessage = statusMessage;
-        BackImage = backImage;
+        this.backImage = backImage;
         this.qrCode = qrCode;
         this.userId = userId;
     }
