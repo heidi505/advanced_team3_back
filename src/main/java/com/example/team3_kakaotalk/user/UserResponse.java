@@ -1,15 +1,12 @@
 package com.example.team3_kakaotalk.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.sql.Date;
-import java.sql.Timestamp;
 
 public class UserResponse {
     @Data
@@ -28,5 +25,29 @@ public class UserResponse {
             this.phoneNum = user.getPhoneNum();
         }
     }
+
+    @Data
+    @ToString
+    public static class TestDTO{
+        private int userId;
+        private String userEmail;
+        private String userPhoneNum;
+        private String gender;
+        private Date birthdate;
+        private Timestamp createdAt;
+        private int profileId;
+    }
+    
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FriendTepMainResponseDTO{
+    	private int id;
+    	private String nickname;
+    	private String profileImage;
+    	private String birthdate;
+    }
+    
 
 }

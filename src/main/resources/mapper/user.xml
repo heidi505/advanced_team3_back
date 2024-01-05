@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.team3_kakaotalk.user.UserMBRepository">
+
+	<select  id = "findByFriendTepMain" resultType = "com.example.team3_kakaotalk.user.UserResponse$FriendTepMainResponseDTO">
+		select ut.Id, ut.nickname, ut.birthdate, pt.profile_image
+		from user_tb as ut
+    		inner join profile_tb as pt
+				on ut.profile_id = pt.id
+		where ut.id = #{id}
+	</select>
+   
+    
+    
+</mapper>

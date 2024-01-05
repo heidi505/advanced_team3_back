@@ -53,4 +53,13 @@ public class UserRequest {
         private String password;
     }
 
+    
+    @Data
+    @ToString
+    public static class FriendTepMainrResponseDTO{
+    	
+    }
+    
+
+
 }
