@@ -1,1 +1,10 @@
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('ssar@nate.com','최죠','1111','01011112222', '남','1994-03-19', now(), 1);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('ssar@nate.com','최죠','1111','01011112222', '남','1986-05-22', now(), 1);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('cos@nate.com','그노','1111','01022223333', '남','1986-11-05', now(), 2);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('love@nate.com','채비니','1111','01050186937', '여','1986-05-22', now(), 3);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('heidi@nate.com','기마얀','1111','01044541176', '여','1986-05-22', now(), 4);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('smk@nate.com','민경','1111','01063947520', '남','1986-05-22', now(), 5);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('pnk@nate.com','남뀨','1111','01065423114', '남','1986-05-22', now(), 6);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('lej@nate.com','은지','1111','01065413987', '여','1986-05-22', now(), 7);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('pumpkinpotato@nate.com','나무네','1111','01090153141', '여','1986-05-22', now(), 8);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('home@nate.com','집에가고싶다','1111','01047870123', '여','1986-05-22', now(), 9);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('stop@nate.com','그만하고싶다','1111','01014278302', '여','1986-05-22', now(), 10);

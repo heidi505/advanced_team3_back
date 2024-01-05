@@ -21,6 +21,7 @@ public class Profile {
     private String statusMessage;
     private String BackImage;
     private String qrCode;
+    @Column(name = "user_id", unique = true)
     private Integer userId;
 
 
