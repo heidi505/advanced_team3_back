@@ -16,7 +16,6 @@ public class JwtTokenUtils {
                 .withClaim("id", user.getId())
                 .withClaim("email", user.getEmail())
                 .withClaim("phoneNum", user.getPhoneNum())
-                .withClaim("gender", user.getGender())
                 .withClaim("birthdate", user.getBirthdate())
                 .withClaim("createdAt", user.getCreatedAt())
                 .withClaim("profileId", user.getProfileId())
