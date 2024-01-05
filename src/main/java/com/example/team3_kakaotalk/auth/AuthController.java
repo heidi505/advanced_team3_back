@@ -48,4 +48,14 @@ public class AuthController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         return ResponseEntity.ok().body(ApiUtils.success(sessionUser));
     }
+
+    //업데이트
+    @PutMapping("/user/update")
+    public ResponseEntity<?> update(@RequestBody @Valid UserRequest.UpdateDTO requestDTO, Errors errors) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        UserResponse.UpdateResponseDTO responseDTO = userService.update(requestDTO, sessionUser);
+
+        return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
+    }
 }

@@ -4,9 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -28,5 +26,25 @@ public class UserResponse {
             this.phoneNum = user.getPhoneNum();
         }
     }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class UpdateResponseDTO {
+        private int id;
+        private String password;
+        private String phoneNum;
+
+
+
+        public UpdateResponseDTO(User user) {
+            this.id = user.getId();
+            this.password = user.getPassword();
+            this.phoneNum = user.getPhoneNum();
+
+
+        }
+    }
+
 
 }
