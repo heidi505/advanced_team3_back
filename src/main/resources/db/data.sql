@@ -8,3 +8,24 @@ insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birth
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('pumpkinpotato@nate.com','나무네','1111','01090153141', '여','1986-05-22', now(), 8);
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('home@nate.com','집에가고싶다','1111','01047870123', '여','1986-05-22', now(), 9);
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('stop@nate.com','그만하고싶다','1111','01014278302', '여','1986-05-22', now(), 10);
+
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','2');
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','3');
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','4');
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','5');
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','6');
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','7');
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','8');
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','9');
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','10');
+insert into friend_tb(`user_id1`, `user_id2`) values ('2','3');
+insert into friend_tb(`user_id1`, `user_id2`) values ('2','4');
+insert into friend_tb(`user_id1`, `user_id2`) values ('2','5');
+insert into friend_tb(`user_id1`, `user_id2`) values ('3','4');
+insert into friend_tb(`user_id1`, `user_id2`) values ('4','5');
+insert into friend_tb(`user_id1`, `user_id2`) values ('5','7');
+insert into friend_tb(`user_id1`, `user_id2`) values ('6','9');
+insert into friend_tb(`user_id1`, `user_id2`) values ('7','10');
+insert into friend_tb(`user_id1`, `user_id2`) values ('8','10');
+insert into friend_tb(`user_id1`, `user_id2`) values ('9','4');
+insert into friend_tb(`user_id1`, `user_id2`) values ('10','2');
