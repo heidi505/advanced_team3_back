@@ -20,15 +20,27 @@ public class AuthController {
     @Autowired
     private HttpSession session;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO reqDTO, Errors errors){
-        UserResponse.loginDTO responseDTO = userService.login(reqDTO);
-        return ResponseEntity.ok(ApiUtils.success(responseDTO));
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO reqDTO, Errors errors) {
+//        UserResponse.loginDTO responseDTO = userService.login(reqDTO);
+//        return ResponseEntity.ok(ApiUtils.success(responseDTO));
+//    }
+//
+    //회원가입
+    @PostMapping("/sign-up")
+    public ResponseEntity<?> join(@Valid UserRequest.JoinDTO joinDTO) {
+
+        userService.join(joinDTO);
+        return ResponseEntity.ok().body(ApiUtils.success("회원가입 완료"));
     }
-    @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO reqDTO, Errors errors){
-        userService.join(reqDTO);
-        return ResponseEntity.ok().body(ApiUtils.success("로그인 성공"));
+
+    //로그인
+    @PostMapping("/sign-in")
+    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO) {
+        UserResponse.loginDTO responseDTO = userService.login(loginDTO);
+        System.out.println();
+
+        return ResponseEntity.ok().header("Authorization", "Bearer " + responseDTO.getJwt()).body(ApiUtils.success(responseDTO));
     }
 
     @GetMapping("/user/jwtTest")

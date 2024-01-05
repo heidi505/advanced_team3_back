@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface UserJPARepository extends JpaRepository<User, Integer> {
 
+
     Optional<User> findByNickname(String nickname);
 
     
@@ -17,4 +18,8 @@ public interface UserJPARepository extends JpaRepository<User, Integer> {
 	List<FriendTepMainResponseDTO> findAllById(int id);
     
 
+
+    Optional<User> findByPhoneNum(String phoneNum);
+
 }
+

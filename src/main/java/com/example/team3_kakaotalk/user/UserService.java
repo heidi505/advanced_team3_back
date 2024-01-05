@@ -21,22 +21,24 @@ public class UserService {
     
 
     @Transactional
-    public void join(UserRequest.JoinDTO reqDTO) {
+    public void join(UserRequest.JoinDTO joinDTO) {
         try {
-            User user = reqDTO.toEntity();
+            User user = joinDTO.toEntity();
             userJPARepository.save(user);
         }catch (Exception e){
             throw new MyServerErrorException("서버 에러");
         }
     }
 
-    public UserResponse.loginDTO login(UserRequest.LoginDTO reqDTO) {
-        User user = userJPARepository.findByNickname(reqDTO.getNickname()).orElseThrow(()->new MyBadRequestException("유저 없음"));
-        String jwt = JwtTokenUtils.create(user);
+    public UserResponse.loginDTO login(UserRequest.LoginDTO loginDTO) {
 
+        User user = userJPARepository.findByPhoneNum(loginDTO.getPhoneNum()).orElseThrow(()->new MyBadRequestException("유저 없음"));
+        //이걸 기반으로 디비에서 조회
+        String jwt = JwtTokenUtils.create(user);
+        //JWT 생성
         UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);
         responseDTO.setJwt(jwt);
-
+        ///JWT 보내줌
         return responseDTO;
     }
     

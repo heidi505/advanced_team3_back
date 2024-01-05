@@ -31,7 +31,8 @@ public class User {
     private Integer profileId;
 
     @Builder
-    public User(Integer id, String email, String nickname, String phoneNum, String password, Date birthdate, Timestamp createdAt, Integer profileId) {
+
+    public User(Integer id, String email, String nickname, String phoneNum, String password,  Date birthdate, Timestamp createdAt, Integer profileId) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
