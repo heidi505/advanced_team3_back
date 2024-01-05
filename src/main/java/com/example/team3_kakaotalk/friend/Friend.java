@@ -17,7 +17,7 @@ public class Friend{
     private Integer id;
     private Integer user_id1;
     private Integer user_id2;
-    private boolean is_blocked;
+    private Boolean is_blocked;
 
     @Builder
     public Friend(Integer id, Integer user_id1, Integer user_id2, boolean is_blocked) {

@@ -23,7 +23,6 @@ public class User {
     private String nickname;
     private String phoneNum;
     private String password;
-    private String gender;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthdate;
     @CreationTimestamp
@@ -31,13 +30,13 @@ public class User {
     private Integer profileId;
 
     @Builder
-    public User(Integer id, String email, String nickname, String phoneNum, String password, String gender, Date birthdate, Timestamp createdAt, Integer profileId) {
+    public User(Integer id, String email, String nickname, String phoneNum, String password,  Date birthdate, Timestamp createdAt, Integer profileId) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
         this.phoneNum = phoneNum;
         this.password = password;
-        this.gender = gender;
+
         this.birthdate = birthdate;
         this.createdAt = createdAt;
         this.profileId = profileId;

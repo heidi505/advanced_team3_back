@@ -61,7 +61,7 @@ public class JwtAuthorizationFilter implements Filter {
                     .email(email)
                     .nickname(nickname)
                     .phoneNum(phoneNum)
-                    .gender(gender)
+
                     .birthdate(birthdate)
                     .profileId(profileId)
                     .build();
