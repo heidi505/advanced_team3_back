@@ -11,7 +11,5 @@
 				on ut.profile_id = pt.id
 		where ut.id = #{id}
 	</select>
-   
-    
-    
+
 </mapper>

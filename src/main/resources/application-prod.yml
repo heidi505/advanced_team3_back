@@ -36,23 +36,22 @@ spring:
     output:
       ansi:
         enabled: always
-    jackson:
+  jackson:
       serialization:
         fail-on-empty-beans: false
 
-    h2:
+  h2:
       console:
         enabled: true
 
-    logging:
-      level:
-        org.mybatis: DEBUG
-        '[org.hibernate.type]': TRACE
-
-    mybatis:
-      configuration:
-        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-        map-underscore-to-camel-case: true
-      mapper-locations:
+  logging:
+    level:
+      org.mybatis: DEBUG
+      '[org.hibernate.type]': TRACE
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  mapper-locations:
         - classpath:mapper/**.xml
 
