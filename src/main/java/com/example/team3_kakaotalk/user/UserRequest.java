@@ -15,7 +15,6 @@ public class UserRequest {
 
         public User toEntity(){
             return User.builder()
-                    .username(username)
                     .nickname(nickname)
                     .password(password)
                     .build();
@@ -25,7 +24,6 @@ public class UserRequest {
     @Data
     @ToString
     public static class LoginDTO{
-        private String username;
         private String nickname;
     }
 }
