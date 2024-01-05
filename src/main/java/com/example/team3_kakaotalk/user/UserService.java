@@ -3,7 +3,6 @@ package com.example.team3_kakaotalk.user;
 import com.example.team3_kakaotalk._core.handler.exception.MyBadRequestException;
 import com.example.team3_kakaotalk._core.handler.exception.MyServerErrorException;
 import com.example.team3_kakaotalk._core.utils.JwtTokenUtils;
-import com.example.team3_kakaotalk.user.UserResponse.FriendTepMainResponseDTO;
 
 import jakarta.transaction.Transactional;
 
