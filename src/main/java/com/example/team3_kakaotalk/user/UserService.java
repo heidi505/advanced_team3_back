@@ -23,7 +23,7 @@ public class UserService {
     }
 
     public UserResponse.loginDTO login(UserRequest.LoginDTO reqDTO) {
-        User user = userJPARepository.findByUsername(reqDTO.getUsername()).orElseThrow(()->new MyBadRequestException("유저 없음"));
+        User user = userJPARepository.findByNickname(reqDTO.getNickname()).orElseThrow(()->new MyBadRequestException("유저 없음"));
         String jwt = JwtTokenUtils.create(user);
 
         UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);

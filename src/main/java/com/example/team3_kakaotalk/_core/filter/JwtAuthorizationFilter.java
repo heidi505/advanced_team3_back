@@ -17,6 +17,8 @@ import org.springframework.http.MediaType;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class JwtAuthorizationFilter implements Filter {
 
@@ -40,16 +42,29 @@ public class JwtAuthorizationFilter implements Filter {
         }
 
         try {
-            System.out.println("=================");
-            System.out.println(jwt);
-            System.out.println("====================");
+
             DecodedJWT decodedJWT = JwtTokenUtils.verify(jwt);
+            System.out.println("=================");
+            System.out.println(decodedJWT.getClaim("createdAt").asString());
+            System.out.println("====================");
             int userId = decodedJWT.getClaim("id").asInt();
-            String username = decodedJWT.getClaim("username").asString();
+            String email = decodedJWT.getClaim("email").asString();
             String nickname = decodedJWT.getClaim("nickname").asString();
             String phoneNum = decodedJWT.getClaim("phoneNum").asString();
+            String gender = decodedJWT.getClaim("gender").asString();
+            Date birthdate = new java.sql.Date(decodedJWT.getClaim("birthdate").asDate().getTime());
+            int profileId = decodedJWT.getClaim("profileId").asInt();
 
-            User sessionUser = User.builder().id(userId).username(username).nickname(nickname).phoneNum(phoneNum).build();
+
+            User sessionUser = User.builder()
+                    .id(userId)
+                    .email(email)
+                    .nickname(nickname)
+                    .phoneNum(phoneNum)
+                    .gender(gender)
+                    .birthdate(birthdate)
+                    .profileId(profileId)
+                    .build();
 
             HttpSession session = req.getSession();
             session.setAttribute("sessionUser", sessionUser);

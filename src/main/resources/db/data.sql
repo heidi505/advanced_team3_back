@@ -1,1 +1,1 @@
-insert into user_tb(`username`,`nickname`,`password`)values('ssar','최죠','1111');
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `gender`, `birthdate`, `created_at`, `profile_id`)values('ssar@nate.com','최죠','1111','01011112222', '남','1994-03-19', now(), 1);
