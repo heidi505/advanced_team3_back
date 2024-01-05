@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private UserJPARepository userJPARepository;
+    @Autowired
+    private UserMBRepository userMBRepository;
+    
 
     @Transactional
     public void join(UserRequest.JoinDTO reqDTO) {
@@ -31,6 +34,9 @@ public class UserService {
 
         return responseDTO;
     }
-
-
+    
+ // 친구탭 메인 화면
+    
+    
+   
 }

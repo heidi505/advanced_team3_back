@@ -1,5 +1,6 @@
 package com.example.team3_kakaotalk.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +14,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/user")
 @Slf4j
 public class UserRestController {
+	
+	@Autowired
+	private UserService userService;
 
 	// 친구탭 메인 화면
 	@GetMapping("/friend-tep-main")
 	public ResponseEntity<?> friendTepMain(){
 		
-		
-		
-		
+	
 		
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}

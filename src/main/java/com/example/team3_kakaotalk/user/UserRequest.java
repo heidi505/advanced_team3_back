@@ -26,4 +26,11 @@ public class UserRequest {
     public static class LoginDTO{
         private String nickname;
     }
+    
+    @Data
+    @ToString
+    public static class FriendTepMainrResponseDTO{
+    	
+    }
+    
 }
