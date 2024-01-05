@@ -3,7 +3,9 @@ package com.example.team3_kakaotalk.user;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 public class UserResponse {
@@ -37,11 +39,13 @@ public class UserResponse {
     
     @Data
     @ToString
-    public static class List<FriendTepMainrResponseDTO>{
-    	private Integer userId;
-    	private String userName;
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FriendTepMainResponseDTO{
+    	private int id;
+    	private String nickname;
     	private String profileImage;
-    	private Date birthdate;
+    	private String birthdate;
     }
     
     

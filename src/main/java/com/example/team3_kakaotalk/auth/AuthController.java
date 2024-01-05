@@ -1,7 +1,6 @@
 package com.example.team3_kakaotalk.auth;
 
 import com.example.team3_kakaotalk._core.utils.ApiUtils;
-import com.example.team3_kakaotalk._core.utils.Define;
 import com.example.team3_kakaotalk.user.User;
 import com.example.team3_kakaotalk.user.UserRequest;
 import com.example.team3_kakaotalk.user.UserResponse;

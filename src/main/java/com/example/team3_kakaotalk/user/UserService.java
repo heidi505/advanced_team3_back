@@ -3,7 +3,12 @@ package com.example.team3_kakaotalk.user;
 import com.example.team3_kakaotalk._core.handler.exception.MyBadRequestException;
 import com.example.team3_kakaotalk._core.handler.exception.MyServerErrorException;
 import com.example.team3_kakaotalk._core.utils.JwtTokenUtils;
+import com.example.team3_kakaotalk.user.UserResponse.FriendTepMainResponseDTO;
+
 import jakarta.transaction.Transactional;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +40,11 @@ public class UserService {
         return responseDTO;
     }
     
- // 친구탭 메인 화면
+    // 친구탭 메인 화면
+    public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
+    	List<UserResponse.FriendTepMainResponseDTO> dtolists = this.userMBRepository.findByFriendTepMain(id);
+    	return dtolists;
+    }
     
     
-   
 }

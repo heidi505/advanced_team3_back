@@ -5,7 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.List;
+
 import org.hibernate.annotations.ColumnDefault;
+
+import com.example.team3_kakaotalk.user.User;
 
 @Data
 @Entity
