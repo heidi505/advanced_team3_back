@@ -28,6 +28,7 @@ public class User {
     private Date birthdate;
     @CreationTimestamp
     private Timestamp createdAt;
+    @Column(name = "profile_id", unique = true)
     private Integer profileId;
 
     @Builder

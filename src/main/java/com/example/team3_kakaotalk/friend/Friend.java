@@ -5,10 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 @Data
 @Entity
-@Table(name = "friend_tb")
+@Table(name = "friend_tb", uniqueConstraints = {
+        @UniqueConstraint(
+                name = "user1_user2_unique",
+                columnNames = {"user_id1","user_id2"}
+        )
+})
 @ToString
 @NoArgsConstructor
 public class Friend{
@@ -17,6 +23,7 @@ public class Friend{
     private Integer id;
     private Integer user_id1;
     private Integer user_id2;
+    @ColumnDefault("false")
     private boolean is_blocked;
 
     @Builder
