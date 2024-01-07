@@ -58,6 +58,8 @@ public class UserResponse {
     	private int id;
     	private String nickname;
     	private String profileImage;
+    	private String backImage;
+    	private String statusMessage;
     }
     
 
