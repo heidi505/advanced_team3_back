@@ -49,5 +49,16 @@ public class UserResponse {
     	private String birthdate;
     }
     
+    // 나의 프로필 상세보기
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyProfileDetailResponseDTO{
+    	private int id;
+    	private String nickname;
+    	private String profileImage;
+    }
+    
 
 }
