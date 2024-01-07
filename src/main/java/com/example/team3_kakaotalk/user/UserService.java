@@ -1,15 +1,17 @@
 package com.example.team3_kakaotalk.user;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import com.example.team3_kakaotalk._core.handler.exception.MyBadRequestException;
 import com.example.team3_kakaotalk._core.handler.exception.MyServerErrorException;
 import com.example.team3_kakaotalk._core.utils.JwtTokenUtils;
 
 import jakarta.transaction.Transactional;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
@@ -45,6 +47,12 @@ public class UserService {
     public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
     	List<UserResponse.FriendTepMainResponseDTO> dtolists = this.userMBRepository.findByFriendTepMain(id);
     	return dtolists;
+    }
+    
+    // 나의 프로필 수정 및 삭제
+    public UserRequest.MyProfileUpdateRequestDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){	
+    	UserRequest.MyProfileUpdateRequestDTO myProfileUpdate = this.myProfileUpdate(myProfileUpdateRequestDto);
+    	return myProfileUpdate;
     }
     
     

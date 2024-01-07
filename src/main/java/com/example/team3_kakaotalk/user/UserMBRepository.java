@@ -8,5 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMBRepository {
 	
 	public List<UserResponse.FriendTepMainResponseDTO> findByFriendTepMain(Integer id);
+	
+	// 나의 프로필 수정 및 삭제
+	public UserRequest.MyProfileUpdateRequestDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
 
 }
