@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.team3_kakaotalk._core.utils.ApiUtils;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/user")
@@ -24,6 +23,13 @@ public class UserRestController {
 	public ResponseEntity<?> friendTepMain(@PathVariable int id){
 		List<UserResponse.FriendTepMainResponseDTO> friendTepMain = this.userService.friendTepMain(id);
 		return ResponseEntity.ok().body(ApiUtils.success(friendTepMain));
+	}
+	
+	// 친구 프로필 상세보기
+	@GetMapping("/friend-profile-detail/{id}")
+	public ResponseEntity<?> friendProfileDetail(@PathVariable int id){
+		UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userService.friendProfileDetail(id);
+		return ResponseEntity.ok().body(ApiUtils.success(friendProfileDetailResponseDto));
 	}
 		
 }
