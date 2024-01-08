@@ -50,7 +50,7 @@ public class AuthController {
     }
 
     //업데이트
-    @PutMapping("/user/update")
+    @PostMapping ("/user/update")
     public ResponseEntity<?> update(@RequestBody @Valid UserRequest.UpdateDTO requestDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 

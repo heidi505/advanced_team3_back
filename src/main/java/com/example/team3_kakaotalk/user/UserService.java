@@ -1,18 +1,28 @@
 package com.example.team3_kakaotalk.user;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import com.example.team3_kakaotalk._core.handler.exception.MyBadRequestException;
 import com.example.team3_kakaotalk._core.handler.exception.MyServerErrorException;
 import com.example.team3_kakaotalk._core.handler.exception.MyUnAuthorizedException;
 import com.example.team3_kakaotalk._core.utils.JwtTokenUtils;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
     @Autowired
     private UserJPARepository userJPARepository;
+    @Autowired
+    private UserMBRepository userMBRepository;
+    
 
     @Autowired
     private HttpSession httpSession;
@@ -29,7 +39,8 @@ public class UserService {
 
     public UserResponse.loginDTO login(UserRequest.LoginDTO loginDTO) {
 
-        User user = userJPARepository.findByPhoneNum(loginDTO.getPhoneNum()).orElseThrow(()->new MyBadRequestException("유저 없음"));
+        Optional<User> userOptional = userJPARepository.findByEmail(loginDTO.getEmail());
+        User user = userOptional.orElseThrow(() -> new MyBadRequestException("유저 없음"));
         //이걸 기반으로 디비에서 조회
         String jwt = JwtTokenUtils.create(user);
         //JWT 생성
@@ -38,6 +49,19 @@ public class UserService {
         ///JWT 보내줌
         return responseDTO;
     }
+    
+    // 친구탭 메인 화면
+    public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
+    	List<UserResponse.FriendTepMainResponseDTO> dtolists = this.userMBRepository.findByFriendTepMain(id);
+    	return dtolists;
+    }
+    
+    // 나의 프로필 수정 및 삭제
+    public UserRequest.MyProfileUpdateRequestDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){	
+    	UserRequest.MyProfileUpdateRequestDTO myProfileUpdate = this.myProfileUpdate(myProfileUpdateRequestDto);
+    	return myProfileUpdate;
+    }
+    
 
 @Transactional
     public UserResponse.UpdateResponseDTO update(UserRequest.UpdateDTO updateDTO,  User sessionUser) {
@@ -51,7 +75,7 @@ public class UserService {
             throw new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 : " + updateDTO.getEmail());
         }
 
-        user.setEmail(updateDTO.getEmail());
+        user.setPassword(updateDTO.getPassword());
         user.setPassword(updateDTO.getPhoneNum());
 
 
@@ -60,6 +84,20 @@ public class UserService {
         return responseDTO;
     }
 
+
+    // 나의 프로필 상세보기
+    public UserResponse.MyProfileDetailResponseDTO myProfileDetail(Integer id){
+    	UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userMBRepository.findByMyProfileDetail(id);
+    	return myProfileDetail;
+    }
+   
+    
+
+    //친구 프로필 상세보기
+    public UserResponse.FriendProfileDetailResponseDTO friendProfileDetail(Integer id){
+    	UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userMBRepository.findByFriendProfileDetail(id);
+    	return friendProfileDetailResponseDto;
+    }
 
 
 }

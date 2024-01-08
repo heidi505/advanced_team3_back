@@ -27,16 +27,17 @@ public class User {
     private Date birthdate;
     @CreationTimestamp
     private Timestamp createdAt;
+    @Column(name = "profile_id", unique = true)
     private Integer profileId;
 
     @Builder
+
     public User(Integer id, String email, String nickname, String phoneNum, String password,  Date birthdate, Timestamp createdAt, Integer profileId) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
         this.phoneNum = phoneNum;
         this.password = password;
-
         this.birthdate = birthdate;
         this.createdAt = createdAt;
         this.profileId = profileId;
