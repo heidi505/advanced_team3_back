@@ -50,6 +50,19 @@ public class UserResponse {
     }
     
     // 친구 프로필 상세보기
+
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyProfileDetailResponseDTO{
+    	private int id;
+    	private String nickname;
+    	private String profileImage;
+    	private String backImage;
+    	private String statusMessage;
+      
+      
     @Data
     @ToString
     @NoArgsConstructor
@@ -60,6 +73,7 @@ public class UserResponse {
         private String profileImage;
         private String backImage;
         private String statusMessage;
+
     }
     
 
