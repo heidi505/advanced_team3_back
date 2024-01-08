@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.team3_kakaotalk._core.handler.exception.MyBadRequestException;
 import com.example.team3_kakaotalk._core.utils.ApiUtils;
-
 import com.example.team3_kakaotalk._core.utils.Define;
 
 import lombok.RequiredArgsConstructor;

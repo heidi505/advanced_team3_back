@@ -21,7 +21,7 @@ public class AuthController {
     @Autowired
     private HttpSession session;
 
-//    @PostMapping("/login")
+    //    @PostMapping("/login")
 //    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO reqDTO, Errors errors) {
 //        UserResponse.loginDTO responseDTO = userService.login(reqDTO);
 //        return ResponseEntity.ok(ApiUtils.success(responseDTO));
@@ -45,16 +45,28 @@ public class AuthController {
     }
 
     @GetMapping("/user/jwtTest")
-    public ResponseEntity<?> jwtTest(@RequestBody UserRequest.LoginDTO reqDTO, Errors errors){
+    public ResponseEntity<?> jwtTest(@RequestBody UserRequest.LoginDTO reqDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         return ResponseEntity.ok().body(ApiUtils.success(sessionUser));
     }
 
-    @PostMapping("/autologin")
-    public ResponseEntity<?> autologin(){
-        User sessionUser = (User) session.getAttribute(Define.PRINCIPAL);
 
-        UserResponse.loginDTO dto = userService.autoLogin(sessionUser);
-        return ResponseEntity.ok().header("Authorization", "Bearer "+dto.getJwt()).body(ApiUtils.success(dto));
+    //업데이트
+    @PostMapping("/user/update")
+    public ResponseEntity<?> update(@RequestBody @Valid UserRequest.UpdateDTO requestDTO, Errors errors) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        UserResponse.UpdateResponseDTO responseDTO = userService.update(requestDTO, sessionUser);
+
+        return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
     }
-}
+        @PostMapping("/autologin")
+        public ResponseEntity<?> autologin () {
+            User sessionUser = (User) session.getAttribute(Define.PRINCIPAL);
+
+            UserResponse.loginDTO dto = userService.autoLogin(sessionUser);
+            return ResponseEntity.ok().header("Authorization", "Bearer " + dto.getJwt()).body(ApiUtils.success(dto));
+        }
+    }
+
+

@@ -1,4 +1,9 @@
 package com.example.team3_kakaotalk.user;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -16,6 +21,7 @@ public class UserResponse {
         private String nickname;
         private String password;
         private String phoneNum;
+        private String email;
         private String jwt;
 
         public loginDTO(User user) {
@@ -23,20 +29,29 @@ public class UserResponse {
             this.nickname = user.getNickname();
             this.password = user.getPassword();
             this.phoneNum = user.getPhoneNum();
+            this.email = user.getEmail();
         }
     }
 
-    @Data
+    @Getter
+    @Setter
     @ToString
-    public static class TestDTO {
-        private int userId;
-        private String userEmail;
-        private String userPhoneNum;
-        private String gender;
-        private Date birthdate;
-        private Timestamp createdAt;
-        private int profileId;
+    public static class UpdateResponseDTO {
+        private int id;
+        private String password;
+        private String phoneNum;
+
+        public UpdateResponseDTO(User user) {
+            this.id = user.getId();
+            this.password = user.getPassword();
+            this.phoneNum = user.getPhoneNum();
+
+
+        }
     }
+
+
+
 
     @Data
     @ToString

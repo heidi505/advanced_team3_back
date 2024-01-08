@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+
 @Mapper
 public interface UserMBRepository {
 	
@@ -14,7 +15,7 @@ public interface UserMBRepository {
 
 	// 나의 프로필 상세보기
 	public UserResponse.MyProfileDetailResponseDTO findByMyProfileDetail(Integer id);
-// 친구 프로필 상세보기
+	// 친구 프로필 상세보기
 	public UserResponse.FriendProfileDetailResponseDTO findByFriendProfileDetail(Integer id);
 
 

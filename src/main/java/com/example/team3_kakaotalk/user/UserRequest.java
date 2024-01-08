@@ -14,20 +14,17 @@ import java.sql.Timestamp;
 public class UserRequest {
     @Data
     @ToString
-    public static class JoinDTO{
+    public static class JoinDTO {
 
-        @Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
+        //@Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
         private String email;
-
-
         private String nickname;
-     
         @Size(min = 4, max = 20, message = "4에서 20자 이내여야 합니다.")
         private String password;
         private String phoneNum;
         private Date birthdate;
 
-        public User toEntity(){
+        public User toEntity() {
             return User.builder()
                     .email(email)
                     .nickname(nickname)
@@ -41,15 +38,26 @@ public class UserRequest {
 
     @Data
     @ToString
+    public static class LoginDTO {
 
-    public  static  class LoginDTO{
+        // @NotEmpty
+//@Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
+        private String email;
+        private String phoneNum;
+        @NotEmpty
+        @Size(min = 4, max = 20, message = "4에서 20자 이내여야 합니다.")
+        private String password;
+    }
 
-//        @NotEmpty
-//        @Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
+    @Getter
+    @Setter
+    @ToString
+    public static class UpdateDTO {
+
         private String email;
 
         private String PhoneNum;
-//        @NotEmpty
+        //        @NotEmpty
 //        @Size(min = 4, max = 20, message = "4에서 20자 이내여야 합니다.")
         private String password;
     }
@@ -59,16 +67,16 @@ public class UserRequest {
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MyProfileUpdateRequestDTO{
-    	private Integer id;
-    	private String nickname;
-    	private String statusMessage;
-    	private MultipartFile file;
-    	private String originFileName;
-    	private String profileImage;
-    	private String backImage;
+    public static class MyProfileUpdateRequestDTO {
+        private Integer id;
+        private String nickname;
+        private String statusMessage;
+        private MultipartFile file;
+        private String originFileName;
+        private String profileImage;
+        private String backImage;
     }
-    
-
-
 }
+
+
+
