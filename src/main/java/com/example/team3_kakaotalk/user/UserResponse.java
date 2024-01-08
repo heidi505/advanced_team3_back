@@ -28,7 +28,7 @@ public class UserResponse {
 
     @Data
     @ToString
-    public static class TestDTO{
+    public static class TestDTO {
         private int userId;
         private String userEmail;
         private String userPhoneNum;
@@ -37,44 +37,45 @@ public class UserResponse {
         private Timestamp createdAt;
         private int profileId;
     }
-    
+
     @Data
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class FriendTepMainResponseDTO{
-    	private int id;
-    	private String nickname;
-    	private String profileImage;
-    	private String birthdate;
+    public static class FriendTepMainResponseDTO {
+        private int id;
+        private String nickname;
+        private String profileImage;
+        private String birthdate;
     }
-    
+
     // 친구 프로필 상세보기
 
     @Data
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MyProfileDetailResponseDTO{
-    	private int id;
-    	private String nickname;
-    	private String profileImage;
-    	private String backImage;
-    	private String statusMessage;
-      
-      
-    @Data
-    @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class FriendProfileDetailResponseDTO{
-    	private int id;
-    	private String nickname;
+    public static class MyProfileDetailResponseDTO {
+        private int id;
+        private String nickname;
         private String profileImage;
         private String backImage;
         private String statusMessage;
+    }
+
+        @Data
+        @ToString
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public static class FriendProfileDetailResponseDTO {
+            private int id;
+            private String nickname;
+            private String profileImage;
+            private String backImage;
+            private String statusMessage;
+
+        }
+
 
     }
-    
 
-}
