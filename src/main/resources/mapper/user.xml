@@ -31,6 +31,15 @@
 				on ut.profile_id = pt.id
 		where ut.id = #{id}
 	</select>
+	
+	<!-- 나의 프로필 수정 및 삭제 -->
+	<update id="myProfileUpdate">
+		update user_tb as ut
+		join profile_tb as pt
+			on ut.profile_id = pt.id
+		set ut.nickname=#{nickname}, pt.status_message=#{statusMessage}, pt.profile_image=#{profileImage}, pt.back_image=#{backImage}
+		where ut.id=#{id}                                      									
+	</update>
 
 
 </mapper>

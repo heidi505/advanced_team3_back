@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -53,11 +54,19 @@ public class UserRequest {
         private String password;
     }
 
-    
+    // 나의 프로필 수정 및 삭제
     @Data
     @ToString
-    public static class FriendTepMainrResponseDTO{
-    	
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyProfileUpdateRequestDTO{
+    	private Integer id;
+    	private String nickname;
+    	private String statusMessage;
+    	private MultipartFile file;
+    	private String originFileName;
+    	private String profileImage;
+    	private String backImage;
     }
     
 
