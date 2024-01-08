@@ -43,11 +43,9 @@
 	<!-- 나의 프로필 삭제 -->
 	<update id="myProfileDelete">
 		update user_tb as ut
-		inner join profile_tb as pt
-		on ut.profile_id = pt.id
+		join profile_tb as pt on ut.profile_id = pt.id
 		set pt.profile_image=null, pt.back_image=null
 		where ut.id=#{id}
 	</update>
-
 
 </mapper>
