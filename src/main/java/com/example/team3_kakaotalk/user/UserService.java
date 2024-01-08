@@ -48,26 +48,22 @@ public class UserService {
     	List<UserResponse.FriendTepMainResponseDTO> dtolists = this.userMBRepository.findByFriendTepMain(id);
     	return dtolists;
     }
-    
-    // 나의 프로필 수정 및 삭제
-    public UserRequest.MyProfileUpdateRequestDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){	
-    	UserRequest.MyProfileUpdateRequestDTO myProfileUpdate = this.myProfileUpdate(myProfileUpdateRequestDto);
-    	return myProfileUpdate;
-    }
-    
 
     // 나의 프로필 상세보기
     public UserResponse.MyProfileDetailResponseDTO myProfileDetail(Integer id){
     	UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userMBRepository.findByMyProfileDetail(id);
     	return myProfileDetail;
     }
-   
-    
 
     // 친구 프로필 상세보기
     public UserResponse.FriendProfileDetailResponseDTO friendProfileDetail(Integer id){
     	UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userMBRepository.findByFriendProfileDetail(id);
     	return friendProfileDetailResponseDto;
+    }
+
+    // 나의 프로필 수정 및 삭제
+    public void myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+        this.myProfileUpdate(myProfileUpdateRequestDto);
     }
     
 

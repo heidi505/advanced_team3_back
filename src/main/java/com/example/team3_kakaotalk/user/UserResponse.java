@@ -55,12 +55,13 @@ public class UserResponse {
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MyProfileDetailResponseDTO{
-    	private int id;
-    	private String nickname;
-    	private String profileImage;
-    	private String backImage;
-    	private String statusMessage;
+    public static class MyProfileDetailResponseDTO {
+        private int id;
+        private String nickname;
+        private String profileImage;
+        private String backImage;
+        private String statusMessage;
+    }
       
       
     @Data

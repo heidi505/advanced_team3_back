@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.team3_kakaotalk._core.handler.exception.MyBadRequestException;
 import com.example.team3_kakaotalk._core.utils.ApiUtils;
 
-import com.example.team3_kakaotalk._core.utils.Define;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,7 +35,20 @@ public class UserRestController {
 		List<UserResponse.FriendTepMainResponseDTO> friendTepMain = this.userService.friendTepMain(id);
 		return ResponseEntity.ok().body(ApiUtils.success(friendTepMain));
 	}
-	
+
+	// 나의 프로필 상세보기
+	@GetMapping("/my-profile-detail/{id}")
+	public ResponseEntity<?> myProfileDetail(@PathVariable Integer id){
+		UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userService.myProfileDetail(id);
+		return ResponseEntity.ok().body(ApiUtils.success(myProfileDetail));
+	}
+
+	// 친구 프로필 상세보기
+	@GetMapping("/friend-profile-detail/{id}")
+	public ResponseEntity<?> friendProfileDetail(@PathVariable int id){
+		UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userService.friendProfileDetail(id);
+		return ResponseEntity.ok().body(ApiUtils.success(friendProfileDetailResponseDto));
+	}
 
 	// 나의 프로필 수정 및 삭제
 	@PostMapping("/my-profile-update")
@@ -48,25 +60,8 @@ public class UserRestController {
 //				throw new MyBadRequestException("파일 크기는 20MB 이상 클 수 없습니다.");
 //			}
 //		}
-		UserRequest.MyProfileUpdateRequestDTO myProfileUpdate = this.userService.myProfileUpdate(myProfileUpdateRequestDto);	
-		return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdate));
-	}
-
-
-	// 나의 프로필 상세보기
-	@GetMapping("/my-profile-detail/{id}")
-	public ResponseEntity<?> myProfileDetail(@PathVariable Integer id){
-		UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userService.myProfileDetail(id);
-		return ResponseEntity.ok().body(ApiUtils.success(myProfileDetail));
-	}
-	
-	
-
-	// 친구 프로필 상세보기
-	@GetMapping("/friend-profile-detail/{id}")
-	public ResponseEntity<?> friendProfileDetail(@PathVariable int id){
-		UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userService.friendProfileDetail(id);
-		return ResponseEntity.ok().body(ApiUtils.success(friendProfileDetailResponseDto));
+		this.userService.myProfileUpdate(myProfileUpdateRequestDto);
+		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
 
 
