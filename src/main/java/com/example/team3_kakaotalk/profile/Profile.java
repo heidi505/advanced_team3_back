@@ -1,5 +1,6 @@
 package com.example.team3_kakaotalk.profile;
 
+import com.example.team3_kakaotalk.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Profile {
     private String qrCode;
     @Column(name = "user_id", unique = true)
     private Integer userId;
+
 
 
 
