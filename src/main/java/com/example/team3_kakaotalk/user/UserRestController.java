@@ -25,6 +25,7 @@ public class UserRestController {
 		return ResponseEntity.ok().body(ApiUtils.success(friendTepMain));
 	}
 	
+
 	// 나의 프로필 상세보기
 	@GetMapping("/my-profile-detail/{id}")
 	public ResponseEntity<?> myProfileDetail(@PathVariable Integer id){
@@ -33,5 +34,13 @@ public class UserRestController {
 	}
 	
 	
+
+	// 친구 프로필 상세보기
+	@GetMapping("/friend-profile-detail/{id}")
+	public ResponseEntity<?> friendProfileDetail(@PathVariable int id){
+		UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userService.friendProfileDetail(id);
+		return ResponseEntity.ok().body(ApiUtils.success(friendProfileDetailResponseDto));
+	}
+
 		
 }

@@ -12,6 +12,7 @@
 		where ut.id = #{id}
 	</select>
 	
+
 	<!-- 나의 프로필 상세보기 -->
 	<select id="findByMyProfileDetail" resultType="com.example.team3_kakaotalk.user.UserResponse$MyProfileDetailResponseDTO">
 		select ut.id, ut.nickname, pt.back_image, pt.profile_image, pt.status_message
@@ -22,5 +23,14 @@
 	</select>
 	
 	
+
+	<select id="findByFriendProfileDetail" resultType="com.example.team3_kakaotalk.user.UserResponse$FriendProfileDetailResponseDTO">
+		select ut.Id, ut.nickname, pt.profile_image, pt.back_image, pt.status_message
+		from user_tb as ut
+    		inner join profile_tb as pt
+				on ut.profile_id = pt.id
+		where ut.id = #{id}
+	</select>
+
 
 </mapper>
