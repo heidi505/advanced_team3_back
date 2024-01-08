@@ -1,6 +1,7 @@
 package com.example.team3_kakaotalk.auth;
 
 import com.example.team3_kakaotalk._core.utils.ApiUtils;
+import com.example.team3_kakaotalk._core.utils.Define;
 import com.example.team3_kakaotalk.user.User;
 import com.example.team3_kakaotalk.user.UserRequest;
 import com.example.team3_kakaotalk.user.UserResponse;
@@ -47,5 +48,13 @@ public class AuthController {
     public ResponseEntity<?> jwtTest(@RequestBody UserRequest.LoginDTO reqDTO, Errors errors){
         User sessionUser = (User) session.getAttribute("sessionUser");
         return ResponseEntity.ok().body(ApiUtils.success(sessionUser));
+    }
+
+    @PostMapping("/autologin")
+    public ResponseEntity<?> autologin(){
+        User sessionUser = (User) session.getAttribute(Define.PRINCIPAL);
+
+        UserResponse.loginDTO dto = userService.autoLogin(sessionUser);
+        return ResponseEntity.ok().header("Authorization", "Bearer "+dto.getJwt()).body(ApiUtils.success(dto));
     }
 }
