@@ -8,8 +8,8 @@
 	<select id = "findByFriendTepMain" resultType = "com.example.team3_kakaotalk.user.UserResponse$FriendTepMainResponseDTO">
 		select ut.id, ut.nickname, ut.birthdate, pt.profile_image
 		from user_tb as ut
-    		inner join profile_tb as pt
-				on ut.profile_id = pt.id
+    	inner join profile_tb as pt
+		on ut.profile_id = pt.id
 		where ut.id = #{id}
 	</select>
 
@@ -17,8 +17,8 @@
 	<select id="findByMyProfileDetail" resultType="com.example.team3_kakaotalk.user.UserResponse$MyProfileDetailResponseDTO">
 		select ut.id, ut.nickname, pt.back_image, pt.profile_image, pt.status_message
 		from user_tb as ut
-				 inner join profile_tb as pt
-							on ut.profile_id = pt.id
+		inner join profile_tb as pt
+		on ut.profile_id = pt.id
 		where ut.id = #{id}
 	</select>
 
@@ -26,20 +26,28 @@
 	<select id="findByFriendProfileDetail" resultType="com.example.team3_kakaotalk.user.UserResponse$FriendProfileDetailResponseDTO">
 		select ut.Id, ut.nickname, pt.profile_image, pt.back_image, pt.status_message
 		from user_tb as ut
-    		inner join profile_tb as pt
-				on ut.profile_id = pt.id
+    	inner join profile_tb as pt
+		on ut.profile_id = pt.id
 		where ut.id = #{id}
 	</select>
 	
-	<!-- 나의 프로필 수정 및 삭제 -->
+	<!-- 나의 프로필 수정 -->
 	<update id="myProfileUpdate">
 		update user_tb as ut
-		join profile_tb as pt
-			on ut.profile_id = pt.id
+		inner join profile_tb as pt
+		on ut.profile_id = pt.id
 		set ut.nickname=#{nickname}, pt.status_message=#{statusMessage}, pt.profile_image=#{profileImage}, pt.back_image=#{backImage}
 		where ut.id=#{id}
 	</update>
 
+	<!-- 나의 프로필 삭제 -->
+	<update id="myProfileDelete">
+		update user_tb as ut
+		inner join profile_tb as pt
+		on ut.profile_id = pt.id
+		set pt.profile_image=null, pt.back_image=null
+		where ut.id=#{id}
+	</update>
 
 
 </mapper>

@@ -61,9 +61,14 @@ public class UserService {
     	return friendProfileDetailResponseDto;
     }
 
-    // 나의 프로필 수정 및 삭제
+    // 나의 프로필 수정
     public void myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
         this.myProfileUpdate(myProfileUpdateRequestDto);
+    }
+
+    // 나의 프로필 삭제
+    public void myProfileDelete(Integer id){
+        this.userMBRepository.myProfileDelete(id);
     }
     
 

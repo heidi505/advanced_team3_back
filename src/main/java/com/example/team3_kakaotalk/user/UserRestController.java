@@ -45,12 +45,12 @@ public class UserRestController {
 
 	// 친구 프로필 상세보기
 	@GetMapping("/friend-profile-detail/{id}")
-	public ResponseEntity<?> friendProfileDetail(@PathVariable int id){
+	public ResponseEntity<?> friendProfileDetail(@PathVariable Integer id){
 		UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userService.friendProfileDetail(id);
 		return ResponseEntity.ok().body(ApiUtils.success(friendProfileDetailResponseDto));
 	}
 
-	// 나의 프로필 수정 및 삭제
+	// 나의 프로필 수정
 	@PostMapping("/my-profile-update")
 	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
 //		MultipartFile file = myProfileUpdateRequestDto.getFile();
@@ -64,6 +64,11 @@ public class UserRestController {
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
 
+	// 나의 프로필 삭제
+	@GetMapping("/my-profile-delete/{id}")
+	public ResponseEntity<?> myProfileDelete(@PathVariable Integer id){
+		this.userService.myProfileDelete(id);
+		return ResponseEntity.ok().body(ApiUtils.success(null));
+	}
 
-		
 }

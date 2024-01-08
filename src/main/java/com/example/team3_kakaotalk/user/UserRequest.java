@@ -54,7 +54,7 @@ public class UserRequest {
         private String password;
     }
 
-    // 나의 프로필 수정 및 삭제
+    // 나의 프로필 수정
     @Data
     @ToString
     @NoArgsConstructor
