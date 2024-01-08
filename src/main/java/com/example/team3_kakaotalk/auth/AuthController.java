@@ -1,6 +1,7 @@
 package com.example.team3_kakaotalk.auth;
 
 import com.example.team3_kakaotalk._core.utils.ApiUtils;
+import com.example.team3_kakaotalk._core.utils.Define;
 import com.example.team3_kakaotalk.user.User;
 import com.example.team3_kakaotalk.user.UserRequest;
 import com.example.team3_kakaotalk.user.UserResponse;
@@ -20,7 +21,7 @@ public class AuthController {
     @Autowired
     private HttpSession session;
 
-//    @PostMapping("/login")
+    //    @PostMapping("/login")
 //    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO reqDTO, Errors errors) {
 //        UserResponse.loginDTO responseDTO = userService.login(reqDTO);
 //        return ResponseEntity.ok(ApiUtils.success(responseDTO));
@@ -44,13 +45,14 @@ public class AuthController {
     }
 
     @GetMapping("/user/jwtTest")
-    public ResponseEntity<?> jwtTest(@RequestBody UserRequest.LoginDTO reqDTO, Errors errors){
+    public ResponseEntity<?> jwtTest(@RequestBody UserRequest.LoginDTO reqDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         return ResponseEntity.ok().body(ApiUtils.success(sessionUser));
     }
 
+
     //업데이트
-    @PostMapping ("/user/update")
+    @PostMapping("/user/update")
     public ResponseEntity<?> update(@RequestBody @Valid UserRequest.UpdateDTO requestDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -58,4 +60,13 @@ public class AuthController {
 
         return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
     }
-}
+        @PostMapping("/autologin")
+        public ResponseEntity<?> autologin () {
+            User sessionUser = (User) session.getAttribute(Define.PRINCIPAL);
+
+            UserResponse.loginDTO dto = userService.autoLogin(sessionUser);
+            return ResponseEntity.ok().header("Authorization", "Bearer " + dto.getJwt()).body(ApiUtils.success(dto));
+        }
+    }
+
+

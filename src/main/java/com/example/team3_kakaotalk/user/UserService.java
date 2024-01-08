@@ -100,4 +100,16 @@ public class UserService {
     }
 
 
+
+    public UserResponse.loginDTO autoLogin(User sessionUser) {
+        User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(()->new MyBadRequestException("자동 로그인 오류"));
+
+        String jwt = JwtTokenUtils.create(user);
+
+        UserResponse.loginDTO dto = new UserResponse.loginDTO(user);
+        dto.setJwt(jwt);
+
+        return dto;
+
+    }
 }
