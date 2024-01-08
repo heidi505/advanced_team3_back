@@ -55,5 +55,20 @@ public class UserService {
     	return myProfileUpdate;
     }
     
+
+    // 나의 프로필 상세보기
+    public UserResponse.MyProfileDetailResponseDTO myProfileDetail(Integer id){
+    	UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userMBRepository.findByMyProfileDetail(id);
+    	return myProfileDetail;
+    }
+   
     
+
+    // 친구 프로필 상세보기
+    public UserResponse.FriendProfileDetailResponseDTO friendProfileDetail(Integer id){
+    	UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userMBRepository.findByFriendProfileDetail(id);
+    	return friendProfileDetailResponseDto;
+    }
+    
+
 }
