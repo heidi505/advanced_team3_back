@@ -47,5 +47,11 @@ public class UserService {
     	return dtolists;
     }
     
+    // 친구 프로필 상세보기
+    public UserResponse.FriendProfileDetailResponseDTO friendProfileDetail(Integer id){
+    	UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userMBRepository.findByFriendProfileDetail(id);
+    	return friendProfileDetailResponseDto;
+    }
+    
     
 }

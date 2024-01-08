@@ -8,5 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMBRepository {
 	
 	public List<UserResponse.FriendTepMainResponseDTO> findByFriendTepMain(Integer id);
+	
+	// 친구 프로필 상세보기
+	public UserResponse.FriendProfileDetailResponseDTO findByFriendProfileDetail(Integer id);
 
 }
