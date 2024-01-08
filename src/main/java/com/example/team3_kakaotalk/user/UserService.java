@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -22,6 +23,9 @@ public class UserService {
     private UserJPARepository userJPARepository;
     @Autowired
     private UserMBRepository userMBRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
 
     @Autowired
@@ -29,25 +33,39 @@ public class UserService {
 
     @Transactional
     public void join(UserRequest.JoinDTO joinDTO) {
+        System.out.println("+++++++++join서비스 시작+++++++ : " + joinDTO.getEmail());
         try {
+            //비밀번호 해시화
+            String encodedPassword = passwordEncoder.encode(joinDTO.getPassword());
+            //해시화된 비밀번호 설정
+            joinDTO.setPassword(encodedPassword);
+            System.out.println("++++++ 해시화된 비번 ++++++ : "+ encodedPassword);
+
             User user = joinDTO.toEntity();
             userJPARepository.save(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new MyServerErrorException("서버 에러");
         }
     }
 
+
     public UserResponse.loginDTO login(UserRequest.LoginDTO loginDTO) {
 
+        //이메일, 비번으로 조회
         Optional<User> userOptional = userJPARepository.findByEmail(loginDTO.getEmail());
         User user = userOptional.orElseThrow(() -> new MyBadRequestException("유저 없음"));
-        //이걸 기반으로 디비에서 조회
-        String jwt = JwtTokenUtils.create(user);
-        //JWT 생성
-        UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);
-        responseDTO.setJwt(jwt);
-        ///JWT 보내줌
-        return responseDTO;
+
+        // 사용자 정보가 존재하고, 입력된 비밀번호와 저장된 해시된 비밀번호가 일치하는지 확인
+        if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+            // 비밀번호가 일치하면 JWT 생성 및 응답 DTO 생성
+            String jwt = JwtTokenUtils.create(user);
+            UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);
+            responseDTO.setJwt(jwt);
+            return responseDTO;
+        } else {
+            // 사용자 정보가 없거나 비밀번호가 일치하지 않으면 예외 발생
+            throw new MyBadRequestException("유저 없음");
+        }
     }
     
     // 친구탭 메인 화면
@@ -112,4 +130,6 @@ public class UserService {
         return dto;
 
     }
+
+
 }

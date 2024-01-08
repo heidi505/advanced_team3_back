@@ -19,7 +19,6 @@ public class UserResponse {
     public static class loginDTO {
         private int id;
         private String nickname;
-        private String password;
         private String phoneNum;
         private String email;
         private String jwt;
@@ -27,7 +26,6 @@ public class UserResponse {
         public loginDTO(User user) {
             this.id = user.getId();
             this.nickname = user.getNickname();
-            this.password = user.getPassword();
             this.phoneNum = user.getPhoneNum();
             this.email = user.getEmail();
         }
@@ -38,14 +36,11 @@ public class UserResponse {
     @ToString
     public static class UpdateResponseDTO {
         private int id;
-        private String password;
         private String phoneNum;
 
         public UpdateResponseDTO(User user) {
             this.id = user.getId();
-            this.password = user.getPassword();
             this.phoneNum = user.getPhoneNum();
-
 
         }
     }

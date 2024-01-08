@@ -29,9 +29,11 @@ public class AuthController {
 //
     //회원가입
     @PostMapping("/sign-up")
-    public ResponseEntity<?> join(@Valid UserRequest.JoinDTO joinDTO) {
+    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO) {
+        System.out.println("+++++++컨트롤러 진입 : " +joinDTO.getEmail() );
 
         userService.join(joinDTO);
+        System.out.println("*********유저서비스로 가자******** : " +joinDTO.getEmail() );
         return ResponseEntity.ok().body(ApiUtils.success("회원가입 완료"));
     }
 
