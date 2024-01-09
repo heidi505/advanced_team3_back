@@ -12,6 +12,7 @@ public interface UserJPARepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByEmail(String email);
 
+
 	List<FriendTepMainResponseDTO> findAllById(int id);
 
     Optional<User> findByPhoneNum(String phoneNum);
