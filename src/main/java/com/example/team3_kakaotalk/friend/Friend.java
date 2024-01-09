@@ -31,7 +31,7 @@ public class Friend{
     private Boolean isBlocked;
 
     @Builder
-    public Friend(Integer id, Integer userId1, Integer userId2, boolean isBlocked) {
+    public Friend(Integer id, Integer userId1, Integer userId2, Boolean isBlocked) {
         this.id = id;
         this.userId1 = userId1;
         this.userId2 = userId2;
