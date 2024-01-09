@@ -60,13 +60,11 @@ public class UserRequest {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class MyProfileUpdateRequestDTO{
-    	private Integer id;
-    	private String nickname;
-    	private String statusMessage;
-    	private MultipartFile file;
-    	private String originFileName;
-    	private String profileImage;
-    	private String backImage;
+        private Integer id;
+        private String nickname;
+        private String statusMessage;
+        private String profileImage;
+        private String backImage;
     }
     
 

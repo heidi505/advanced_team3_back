@@ -60,10 +60,11 @@ public class UserService {
     	UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userMBRepository.findByFriendProfileDetail(id);
     	return friendProfileDetailResponseDto;
     }
-
+    
     // 나의 프로필 수정
-    public void myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
-        this.userMBRepository.myProfileUpdate(myProfileUpdateRequestDto);
+    public void myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO MyProfileUpdateRequestDto){
+        this.userMBRepository.myProfileNicknameUpdate(MyProfileUpdateRequestDto);
+        this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(MyProfileUpdateRequestDto);
     }
 
     // 나의 프로필 삭제

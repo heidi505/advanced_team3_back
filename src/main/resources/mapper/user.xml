@@ -31,19 +31,25 @@
 		where ut.id = #{id}
 	</select>
 	
-	<!-- 나의 프로필 수정 -->
-	<update id="myProfileUpdate">
+	<!-- 나의 프로필 수정(이름) -->
+	<update id="myProfileNicknameUpdate">
 		update user_tb as ut
-		inner join profile_tb as pt
-		on ut.profile_id = pt.id
-		set ut.nickname=#{nickname}, pt.status_message=#{statusMessage}, pt.profile_image=#{profileImage}, pt.back_image=#{backImage}
+		set ut.nickname=#{nickname}
 		where ut.id=#{id}
+	</update>
+
+	<!-- 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지) -->
+	<update id="myProfileSmessageAndPimageAndBimageUpdate">
+		update profile_tb as pt
+		set pt.status_message=#{statusMessage},
+			pt.profile_image=#{profileImage},
+			pt.back_image=#{backImage}
+		where pt.id=#{id}
 	</update>
 
 	<!-- 나의 프로필 삭제 -->
 	<update id="myProfileDelete">
-		update user_tb as ut
-		join profile_tb as pt on ut.profile_id = pt.id
+		update profile_tb as pt
 		set pt.profile_image=null, pt.back_image=null
 		where ut.id=#{id}
 	</update>

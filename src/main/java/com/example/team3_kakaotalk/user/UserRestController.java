@@ -53,13 +53,6 @@ public class UserRestController {
 	// 나의 프로필 수정
 	@PostMapping("/my-profile-update")
 	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
-//		MultipartFile file = myProfileUpdateRequestDto.getFile();
-//		if(file.isEmpty() == false) {
-//			// 파일 사이즈 체크
-//			if(file.getSize() > Define.MAX_FILE_SIZE) {
-//				throw new MyBadRequestException("파일 크기는 20MB 이상 클 수 없습니다.");
-//			}
-//		}
 		this.userService.myProfileUpdate(myProfileUpdateRequestDto);
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
