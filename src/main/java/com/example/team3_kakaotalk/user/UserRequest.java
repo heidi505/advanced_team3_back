@@ -61,20 +61,19 @@ public class UserRequest {
         private String password;
     }
 
-    // 나의 프로필 수정 및 삭제
+    // 나의 프로필 수정
     @Data
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MyProfileUpdateRequestDTO {
+    public static class MyProfileUpdateRequestDTO{
         private Integer id;
         private String nickname;
         private String statusMessage;
-        private MultipartFile file;
-        private String originFileName;
         private String profileImage;
         private String backImage;
     }
+
 }
 
 
