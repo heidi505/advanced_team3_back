@@ -46,8 +46,7 @@ public class UserResponse {
     }
 
 
-
-
+    // 친구 탭 메인
     @Data
     @ToString
     @NoArgsConstructor
@@ -59,12 +58,12 @@ public class UserResponse {
         private String birthdate;
     }
 
-    // 친구 프로필 상세보기
-
+    // 나의 프로필 상세보기
     @Data
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
+
     public static class MyProfileDetailResponseDTO {
         private int id;
         private String nickname;
@@ -73,19 +72,28 @@ public class UserResponse {
         private String statusMessage;
     }
 
-        @Data
-        @ToString
-        @NoArgsConstructor
-        @AllArgsConstructor
-        public static class FriendProfileDetailResponseDTO {
-            private int id;
-            private String nickname;
-            private String profileImage;
-            private String backImage;
-            private String statusMessage;
-
-        }
-
-
+    // 친구 프로필 상세보기
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FriendProfileDetailResponseDTO {
+        private int id;
+        private String nickname;
+        private String profileImage;
+        private String backImage;
+        private String statusMessage;
     }
 
+
+    // 나의 프로필 삭제
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyProfileDeleteResponseDTO {
+        private Integer id;
+        private String profileImage;
+        private String backImage;
+    }
+}

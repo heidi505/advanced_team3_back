@@ -1,5 +1,6 @@
 package com.example.team3_kakaotalk.user;
 
+import com.example.team3_kakaotalk.profile.Profile;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

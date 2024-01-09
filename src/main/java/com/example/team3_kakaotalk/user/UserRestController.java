@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.team3_kakaotalk._core.handler.exception.MyBadRequestException;
 import com.example.team3_kakaotalk._core.utils.ApiUtils;
-import com.example.team3_kakaotalk._core.utils.Define;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,22 +33,6 @@ public class UserRestController {
 		List<UserResponse.FriendTepMainResponseDTO> friendTepMain = this.userService.friendTepMain(id);
 		return ResponseEntity.ok().body(ApiUtils.success(friendTepMain));
 	}
-	
-
-	// 나의 프로필 수정 및 삭제
-	@PostMapping("/my-profile-update")
-	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
-//		MultipartFile file = myProfileUpdateRequestDto.getFile();
-//		if(file.isEmpty() == false) {
-//			// 파일 사이즈 체크
-//			if(file.getSize() > Define.MAX_FILE_SIZE) {
-//				throw new MyBadRequestException("파일 크기는 20MB 이상 클 수 없습니다.");
-//			}
-//		}
-		UserRequest.MyProfileUpdateRequestDTO myProfileUpdate = this.userService.myProfileUpdate(myProfileUpdateRequestDto);	
-		return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdate));
-	}
-
 
 	// 나의 프로필 상세보기
 	@GetMapping("/my-profile-detail/{id}")
@@ -58,16 +40,26 @@ public class UserRestController {
 		UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userService.myProfileDetail(id);
 		return ResponseEntity.ok().body(ApiUtils.success(myProfileDetail));
 	}
-	
-	
 
 	// 친구 프로필 상세보기
 	@GetMapping("/friend-profile-detail/{id}")
-	public ResponseEntity<?> friendProfileDetail(@PathVariable int id){
+	public ResponseEntity<?> friendProfileDetail(@PathVariable Integer id){
 		UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userService.friendProfileDetail(id);
 		return ResponseEntity.ok().body(ApiUtils.success(friendProfileDetailResponseDto));
 	}
 
+	// 나의 프로필 수정
+	@PostMapping("/my-profile-update")
+	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+		this.userService.myProfileUpdate(myProfileUpdateRequestDto);
+		return ResponseEntity.ok().body(ApiUtils.success(null));
+	}
 
-		
+	// 나의 프로필 삭제
+	@GetMapping("/my-profile-delete/{id}")
+	public ResponseEntity<?> myProfileDelete(@PathVariable Integer id){
+		this.userService.myProfileDelete(id);
+		return ResponseEntity.ok().body(ApiUtils.success(null));
+	}
+
 }
