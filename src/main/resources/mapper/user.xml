@@ -51,7 +51,7 @@
 	<update id="myProfileDelete">
 		update profile_tb as pt
 		set pt.profile_image=null, pt.back_image=null
-		where ut.id=#{id}
+		where pt.id=#{id}
 	</update>
 
 </mapper>
