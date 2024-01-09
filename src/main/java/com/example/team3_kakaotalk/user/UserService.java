@@ -67,6 +67,14 @@ public class UserService {
             throw new MyBadRequestException("유저 없음");
         }
     }
+
+    public void resetPassword(String email){
+        Optional<User> userOptional = userJPARepository.findByEmail(email);
+        User user = userOptional.orElseThrow(()-> new MyBadRequestException("해당 이메일을 찾을 수 없습니다."));
+
+    }
+
+
     
     // 친구탭 메인 화면
     public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
@@ -80,8 +88,6 @@ public class UserService {
         User user = userJPARepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new MyBadRequestException("오류 : " + updateDTO.getPhoneNum()));
 
-        System.out.println(updateDTO.getEmail());
-        System.out.println(sessionUser.getPhoneNum());
         if (!(updateDTO.getEmail().equals(sessionUser.getEmail()))) {
             throw new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 : " + updateDTO.getEmail());
         }
