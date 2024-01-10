@@ -41,17 +41,17 @@
 		where ut.id=#{id}                                      									
 	</update>
 
-<!--	&lt;!&ndash; 연락처로 친구 추가 &ndash;&gt;-->
-<!--	<insert id="phoneNumFriendAdd">-->
-<!--		insert into friend_tb(user_id1, user_id2, is_blocked)-->
-<!--		values ((), userId2=, false)-->
-<!--	</insert>-->
+	<!-- 연락처로 친구 추가 -->
+	<insert id="phoneNumFriendAdd">
+		insert into friend_tb(user_id1, user_id2, is_blocked)
+		values (user_id1=#{id}, (select id from user_tb where phone_num=#{phoneNum}), false)
+	</insert>
 
-<!--	&lt;!&ndash; 이메일로 친구 추가 &ndash;&gt;-->
-<!--	<insert id="emailFriendAdd">-->
-<!--		INSERT INTO friend_tb (user_id1, user_id2, is_blocked)-->
-<!--		VALUES (id=#{id} ,(SELECT id FROM user_tb WHERE phone_num = '01011112222'), false);-->
-<!--	</insert>-->
+	<!-- 이메일로 친구 추가 -->
+	<insert id="emailFriendAdd">
+		insert into friend_tb(user_id1, user_id2, is_blocked)
+		values (user_id1=#{id}, (select id from user_tb where email=#{email}), false)
+	</insert>
 
 
 </mapper>
