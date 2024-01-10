@@ -38,13 +38,9 @@ public class UserRequest {
     @Data
     @ToString
     public static class LoginDTO {
-<<<<<<< HEAD
+
          @NotEmpty
 //@Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
-=======
-        @NotEmpty
-        @Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
->>>>>>> add581aee105bc9d09ad9c5a2f8bd7054d8aff8e
         private String email;
         private String phoneNum;
         @NotEmpty
