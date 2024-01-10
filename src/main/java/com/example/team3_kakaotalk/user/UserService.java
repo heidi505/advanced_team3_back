@@ -77,8 +77,8 @@ public class UserService {
     
     // 친구탭 메인 화면
     public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
-    	List<UserResponse.FriendTepMainResponseDTO> dtolists = this.userMBRepository.findByFriendTepMain(id);
-    	return dtolists;
+    	List<UserResponse.FriendTepMainResponseDTO> friendTepMainResponseDtoLists = this.userMBRepository.findByFriendTepMain(id);
+    	return friendTepMainResponseDtoLists;
     }
 
     @Transactional

@@ -27,7 +27,7 @@ public class UserRestController {
 	
 	// 친구탭 메인 화면
 	@GetMapping("/friend-tep-main/{id}")
-	public ResponseEntity<?> friendTepMain(@PathVariable int id){
+	public ResponseEntity<?> friendTepMain(@PathVariable Integer id){
 		List<UserResponse.FriendTepMainResponseDTO> friendTepMain = this.userService.friendTepMain(id);
 		return ResponseEntity.ok().body(ApiUtils.success(friendTepMain));
 	}

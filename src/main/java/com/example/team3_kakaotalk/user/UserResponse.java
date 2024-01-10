@@ -51,10 +51,12 @@ public class UserResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class FriendTepMainResponseDTO {
-        private int id;
+        private Integer id;
         private String nickname;
-        private String profileImage;
         private String birthdate;
+        private String profileImage;
+        private String backImage;
+        private String statusMessage;
     }
 
     // 나의 프로필 상세보기
