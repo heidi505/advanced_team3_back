@@ -56,7 +56,6 @@ public class UserService {
 
 
     public UserResponse.loginDTO login(UserRequest.LoginDTO loginDTO) {
-
         //이메일, 비번으로 조회
         Optional<User> userOptional = userJPARepository.findByEmail(loginDTO.getEmail());
         User user = userOptional.get();
@@ -85,6 +84,7 @@ public class UserService {
     // 친구탭 메인 화면
     public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
 
+
         Profile profile = profileJPARepository.findByUserId(id);
 
         UserResponse.MainResponseDTO mainDTO = new UserResponse.MainResponseDTO();
@@ -96,9 +96,10 @@ public class UserService {
         mainDTO.setFriendList(friendLists);
 
     	return null;
+
     }
 
-@Transactional
+    @Transactional
     public UserResponse.UpdateResponseDTO update(UserRequest.UpdateDTO updateDTO,  User sessionUser) {
 
         User user = userJPARepository.findById(sessionUser.getId())
@@ -117,28 +118,56 @@ public class UserService {
         return responseDTO;
     }
 
-
     // 나의 프로필 상세보기
     public UserResponse.MyProfileDetailResponseDTO myProfileDetail(Integer id){
-    	UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userMBRepository.findByMyProfileDetail(id);
-    	return myProfileDetail;
+    	UserResponse.MyProfileDetailResponseDTO myProfileDetailResponseDto = this.userMBRepository.findByMyProfileDetail(id);
+    	return myProfileDetailResponseDto;
     }
 
-    //친구 프로필 상세보기
+    // 친구 프로필 상세보기
     public UserResponse.FriendProfileDetailResponseDTO friendProfileDetail(Integer id){
     	UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userMBRepository.findByFriendProfileDetail(id);
     	return friendProfileDetailResponseDto;
     }
     
     // 나의 프로필 수정
-    public void myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO MyProfileUpdateRequestDto){
-        this.userMBRepository.myProfileNicknameUpdate(MyProfileUpdateRequestDto);
-        this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(MyProfileUpdateRequestDto);
+    public void myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+        this.userMBRepository.myProfileNicknameUpdate(myProfileUpdateRequestDto);
+        this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(myProfileUpdateRequestDto);
     }
 
-    // 나의 프로필 삭제
-    public void myProfileDelete(Integer id){
-        this.userMBRepository.myProfileDelete(id);
+    // 연락처로 친구 추가
+    public void phoneNumFriendAdd(UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto){
+        String userPhoneNum = this.userMBRepository.findByPhoneNum(phoneNumFriendAddRequestDto.getPhoneNum());
+        if(phoneNumFriendAddRequestDto.getPhoneNum() == null || phoneNumFriendAddRequestDto.getPhoneNum().isEmpty()){
+            throw new MyBadRequestException("전화번호를 입력해 주세요.");
+        }
+        if(userPhoneNum == null){
+            throw new MyBadRequestException("등록되지 않은 사용자입니다.");
+        }
+        this.userMBRepository.phoneNumFriendAdd(phoneNumFriendAddRequestDto);
+    }
+
+    // 이메일로 친구 추가
+    public void emailFriendAdd(UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto){
+        String userEmail = this.userMBRepository.findByEmail(emailFriendAddRequestDto.getEmail());
+        if(emailFriendAddRequestDto.getEmail() == null || emailFriendAddRequestDto.getEmail().isEmpty()){
+            throw new MyBadRequestException("이메일을 입력하세요.");
+        }
+        if(userEmail == null){
+            throw new MyBadRequestException("등록되지 않은 사용자입니다.");
+        }
+        this.userMBRepository.emailFriendAdd(emailFriendAddRequestDto);
+    }
+
+    // 나의 프로필 삭제(프로필 이미지)
+    public void myProfileImageDelete(Integer id){
+        this.userMBRepository.myProfileImageDelete(id);
+    }
+
+    // 나의 프로필 삭제(배경 이미지)
+    public void myProfileBackImageDelete(Integer id){
+        this.userMBRepository.myProfileBackImageDelete(id);
     }
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {
