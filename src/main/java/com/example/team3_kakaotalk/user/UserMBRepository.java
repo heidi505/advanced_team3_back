@@ -3,6 +3,7 @@ package com.example.team3_kakaotalk.user;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 
 @Mapper
@@ -21,10 +22,15 @@ public interface UserMBRepository {
 	public UserResponse.FriendProfileDetailResponseDTO findByFriendProfileDetail(Integer id);
 	
 	// 연락처로 친구 추가
-	public void phoneNumFriendAdd();
+	public void phoneNumFriendAdd(UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto);
 
 	// 이메일로 친구 추가
-	public void emailFriendAdd();
+	public void emailFriendAdd(UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto);
 
+	// 전화번호 단일 조회
+	public String findByPhoneNum(String phoneNum);
+
+	// 이메일 단일 조회
+	public String findByEmail(String email);
 
 }

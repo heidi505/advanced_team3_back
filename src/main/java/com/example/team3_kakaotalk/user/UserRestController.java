@@ -64,6 +64,19 @@ public class UserRestController {
 		return ResponseEntity.ok().body(ApiUtils.success(friendProfileDetailResponseDto));
 	}
 
+	// 연락처로 친구 추가
+	@PostMapping("/phoneNum-friend-add")
+	public ResponseEntity<?> phoneNumFriendAdd(@RequestBody UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto){
+		this.userService.phoneNumFriendAdd(phoneNumFriendAddRequestDto);
+		return ResponseEntity.ok().body(ApiUtils.success(null));
+	}
+
+	// 이메일로 친구 추가
+	@PostMapping("/emil-friend-add")
+	public ResponseEntity<?> emailFriendAdd(@RequestBody UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto){
+		this.userService.emailFriendAdd(emailFriendAddRequestDto);
+		return ResponseEntity.ok().body(ApiUtils.success(null));
+	}
 
 		
 }

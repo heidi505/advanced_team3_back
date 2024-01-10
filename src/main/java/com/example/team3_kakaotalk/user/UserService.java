@@ -55,18 +55,7 @@ public class UserService {
         User user = userOptional.orElseThrow(() -> new MyBadRequestException("유저 없음"));
 
         // 사용자 정보가 존재하고, 입력된 비밀번호와 저장된 해시된 비밀번호가 일치하는지 확인
-//        if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
-//            // 비밀번호가 일치하면 JWT 생성 및 응답 DTO 생성
-//            String jwt = JwtTokenUtils.create(user);
-//            UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);
-//            responseDTO.setJwt(jwt);
-//            return responseDTO;
-//        } else {
-//            // 사용자 정보가 없거나 비밀번호가 일치하지 않으면 예외 발생
-//            throw new MyBadRequestException("유저 없음");
-//        }
-        // 기능 테스트중
-        if (user != null) {
+        if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             // 비밀번호가 일치하면 JWT 생성 및 응답 DTO 생성
             String jwt = JwtTokenUtils.create(user);
             UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);
@@ -76,7 +65,6 @@ public class UserService {
             // 사용자 정보가 없거나 비밀번호가 일치하지 않으면 예외 발생
             throw new MyBadRequestException("유저 없음");
         }
-        // 기능 테스트중
     }
     
     // 친구탭 메인 화면
@@ -92,7 +80,7 @@ public class UserService {
     }
     
 
-@Transactional
+    @Transactional
     public UserResponse.UpdateResponseDTO update(UserRequest.UpdateDTO updateDTO,  User sessionUser) {
 
         User user = userJPARepository.findById(sessionUser.getId())
@@ -113,19 +101,40 @@ public class UserService {
         return responseDTO;
     }
 
-
     // 나의 프로필 상세보기
     public UserResponse.MyProfileDetailResponseDTO myProfileDetail(Integer id){
-    	UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userMBRepository.findByMyProfileDetail(id);
-    	return myProfileDetail;
+    	UserResponse.MyProfileDetailResponseDTO myProfileDetailResponseDto = this.userMBRepository.findByMyProfileDetail(id);
+    	return myProfileDetailResponseDto;
     }
-   
-    
 
-    //친구 프로필 상세보기
+    // 친구 프로필 상세보기
     public UserResponse.FriendProfileDetailResponseDTO friendProfileDetail(Integer id){
     	UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userMBRepository.findByFriendProfileDetail(id);
     	return friendProfileDetailResponseDto;
+    }
+
+    // 연락처로 친구 추가
+    public void phoneNumFriendAdd(UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto){
+        String userPhoneNum = this.userMBRepository.findByPhoneNum(phoneNumFriendAddRequestDto.getPhoneNum());
+        if(phoneNumFriendAddRequestDto.getPhoneNum() == null || phoneNumFriendAddRequestDto.getPhoneNum().isEmpty()){
+            throw new MyBadRequestException("전화번호를 입력해 주세요.");
+        }
+        if(userPhoneNum == null){
+            throw new MyBadRequestException("등록되지 않은 사용자입니다.");
+        }
+        this.userMBRepository.phoneNumFriendAdd(phoneNumFriendAddRequestDto);
+    }
+
+    // 이메일로 친구 추가
+    public void emailFriendAdd(UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto){
+        String userEmail = this.userMBRepository.findByEmail(emailFriendAddRequestDto.getEmail());
+        if(emailFriendAddRequestDto.getEmail() == null || emailFriendAddRequestDto.getEmail().isEmpty()){
+            throw new MyBadRequestException("이메일을 입력하세요.");
+        }
+        if(userEmail == null){
+            throw new MyBadRequestException("등록되지 않은 사용자입니다.");
+        }
+        this.userMBRepository.emailFriendAdd(emailFriendAddRequestDto);
     }
 
 
