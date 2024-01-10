@@ -35,7 +35,6 @@ public class UserRestController {
 		List<UserResponse.FriendTepMainResponseDTO> friendTepMain = this.userService.friendTepMain(id);
 		return ResponseEntity.ok().body(ApiUtils.success(friendTepMain));
 	}
-	
 
 	// 나의 프로필 수정 및 삭제
 	@PostMapping("/my-profile-update")
@@ -51,15 +50,12 @@ public class UserRestController {
 		return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdate));
 	}
 
-
 	// 나의 프로필 상세보기
 	@GetMapping("/my-profile-detail/{id}")
 	public ResponseEntity<?> myProfileDetail(@PathVariable Integer id){
 		UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userService.myProfileDetail(id);
 		return ResponseEntity.ok().body(ApiUtils.success(myProfileDetail));
 	}
-	
-	
 
 	// 친구 프로필 상세보기
 	@GetMapping("/friend-profile-detail/{id}")
