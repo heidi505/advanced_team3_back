@@ -19,7 +19,7 @@ public class UserRequest {
         //@Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
         private String email;
         private String nickname;
-        @Size(min = 4, max = 20, message = "4에서 20자 이내여야 합니다.")
+      //  @Size(min = 4, max = 20, message = "4에서 20자 이내여야 합니다.")
         private String password;
         private String phoneNum;
         private Date birthdate;
@@ -39,13 +39,12 @@ public class UserRequest {
     @Data
     @ToString
     public static class LoginDTO {
-
         // @NotEmpty
 //@Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
         private String email;
         private String phoneNum;
         @NotEmpty
-        @Size(min = 4, max = 20, message = "4에서 20자 이내여야 합니다.")
+       // @Size(min = 4, max = 20, message = "4에서 20자 이내여야 합니다.")
         private String password;
     }
 
@@ -62,20 +61,19 @@ public class UserRequest {
         private String password;
     }
 
-    // 나의 프로필 수정 및 삭제
+    // 나의 프로필 수정
     @Data
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MyProfileUpdateRequestDTO {
+    public static class MyProfileUpdateRequestDTO{
         private Integer id;
         private String nickname;
         private String statusMessage;
-        private MultipartFile file;
-        private String originFileName;
         private String profileImage;
         private String backImage;
     }
+
 }
 
 
