@@ -3,6 +3,9 @@ package com.example.team3_kakaotalk.user;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.team3_kakaotalk.profile.Profile;
+import com.example.team3_kakaotalk.profile.ProfileJPARepository;
+import com.sun.tools.javac.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +29,10 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
+    @Autowired
+    private ProfileJPARepository profileJPARepository;
+
 
     @Autowired
     private HttpSession httpSession;
@@ -78,7 +84,18 @@ public class UserService {
     
     // 친구탭 메인 화면
     public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
-    	List<UserResponse.FriendTepMainResponseDTO> dtolists = this.userMBRepository.findByFriendTepMain(id);
+
+        Profile profile = profileJPARepository.findByUserId(id);
+
+        UserResponse.MainResponseDTO mainDTO = new UserResponse.MainResponseDTO();
+        mainDTO.setUserId(id);
+        mainDTO.setUserProfile(profile);
+
+    	List<UserResponse.FriendTepMainResponseDTO> friendLists = this.userMBRepository.findByFriendTepMain(id);
+
+        mainDTO.setFriendList(friendLists);
+
+
     	return dtolists;
     }
 
