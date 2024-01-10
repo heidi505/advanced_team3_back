@@ -95,8 +95,7 @@ public class UserService {
 
         mainDTO.setFriendList(friendLists);
 
-
-    	return dtolists;
+    	return null;
     }
 
 @Transactional
