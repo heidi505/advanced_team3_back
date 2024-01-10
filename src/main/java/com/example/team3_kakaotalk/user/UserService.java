@@ -77,8 +77,8 @@ public class UserService {
     
     // 친구탭 메인 화면
     public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
-    	List<UserResponse.FriendTepMainResponseDTO> dtolists = this.userMBRepository.findByFriendTepMain(id);
-    	return dtolists;
+    	List<UserResponse.FriendTepMainResponseDTO> friendTepMainResponseDtoLists = this.userMBRepository.findByFriendTepMain(id);
+    	return friendTepMainResponseDtoLists;
     }
 
     @Transactional
@@ -142,9 +142,14 @@ public class UserService {
         this.userMBRepository.emailFriendAdd(emailFriendAddRequestDto);
     }
 
-    // 나의 프로필 삭제
-    public void myProfileDelete(Integer id){
-        this.userMBRepository.myProfileDelete(id);
+    // 나의 프로필 삭제(프로필 이미지)
+    public void myProfileImageDelete(Integer id){
+        this.userMBRepository.myProfileImageDelete(id);
+    }
+
+    // 나의 프로필 삭제(배경 이미지)
+    public void myProfileBackImageDelete(Integer id){
+        this.userMBRepository.myProfileBackImageDelete(id);
     }
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {

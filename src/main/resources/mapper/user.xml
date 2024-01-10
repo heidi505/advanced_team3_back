@@ -7,11 +7,24 @@
 
 	<!-- 친구 탭 메인 화면 -->
 	<select id = "findByFriendTepMain" resultType = "com.example.team3_kakaotalk.user.UserResponse$FriendTepMainResponseDTO">
-		select ut.id, ut.nickname, ut.birthdate, pt.profile_image
-		from user_tb as ut
-    	inner join profile_tb as pt
-		on ut.profile_id = pt.id
-		where ut.id = #{id}
+		select
+			pt.*,
+			ut.*,
+			case
+				when day(ut.birthdate) = day(current_date()) then '오늘 생일 친구' else '일반 친구'
+			end as is_birthday
+		from
+			user_tb ut
+		inner join
+			profile_tb pt on pt.user_id = ut.id
+		where ut.id in (
+			select
+				case
+					when user_id1 = #{id} then user_id2 else user_id1
+			end as 친구
+		from
+			friend_tb
+		where user_id1 = #{id} or user_id2 = #{id})
 	</select>
 
 	<!-- 나의 프로필 상세보기 -->
@@ -48,11 +61,18 @@
 		where pt.id=#{id}
 	</update>
 
-	<!-- 나의 프로필 삭제 -->
-	<update id="myProfileDelete">
-		update profile_tb as pt
-		set pt.profile_image=null, pt.back_image=null
-		where pt.id=#{id}
+	<!-- 나의 프로필 삭제(프로필 이미지) -->
+	<update id="myProfileImageDelete">
+		update profile_tb
+		set profile_image=null
+		where id=#{id}
+	</update>
+
+	<!-- 나의 프로필 삭제(배경 이미지) -->
+	<update id="myProfileBackImageDelete">
+		update profile_tb
+		set back_image=null
+		where id=#{id}
 	</update>
 
 	<!-- 연락처로 친구 추가 -->

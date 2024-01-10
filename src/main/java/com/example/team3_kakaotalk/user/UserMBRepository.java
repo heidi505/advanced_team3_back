@@ -36,7 +36,10 @@ public interface UserMBRepository {
 	// 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지)
 	public void myProfileSmessageAndPimageAndBimageUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
 
-	// 나의 프로필 삭제
-	public void myProfileDelete(Integer id);
+	// 나의 프로필 삭제(프로필 이미지)
+	public void myProfileImageDelete(Integer id);
+
+	// 나의 프로필 삭제(배경 이미지)
+	public void myProfileBackImageDelete(Integer id);
 
 }
