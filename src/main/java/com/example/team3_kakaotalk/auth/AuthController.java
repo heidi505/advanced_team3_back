@@ -40,6 +40,8 @@ public class AuthController {
     //로그인
     @PostMapping("/sign-in")
     public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO) {
+        System.out.println("=======================");
+        System.out.println("컨트롤러 호출");
         UserResponse.loginDTO responseDTO = userService.login(loginDTO);
         System.out.println();
 

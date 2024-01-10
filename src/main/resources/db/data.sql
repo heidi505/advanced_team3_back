@@ -1,4 +1,4 @@
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('khyan9857@hanmail.net','최죠','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01011112222','1986-05-22', now(), 1);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('ssar@nate.com','최죠','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01011112222','1986-05-22', now(), 1);
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('cos@nate.com','그노','1111','01022223333','1986-11-05', now(), 2);
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('love@nate.com','채비니','1111','01050186937','1986-05-22', now(), 3);
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('heidi@nate.com','기마얀','1111','01044541176','1986-05-22', now(), 4);

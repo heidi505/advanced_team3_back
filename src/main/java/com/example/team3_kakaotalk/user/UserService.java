@@ -53,7 +53,7 @@ public class UserService {
 
         //이메일, 비번으로 조회
         Optional<User> userOptional = userJPARepository.findByEmail(loginDTO.getEmail());
-        User user = userOptional.orElseThrow(() -> new MyBadRequestException("유저 없음"));
+        User user = userOptional.get();
 
         // 사용자 정보가 존재하고, 입력된 비밀번호와 저장된 해시된 비밀번호가 일치하는지 확인
         if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
