@@ -22,8 +22,6 @@ public class UserService {
     private UserJPARepository userJPARepository;
     @Autowired
     private UserMBRepository userMBRepository;
-    
-
     @Autowired
     private HttpSession httpSession;
 
