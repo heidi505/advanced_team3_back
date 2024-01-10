@@ -4,7 +4,8 @@
 
 <mapper namespace="com.example.team3_kakaotalk.user.UserMBRepository">
 
-	<!-- 친구탭 메인 화면 -->
+
+	<!-- 친구 탭 메인 화면 -->
 	<select id = "findByFriendTepMain" resultType = "com.example.team3_kakaotalk.user.UserResponse$FriendTepMainResponseDTO">
 		select ut.id, ut.nickname, ut.birthdate, pt.profile_image
 		from user_tb as ut
@@ -53,5 +54,31 @@
 		set pt.profile_image=null, pt.back_image=null
 		where pt.id=#{id}
 	</update>
+
+	<!-- 연락처로 친구 추가 -->
+	<insert id="phoneNumFriendAdd">
+		insert into friend_tb(user_id1, user_id2, is_blocked)
+		values (#{id}, (select id from user_tb where phone_num=#{phoneNum}), false)
+	</insert>
+
+	<!-- 이메일로 친구 추가 -->
+	<insert id="emailFriendAdd">
+		insert into friend_tb(user_id1, user_id2, is_blocked)
+		values (#{id}, (select id from user_tb where email=#{email}), false)
+	</insert>
+
+	<!-- 전화번호 단일 조회 -->
+	<select id="findByPhoneNum" resultType="java.lang.String">
+		select phone_num
+		from user_tb
+		where phone_num=#{phoneNum}
+	</select>
+
+	<!-- 이메일 단일 조회 -->
+	<select id="findByEmail" resultType="java.lang.String">
+		select email
+		from user_tb
+		where email=#{email}
+	</select>
 
 </mapper>
