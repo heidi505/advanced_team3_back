@@ -48,11 +48,18 @@
 		where pt.id=#{id}
 	</update>
 
-	<!-- 나의 프로필 삭제 -->
-	<update id="myProfileDelete">
-		update profile_tb as pt
-		set pt.profile_image=null, pt.back_image=null
-		where pt.id=#{id}
+	<!-- 나의 프로필 삭제(프로필 이미지) -->
+	<update id="myProfileImageDelete">
+		update profile_tb
+		set profile_image=null
+		where id=#{id}
+	</update>
+
+	<!-- 나의 프로필 삭제(배경 이미지) -->
+	<update id="myProfileBackImageDelete">
+		update profile_tb
+		set back_image=null
+		where id=#{id}
 	</update>
 
 	<!-- 연락처로 친구 추가 -->

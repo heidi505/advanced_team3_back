@@ -67,12 +67,18 @@ public class UserRestController {
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
 
-	// 나의 프로필 삭제
-	@GetMapping("/my-profile-delete/{id}")
-	public ResponseEntity<?> myProfileDelete(@PathVariable Integer id){
-		this.userService.myProfileDelete(id);
+	// 나의 프로필 삭제(프로필 이미지)
+	@GetMapping("/my-profileImage-delete/{id}")
+	public ResponseEntity<?> myProfileImageDelete(@PathVariable Integer id){
+		this.userService.myProfileImageDelete(id);
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
 
+	// 나의 프로필 삭제(배경 이미지)
+	@GetMapping("/my-profileBackImage-delete/{id}")
+	public ResponseEntity<?> myProfileBackImageDelete(@PathVariable Integer id){
+		this.userService.myProfileBackImageDelete(id);
+		return ResponseEntity.ok().body(ApiUtils.success(null));
+	}
 
 }
