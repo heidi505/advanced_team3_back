@@ -40,12 +40,12 @@ public class UserRequest {
     @ToString
     public static class LoginDTO {
 
-        // @NotEmpty
-//@Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
+        @NotEmpty
+        @Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
         private String email;
         private String phoneNum;
         @NotEmpty
-       // @Size(min = 4, max = 20, message = "4에서 20자 이내여야 합니다.")
+        @Size(min = 4, max = 20, message = "4에서 20자 이내여야 합니다.")
         private String password;
     }
 
