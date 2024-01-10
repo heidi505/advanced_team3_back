@@ -55,13 +55,15 @@ public class UserRestController {
 
 	// 이메일로 친구 추가
 	@PostMapping("/emil-friend-add")
-	public ResponseEntity<?> emailFriendAdd(@RequestBody UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto){
+	public ResponseEntity<?> emailFriendAdd(@RequestBody UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto) {
 		this.userService.emailFriendAdd(emailFriendAddRequestDto);
+		return ResponseEntity.ok().body(ApiUtils.success(null));
+    }
 
 	// 나의 프로필 수정
 	@PostMapping("/my-profile-update")
-	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDTO){
-		this.userService.myProfileUpdate();
+	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+		this.userService.myProfileUpdate(myProfileUpdateRequestDto);
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
 
@@ -69,8 +71,8 @@ public class UserRestController {
 	@GetMapping("/my-profile-delete/{id}")
 	public ResponseEntity<?> myProfileDelete(@PathVariable Integer id){
 		this.userService.myProfileDelete(id);
-
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
+
 
 }
