@@ -66,19 +66,20 @@ public class UserService {
             throw new MyBadRequestException("유저 없음");
         }
     }
+
+    public void resetPassword(String email){
+        Optional<User> userOptional = userJPARepository.findByEmail(email);
+        User user = userOptional.orElseThrow(()-> new MyBadRequestException("해당 이메일을 찾을 수 없습니다."));
+
+    }
+
+
     
     // 친구탭 메인 화면
     public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
     	List<UserResponse.FriendTepMainResponseDTO> dtolists = this.userMBRepository.findByFriendTepMain(id);
     	return dtolists;
     }
-    
-    // 나의 프로필 수정 및 삭제
-    public UserRequest.MyProfileUpdateRequestDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){	
-    	UserRequest.MyProfileUpdateRequestDTO myProfileUpdate = this.myProfileUpdate(myProfileUpdateRequestDto);
-    	return myProfileUpdate;
-    }
-    
 
     @Transactional
     public UserResponse.UpdateResponseDTO update(UserRequest.UpdateDTO updateDTO,  User sessionUser) {
@@ -86,8 +87,6 @@ public class UserService {
         User user = userJPARepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new MyBadRequestException("오류 : " + updateDTO.getPhoneNum()));
 
-        System.out.println(updateDTO.getEmail());
-        System.out.println(sessionUser.getPhoneNum());
         if (!(updateDTO.getEmail().equals(sessionUser.getEmail()))) {
             throw new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 : " + updateDTO.getEmail());
         }
@@ -111,6 +110,12 @@ public class UserService {
     public UserResponse.FriendProfileDetailResponseDTO friendProfileDetail(Integer id){
     	UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userMBRepository.findByFriendProfileDetail(id);
     	return friendProfileDetailResponseDto;
+    }
+    
+    // 나의 프로필 수정
+    public void myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+        this.userMBRepository.myProfileNicknameUpdate(myProfileUpdateRequestDto);
+        this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(myProfileUpdateRequestDto);
     }
 
     // 연락처로 친구 추가
@@ -137,7 +142,10 @@ public class UserService {
         this.userMBRepository.emailFriendAdd(emailFriendAddRequestDto);
     }
 
-
+    // 나의 프로필 삭제
+    public void myProfileDelete(Integer id){
+        this.userMBRepository.myProfileDelete(id);
+    }
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(()->new MyBadRequestException("자동 로그인 오류"));

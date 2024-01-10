@@ -83,6 +83,20 @@ public class UserResponse {
         private String statusMessage;
     }
 
+    // 나의 프로필 삭제
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyProfileDeleteResponseDTO {
+        private Integer id;
+        private String profileImage;
+        private String backImage;
+    }
+
 
 }
+
+
+
 

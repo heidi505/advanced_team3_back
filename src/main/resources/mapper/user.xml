@@ -4,12 +4,16 @@
 
 <mapper namespace="com.example.team3_kakaotalk.user.UserMBRepository">
 
+<<<<<<< HEAD
 	<!-- 친구 탭 메인 -->
+=======
+	<!-- 친구탭 메인 화면 -->
+>>>>>>> main
 	<select id = "findByFriendTepMain" resultType = "com.example.team3_kakaotalk.user.UserResponse$FriendTepMainResponseDTO">
 		select ut.id, ut.nickname, ut.birthdate, pt.profile_image
 		from user_tb as ut
-    		inner join profile_tb as pt
-				on ut.profile_id = pt.id
+    	inner join profile_tb as pt
+		on ut.profile_id = pt.id
 		where ut.id = #{id}
 	</select>
 
@@ -17,8 +21,8 @@
 	<select id="findByMyProfileDetail" resultType="com.example.team3_kakaotalk.user.UserResponse$MyProfileDetailResponseDTO">
 		select ut.id, ut.nickname, pt.back_image, pt.profile_image, pt.status_message
 		from user_tb as ut
-			inner join profile_tb as pt
-				on ut.profile_id = pt.id
+		inner join profile_tb as pt
+		on ut.profile_id = pt.id
 		where ut.id = #{id}
 	</select>
 
@@ -26,20 +30,19 @@
 	<select id="findByFriendProfileDetail" resultType="com.example.team3_kakaotalk.user.UserResponse$FriendProfileDetailResponseDTO">
 		select ut.Id, ut.nickname, pt.profile_image, pt.back_image, pt.status_message
 		from user_tb as ut
-    		inner join profile_tb as pt
-				on ut.profile_id = pt.id
+    	inner join profile_tb as pt
+		on ut.profile_id = pt.id
 		where ut.id = #{id}
 	</select>
 	
-	<!-- 나의 프로필 수정 및 삭제 -->
-	<update id="myProfileUpdate">
+	<!-- 나의 프로필 수정(이름) -->
+	<update id="myProfileNicknameUpdate">
 		update user_tb as ut
-		join profile_tb as pt
-			on ut.profile_id = pt.id
-		set ut.nickname=#{nickname}, pt.status_message=#{statusMessage}, pt.profile_image=#{profileImage}, pt.back_image=#{backImage}
-		where ut.id=#{id}                                      									
+		set ut.nickname=#{nickname}
+		where ut.id=#{id}
 	</update>
 
+<<<<<<< HEAD
 	<!-- 연락처로 친구 추가 -->
 	<insert id="phoneNumFriendAdd">
 		insert into friend_tb(user_id1, user_id2, is_blocked)
@@ -66,5 +69,22 @@
 		where email=#{email}
 	</select>
 
+=======
+	<!-- 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지) -->
+	<update id="myProfileSmessageAndPimageAndBimageUpdate">
+		update profile_tb as pt
+		set pt.status_message=#{statusMessage},
+			pt.profile_image=#{profileImage},
+			pt.back_image=#{backImage}
+		where pt.id=#{id}
+	</update>
+
+	<!-- 나의 프로필 삭제 -->
+	<update id="myProfileDelete">
+		update profile_tb as pt
+		set pt.profile_image=null, pt.back_image=null
+		where pt.id=#{id}
+	</update>
+>>>>>>> main
 
 </mapper>

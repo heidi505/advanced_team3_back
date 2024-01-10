@@ -8,16 +8,13 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserMBRepository {
-	
-	// 친구 탭 메인
+
+	// 친구탭 메인 화면
 	public List<UserResponse.FriendTepMainResponseDTO> findByFriendTepMain(Integer id);
-	
-	// 나의 프로필 수정 및 삭제
-	public UserRequest.MyProfileUpdateRequestDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
 
 	// 나의 프로필 상세보기
 	public UserResponse.MyProfileDetailResponseDTO findByMyProfileDetail(Integer id);
-	
+
 	// 친구 프로필 상세보기
 	public UserResponse.FriendProfileDetailResponseDTO findByFriendProfileDetail(Integer id);
 	
@@ -32,5 +29,14 @@ public interface UserMBRepository {
 
 	// 이메일 단일 조회
 	public String findByEmail(String email);
+
+	// 나의 프로필 수정(이름)
+	public void myProfileNicknameUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
+
+	// 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지)
+	public void myProfileSmessageAndPimageAndBimageUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
+
+	// 나의 프로필 삭제
+	public void myProfileDelete(Integer id);
 
 }
