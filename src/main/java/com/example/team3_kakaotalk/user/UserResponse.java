@@ -45,17 +45,18 @@ public class UserResponse {
         }
     }
 
-
     // 친구 탭 메인
     @Data
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
     public static class FriendTepMainResponseDTO {
-        private int id;
+        private Integer id;
         private String nickname;
-        private String profileImage;
         private String birthdate;
+        private String profileImage;
+        private String backImage;
+        private String statusMessage;
     }
 
     // 나의 프로필 상세보기
@@ -63,7 +64,6 @@ public class UserResponse {
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
-
     public static class MyProfileDetailResponseDTO {
         private int id;
         private String nickname;
@@ -85,15 +85,29 @@ public class UserResponse {
         private String statusMessage;
     }
 
-
-    // 나의 프로필 삭제
+    // 나의 프로필 삭제(프로필 이미지)
     @Data
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MyProfileDeleteResponseDTO {
+    public static class MyProfileImageDeleteResponseDTO {
         private Integer id;
         private String profileImage;
+    }
+
+    // 나의 프로필 삭제(배경 이미지)
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyProfileBackImageDeleteResponseDTO {
+        private Integer id;
         private String backImage;
     }
+
+
 }
+
+
+
+
