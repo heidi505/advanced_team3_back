@@ -45,10 +45,12 @@ public class EmailController {
     public ResponseEntity<?> mailCheck(@RequestBody EmailCheckDTO emailDto) {
         try {
             Boolean result = emailService.checkEmail(emailDto.getVerifyNumber());
-            return ResponseEntity.ok().body(ApiUtils.success(result));
+
+            return ResponseEntity.ok(ApiUtils.success("이메일 인증되었습니다"));
+
         } catch (Exception e) {
             // 실패할 경우 예외를 처리하고 클라이언트에게 실패 응답을 반환합니다.
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이메일 인증되지 않았습니다");
         }
     }
 
@@ -58,7 +60,7 @@ public class EmailController {
         emailService.passwordEmail(emailRequestDTO);
         System.out.println("++++패");
         Optional<User> user = emailService.passwordUpdate(emailRequestDTO);
-        return ResponseEntity.ok("성공");
+        return ResponseEntity.ok(ApiUtils.success("비밀번호가 발급되었습니다"));
     }
 
 }
