@@ -1,5 +1,6 @@
 package com.example.team3_kakaotalk.email;
 
+import com.example.team3_kakaotalk._core.utils.ApiUtils;
 import com.example.team3_kakaotalk.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class EmailController {
         System.out.println("체크 결과 : " + emailCheck);
         if (emailCheck == 2) {
             emailService.joinEmail(emailDto.getEmail());
-            return ResponseEntity.ok("성공");
+            return ResponseEntity.ok().body(ApiUtils.success("이메일을 보냈습니다"));
         } else {
             // 실패할 경우 예외를 처리하고 클라이언트에게 실패 응답을 반환합니다.
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("사용중인 이메일입니다.");
@@ -44,7 +45,7 @@ public class EmailController {
     public ResponseEntity<?> mailCheck(@RequestBody EmailCheckDTO emailDto) {
         try {
             Boolean result = emailService.checkEmail(emailDto.getVerifyNumber());
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok().body(ApiUtils.success(result));
         } catch (Exception e) {
             // 실패할 경우 예외를 처리하고 클라이언트에게 실패 응답을 반환합니다.
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

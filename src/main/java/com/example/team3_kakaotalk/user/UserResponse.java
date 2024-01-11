@@ -119,6 +119,22 @@ public class UserResponse {
         private String backImage;
     }
 
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserTestDTO{
+        int userId;
+        String userNickName;
+        String userPhoneNum;
+
+        public UserTestDTO(User user) {
+            this.userId = user.getId();
+            this.userNickName = user.getNickname();
+            this.userPhoneNum = user.getPhoneNum();
+        }
+    }
+
 
 }
 

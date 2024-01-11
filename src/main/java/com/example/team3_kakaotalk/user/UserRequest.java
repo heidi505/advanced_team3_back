@@ -95,6 +95,17 @@ public class UserRequest {
         private String email;
     }
 
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class userTestDTO{
+        int userId;
+        String nickname;
+    }
+
+
+
 }
 
 

@@ -2,6 +2,7 @@ package com.example.team3_kakaotalk.user;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.example.team3_kakaotalk.profile.Profile;
 import com.example.team3_kakaotalk.profile.ProfileJPARepository;
@@ -183,4 +184,20 @@ public class UserService {
     }
 
 
+    public UserResponse.UserTestDTO userTest(int userId) {
+        Optional<User> user = userJPARepository.findById(userId);
+
+        UserResponse.UserTestDTO dto = new UserResponse.UserTestDTO(user.get());
+
+        return dto;
+
+    }
+
+    public List<UserResponse.UserTestDTO> ListTest() {
+        List<User> user = userJPARepository.findAll();
+
+        List<UserResponse.UserTestDTO> newList = user.stream().map(e->new UserResponse.UserTestDTO(e)).collect(Collectors.toList());
+
+        return newList;
+    }
 }
