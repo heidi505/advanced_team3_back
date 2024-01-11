@@ -1,4 +1,5 @@
 package com.example.team3_kakaotalk.user;
+import com.example.team3_kakaotalk.profile.Profile;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
@@ -7,6 +8,7 @@ import lombok.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,6 +45,18 @@ public class UserResponse {
             this.phoneNum = user.getPhoneNum();
 
         }
+    }
+
+
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MainResponseDTO{
+        private int userId;
+        private Profile userProfile;
+        private List<FriendTepMainResponseDTO> friendList;
+        private int birthdayCount;
     }
 
     // 친구 탭 메인
@@ -103,6 +117,22 @@ public class UserResponse {
     public static class MyProfileBackImageDeleteResponseDTO {
         private Integer id;
         private String backImage;
+    }
+
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserTestDTO{
+        int userId;
+        String userNickName;
+        String userPhoneNum;
+
+        public UserTestDTO(User user) {
+            this.userId = user.getId();
+            this.userNickName = user.getNickname();
+            this.userPhoneNum = user.getPhoneNum();
+        }
     }
 
 
