@@ -56,21 +56,26 @@ public class UserResponse {
         private int userId;
         private Profile userProfile;
         private List<FriendTepMainResponseDTO> friendList;
+        private List<FriendTepMainResponseDTO> birthdayFriendList;
         private int birthdayCount;
     }
 
     // 친구 탭 메인
     @Data
     @ToString
-    @NoArgsConstructor
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class FriendTepMainResponseDTO {
-        private Integer id;
+        private Integer userId;
         private String nickname;
         private String birthdate;
         private String profileImage;
         private String backImage;
         private String statusMessage;
+        private String phoneNum;
+        private String isBirthday;
+
+
     }
 
     // 나의 프로필 상세보기
