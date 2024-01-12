@@ -83,7 +83,7 @@ public class UserService {
 
     
     // 친구탭 메인 화면
-    public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
+    public UserResponse.MainResponseDTO friendTepMain(Integer id){
 
 
         Profile profile = profileJPARepository.findByUserId(id);
@@ -96,7 +96,7 @@ public class UserService {
 
         mainDTO.setFriendList(friendLists);
 
-    	return null;
+    	return mainDTO;
 
     }
 
