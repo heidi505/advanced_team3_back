@@ -85,7 +85,6 @@ public class UserService {
     // 친구탭 메인 화면
     public UserResponse.MainResponseDTO friendTepMain(Integer id){
 
-
         Profile profile = profileJPARepository.findByUserId(id);
 
         UserResponse.MainResponseDTO mainDTO = new UserResponse.MainResponseDTO();
@@ -93,11 +92,16 @@ public class UserService {
         mainDTO.setUserProfile(profile);
 
     	List<UserResponse.FriendTepMainResponseDTO> friendLists = this.userMBRepository.findByFriendTepMain(id);
-
         mainDTO.setFriendList(friendLists);
 
-    	return mainDTO;
+        List<UserResponse.FriendTepMainResponseDTO> birthdayFriendLists = friendLists.stream()
+                        .filter(e->e.getIsBirthday().equals("오늘 생일 친구"))
+                        .collect(Collectors.toList());
 
+        mainDTO.setBirthdayFriendList(birthdayFriendLists);
+        mainDTO.setBirthdayCount(birthdayFriendLists.size());
+
+    	return mainDTO;
     }
 
     @Transactional
