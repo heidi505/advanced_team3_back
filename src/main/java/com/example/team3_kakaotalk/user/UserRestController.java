@@ -35,6 +35,7 @@ public class UserRestController {
 	// 나의 프로필 상세보기
 	@GetMapping("/my-profile-detail/{id}")
 	public ResponseEntity<?> myProfileDetail(@PathVariable Integer id){
+		System.out.println("디테일 컨트롤러 진입 : " + id);
 		UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userService.myProfileDetail(id);
 		return ResponseEntity.ok().body(ApiUtils.success(myProfileDetail));
 	}
@@ -80,5 +81,4 @@ public class UserRestController {
 		this.userService.myProfileBackImageDelete(id);
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
-
 }
