@@ -7,5 +7,6 @@ import lombok.ToString;
 @ToString
 public class EmailRequestDTO {
     private String email;
+    private String phoneNum;
 
 }
