@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Random;
+
 @RestController
 public class AuthController {
     @Autowired
@@ -40,6 +43,8 @@ public class AuthController {
     //로그인
     @PostMapping("/sign-in")
     public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO) {
+        System.out.println("=======================");
+        System.out.println("컨트롤러 호출" + loginDTO.getEmail());
         UserResponse.loginDTO responseDTO = userService.login(loginDTO);
         System.out.println();
 
@@ -62,13 +67,36 @@ public class AuthController {
 
         return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
     }
-        @PostMapping("/autologin")
-        public ResponseEntity<?> autologin () {
+
+    @PostMapping("/autologin")
+    public ResponseEntity<?> autologin () {
             User sessionUser = (User) session.getAttribute(Define.PRINCIPAL);
 
             UserResponse.loginDTO dto = userService.autoLogin(sessionUser);
             return ResponseEntity.ok().header("Authorization", "Bearer " + dto.getJwt()).body(ApiUtils.success(dto));
-        }
+    }
+
+    @GetMapping("/userIdTest/{id}")
+    public ResponseEntity<?> userIdTest(@PathVariable int id){
+        System.out.println("=============");
+        System.out.println("테스트 컨트롤러");
+        return ResponseEntity.ok().body(ApiUtils.success(id));
+    }
+
+    @PostMapping("/userTest")
+    public ResponseEntity<?> userTest(@RequestBody UserRequest.userTestDTO reqDTO){
+        UserResponse.UserTestDTO dto = userService.userTest(reqDTO.getUserId());
+        return ResponseEntity.ok().body(ApiUtils.success(dto));
+
+    }
+
+    @GetMapping("/ListTest")
+    public ResponseEntity<?> ListTest(){
+        List<UserResponse.UserTestDTO> dtoList = userService.ListTest();
+        return ResponseEntity.ok().body(ApiUtils.success(dtoList));
+    }
+
+
     }
 
 

@@ -2,7 +2,11 @@ package com.example.team3_kakaotalk.user;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.example.team3_kakaotalk.profile.Profile;
+import com.example.team3_kakaotalk.profile.ProfileJPARepository;
+import com.sun.tools.javac.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +30,10 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
+    @Autowired
+    private ProfileJPARepository profileJPARepository;
+
 
     @Autowired
     private HttpSession httpSession;
@@ -52,7 +59,7 @@ public class UserService {
     public UserResponse.loginDTO login(UserRequest.LoginDTO loginDTO) {
         //이메일, 비번으로 조회
         Optional<User> userOptional = userJPARepository.findByEmail(loginDTO.getEmail());
-        User user = userOptional.orElseThrow(() -> new MyBadRequestException("유저 없음"));
+        User user = userOptional.get();
 
         // 사용자 정보가 존재하고, 입력된 비밀번호와 저장된 해시된 비밀번호가 일치하는지 확인
         if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
@@ -76,9 +83,24 @@ public class UserService {
 
     
     // 친구탭 메인 화면
-    public List<UserResponse.FriendTepMainResponseDTO> friendTepMain(Integer id){
-    	List<UserResponse.FriendTepMainResponseDTO> friendTepMainResponseDtoLists = this.userMBRepository.findByFriendTepMain(id);
-    	return friendTepMainResponseDtoLists;
+    public UserResponse.MainResponseDTO friendTepMain(Integer id){
+        Profile profile = profileJPARepository.findByUserId(id);
+
+        UserResponse.MainResponseDTO mainDTO = new UserResponse.MainResponseDTO();
+        mainDTO.setUserId(id);
+        mainDTO.setUserProfile(profile);
+
+    	List<UserResponse.FriendTepMainResponseDTO> friendLists = this.userMBRepository.findByFriendTepMain(id);
+        mainDTO.setFriendList(friendLists);
+
+        List<UserResponse.FriendTepMainResponseDTO> birthdayFriendLists = friendLists.stream()
+                        .filter(e->e.getIsBirthday().equals("오늘 생일 친구"))
+                        .collect(Collectors.toList());
+
+        mainDTO.setBirthdayFriendList(birthdayFriendLists);
+        mainDTO.setBirthdayCount(birthdayFriendLists.size());
+
+    	return mainDTO;
     }
 
     @Transactional
@@ -165,4 +187,20 @@ public class UserService {
     }
 
 
+    public UserResponse.UserTestDTO userTest(int userId) {
+        Optional<User> user = userJPARepository.findById(userId);
+
+        UserResponse.UserTestDTO dto = new UserResponse.UserTestDTO(user.get());
+
+        return dto;
+
+    }
+
+    public List<UserResponse.UserTestDTO> ListTest() {
+        List<User> user = userJPARepository.findAll();
+
+        List<UserResponse.UserTestDTO> newList = user.stream().map(e->new UserResponse.UserTestDTO(e)).collect(Collectors.toList());
+
+        return newList;
+    }
 }
