@@ -60,8 +60,9 @@ public class AuthController {
 
     //업데이트
     @PostMapping("/user/update")
-    public ResponseEntity<?> update(@RequestBody @Valid UserRequest.UpdateDTO requestDTO, Errors errors) {
+    public ResponseEntity<?> update(@RequestBody @Valid  UserRequest.UpdateDTO requestDTO, Errors errors) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        //JWT가 session으로 변해서 그걸 꺼낼 수 있다
 
         UserResponse.UpdateResponseDTO responseDTO = userService.update(requestDTO, sessionUser);
 

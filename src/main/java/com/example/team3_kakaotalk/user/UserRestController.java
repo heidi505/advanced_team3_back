@@ -28,8 +28,10 @@ public class UserRestController {
 	// 친구탭 메인 화면
 	@GetMapping("/friend-tep-main/{id}")
 	public ResponseEntity<?> friendTepMain(@PathVariable Integer id){
+
 		System.out.println("================");
 		System.out.println("메인 통신 중 컨트롤러 호출");
+
 		UserResponse.MainResponseDTO dto = this.userService.friendTepMain(id);
 		return ResponseEntity.ok().body(ApiUtils.success(dto));
 	}

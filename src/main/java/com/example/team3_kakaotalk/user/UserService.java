@@ -84,6 +84,7 @@ public class UserService {
     
     // 친구탭 메인 화면
     public UserResponse.MainResponseDTO friendTepMain(Integer id){
+
         Profile profile = profileJPARepository.findByUserId(id);
 
         UserResponse.MainResponseDTO mainDTO = new UserResponse.MainResponseDTO();
@@ -103,22 +104,25 @@ public class UserService {
     	return mainDTO;
     }
 
+
     @Transactional
-    public UserResponse.UpdateResponseDTO update(UserRequest.UpdateDTO updateDTO,  User sessionUser) {
+    public UserResponse.UpdateResponseDTO update(UserRequest.UpdateDTO updateDTO, User sessionUser) {
+          userJPARepository.updatePhoneNumById(sessionUser.getEmail(), sessionUser.getPhoneNum());
 
         User user = userJPARepository.findById(sessionUser.getId())
-                .orElseThrow(() -> new MyBadRequestException("오류 : " + updateDTO.getPhoneNum()));
+                .orElseThrow(() -> new MyBadRequestException("오류 : " + sessionUser.getEmail()));
 
-        if (!(updateDTO.getEmail().equals(sessionUser.getEmail()))) {
-            throw new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 : " + updateDTO.getEmail());
+//        if (!(updateDTO.getEmail().equals(sessionUser.getEmail()))) {
+//            throw new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 : " + updateDTO.getEmail());
+//        }
+        if (updateDTO.getPhoneNum() == null || (updateDTO.getPhoneNum().isEmpty())){
+            throw  new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 ");
         }
 
-        user.setPassword(updateDTO.getPassword());
-        user.setPassword(updateDTO.getPhoneNum());
-
+        // 변경된 내용 업데이트
+        user.setPhoneNum(updateDTO.getPhoneNum());
 
         UserResponse.UpdateResponseDTO responseDTO = new UserResponse.UpdateResponseDTO(user);
-
         return responseDTO;
     }
 

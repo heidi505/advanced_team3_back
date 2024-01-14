@@ -37,12 +37,11 @@ public class UserResponse {
     @Setter
     @ToString
     public static class UpdateResponseDTO {
-        private int id;
-        private String phoneNum;
+        //phoneNum만 필요!
+        private String newPhoneNum;
 
         public UpdateResponseDTO(User user) {
-            this.id = user.getId();
-            this.phoneNum = user.getPhoneNum();
+            this.newPhoneNum = user.getPhoneNum();
 
         }
     }
@@ -139,6 +138,7 @@ public class UserResponse {
             this.userPhoneNum = user.getPhoneNum();
         }
     }
+
 
 
 }
