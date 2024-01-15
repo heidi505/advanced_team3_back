@@ -147,11 +147,15 @@ public class UserService {
     // 연락처로 친구 추가
     public void phoneNumFriendAdd(UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto){
         String userPhoneNum = this.userMBRepository.findByPhoneNum(phoneNumFriendAddRequestDto.getPhoneNum());
+        UserResponse.PhoneNumFriendAddResponseDTO PhoneNumFriendAddResponseDTO = this.userMBRepository.findByPhoneNumFriendAdd(phoneNumFriendAddRequestDto);
         if(phoneNumFriendAddRequestDto.getPhoneNum() == null || phoneNumFriendAddRequestDto.getPhoneNum().isEmpty()){
             throw new MyBadRequestException("전화번호를 입력해 주세요.");
         }
         if(userPhoneNum == null){
             throw new MyBadRequestException("등록되지 않은 사용자입니다.");
+        }
+        if(PhoneNumFriendAddResponseDTO != null){
+            throw new MyBadRequestException("이미 친구등록된 전화번호입니다.");
         }
         this.userMBRepository.phoneNumFriendAdd(phoneNumFriendAddRequestDto);
     }
@@ -159,11 +163,15 @@ public class UserService {
     // 이메일로 친구 추가
     public void emailFriendAdd(UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto){
         String userEmail = this.userMBRepository.findByEmail(emailFriendAddRequestDto.getEmail());
+        UserResponse.EmailFriendAddResponseDTO emailFriendAddResponseDto = this.userMBRepository.findByEmailFriendAdd(emailFriendAddRequestDto);
         if(emailFriendAddRequestDto.getEmail() == null || emailFriendAddRequestDto.getEmail().isEmpty()){
             throw new MyBadRequestException("이메일을 입력하세요.");
         }
         if(userEmail == null){
             throw new MyBadRequestException("등록되지 않은 사용자입니다.");
+        }
+        if(emailFriendAddResponseDto != null){
+            throw new MyBadRequestException("이미 친구등록된 이메일입니다.");
         }
         this.userMBRepository.emailFriendAdd(emailFriendAddRequestDto);
     }

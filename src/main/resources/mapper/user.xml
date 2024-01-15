@@ -101,4 +101,22 @@
 		where email=#{email}
 	</select>
 
+	<!-- 연락처로 친구 추가(이미 친구등록 되었는지 확인) -->
+	<select id="findByPhoneNumFriendAdd" resultType="com.example.team3_kakaotalk.user.UserResponse$PhoneNumFriendAddResponseDTO">
+		select ft.user_id1, ft.user_id2, ut.phoneNum
+		from user_tb as ut
+				 join friend_tb as ft
+					  on ft.user_id2 = ut.id
+		where ft.user_id1=#{id} and ut.phone_num=#{phoneNum}
+	</select>
+
+	<!-- 이메일로 친구 추가(이미 친구등록 되었는지 확인) -->
+	<select id="findByEmailFriendAdd" resultType="com.example.team3_kakaotalk.user.UserResponse$EmailFriendAddResponseDTO">
+		select ft.user_id1, ft.user_id2, ut.email
+		from user_tb as ut
+				 join friend_tb as ft
+					  on ft.user_id2 = ut.id
+		where ft.user_id1=#{id} and ut.email=#{email}
+	</select>
+
 </mapper>

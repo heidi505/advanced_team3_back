@@ -59,7 +59,7 @@ public class UserRestController {
 	}
 
 	// 이메일로 친구 추가
-	@PostMapping("/emil-friend-add")
+	@PostMapping("/email-friend-add")
 	public ResponseEntity<?> emailFriendAdd(@RequestBody UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto) {
 		this.userService.emailFriendAdd(emailFriendAddRequestDto);
 		return ResponseEntity.ok().body(ApiUtils.success(null));
