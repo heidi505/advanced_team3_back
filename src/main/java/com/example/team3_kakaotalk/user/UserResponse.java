@@ -73,8 +73,6 @@ public class UserResponse {
         private String statusMessage;
         private String phoneNum;
         private String isBirthday;
-
-
     }
 
     // 나의 프로필 상세보기
@@ -121,6 +119,28 @@ public class UserResponse {
     public static class MyProfileBackImageDeleteResponseDTO {
         private Integer id;
         private String backImage;
+    }
+
+    // 연락처로 친구 추가
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PhoneNumFriendAddResponseDTO{
+        private Integer userId1;
+        private Integer userId2;
+        private String phoneNum;
+    }
+
+    // 이메일로 친구 추가
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EmailFriendAddResponseDTO{
+        private Integer userId1;
+        private Integer userId2;
+        private String email;
     }
 
     @Data
