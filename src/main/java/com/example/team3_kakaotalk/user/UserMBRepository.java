@@ -42,4 +42,16 @@ public interface UserMBRepository {
 	// 나의 프로필 삭제(배경 이미지)
 	public void myProfileBackImageDelete(Integer id);
 
+	// 연락처로 친구 추가(이미 친구등록 되었는지 확인)
+	public UserResponse.PhoneNumFriendAddResponseDTO findByPhoneNumFriendAdd(UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto);
+
+	// 이메일로 친구 추가(이미 친구등록 되었는지 확인)
+	public UserResponse.EmailFriendAddResponseDTO findByEmailFriendAdd(UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto);
+
+	// 친구 차단
+	public void friendDeleteUpdate(Integer id);
+	
+	// 차단 친구 찾기
+	public void findByIsBlockedFalse();
+
 }
