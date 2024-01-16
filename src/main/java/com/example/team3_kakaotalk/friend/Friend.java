@@ -17,12 +17,12 @@ import com.example.team3_kakaotalk.user.User;
 @Table(name = "friend_tb", uniqueConstraints = {
         @UniqueConstraint(
                 name = "user1_user2_unique",
-                columnNames = {"user_id1","user_id2"}
+                columnNames = {"user_id1", "user_id2"}
         )
 })
 @ToString
 @NoArgsConstructor
-public class Friend{
+public class Friend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -31,12 +31,16 @@ public class Friend{
     @Column(name = "user_id2")
     private Integer userId2;
     private Boolean isBlocked;
+    @Column(name = "is_friend")
+    @ColumnDefault("false")
+    private boolean isFriend;
 
     @Builder
-    public Friend(Integer id, Integer userId1, Integer userId2, Boolean isBlocked) {
+    public Friend(Integer id, Integer userId1, Integer userId2, Boolean isBlocked, Boolean isFriend) {
         this.id = id;
         this.userId1 = userId1;
         this.userId2 = userId2;
         this.isBlocked = isBlocked;
+        this.isFriend = isFriend;
     }
 }
