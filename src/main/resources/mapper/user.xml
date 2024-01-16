@@ -12,19 +12,24 @@
 			ut.*,
 			case
 				when day(ut.birthdate) = day(current_date()) then '오늘 생일 친구' else '일반 친구'
-			end as is_birthday
+		end as is_birthday,
+			max(ft.is_blocked) as is_blocked
 		from
 			user_tb ut
 		inner join
 			profile_tb pt on pt.user_id = ut.id
+        inner join
+			friend_tb ft on (ft.user_id1 = ut.id or ft.user_id2 = ut.id)
 		where ut.id in (
 			select
 				case
-					when user_id1 = #{id} then user_id2 else user_id1
-			end as 친구
-		from
-			friend_tb
-		where user_id1 = #{id} or user_id2 = #{id})
+					when user_id1 = 1 then user_id2 else user_id1
+				end as 친구
+			from
+				friend_tb
+			where (user_id1 = 1 or user_id2 = 1))
+         group by ut.id
+         having max(ft.is_blocked) = false
 	</select>
 
 	<!-- 나의 프로필 상세보기 -->
@@ -99,6 +104,34 @@
 		select email
 		from user_tb
 		where email=#{email}
+	</select>
+
+	<!-- 연락처로 친구 추가(이미 친구등록 되었는지 확인) -->
+	<select id="findByPhoneNumFriendAdd" resultType="com.example.team3_kakaotalk.user.UserResponse$PhoneNumFriendAddResponseDTO">
+		select ft.user_id1, ft.user_id2, ut.phoneNum
+		from user_tb as ut
+				 join friend_tb as ft
+					  on ft.user_id2 = ut.id
+		where ft.user_id1=#{id} and ut.phone_num=#{phoneNum}
+	</select>
+
+	<!-- 이메일로 친구 추가(이미 친구등록 되었는지 확인) -->
+	<select id="findByEmailFriendAdd" resultType="com.example.team3_kakaotalk.user.UserResponse$EmailFriendAddResponseDTO">
+		select ft.user_id1, ft.user_id2, ut.email
+		from user_tb as ut
+				 join friend_tb as ft
+					  on ft.user_id2 = ut.id
+		where ft.user_id1=#{id} and ut.email=#{email}
+	</select>
+
+	<!-- 친구 차단 -->
+	<update id="friendDeleteUpdate">
+		update friend_tb set is_blocked=true where id=#{id}
+	</update>
+
+	<!-- 차단 친구 찾기 -->
+	<select id="findByIsBlockedFalse">
+		select * from friend_tb where is_blocked = false;
 	</select>
 
 </mapper>
