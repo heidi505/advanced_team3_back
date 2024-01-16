@@ -30,6 +30,7 @@ public class Friend {
     private Integer userId1;
     @Column(name = "user_id2")
     private Integer userId2;
+    @ColumnDefault("false")
     private Boolean isBlocked;
     @Column(name = "is_friend")
     @ColumnDefault("false")
