@@ -84,6 +84,7 @@ public class UserService {
     
     // 친구탭 메인 화면
     public UserResponse.MainResponseDTO friendTepMain(Integer id){
+
         Profile profile = profileJPARepository.findByUserId(id);
 
         UserResponse.MainResponseDTO mainDTO = new UserResponse.MainResponseDTO();
@@ -103,22 +104,25 @@ public class UserService {
     	return mainDTO;
     }
 
+
     @Transactional
-    public UserResponse.UpdateResponseDTO update(UserRequest.UpdateDTO updateDTO,  User sessionUser) {
+    public UserResponse.UpdateResponseDTO update(UserRequest.UpdateDTO updateDTO, User sessionUser) {
+          userJPARepository.updatePhoneNumById(sessionUser.getEmail(), sessionUser.getPhoneNum());
 
         User user = userJPARepository.findById(sessionUser.getId())
-                .orElseThrow(() -> new MyBadRequestException("오류 : " + updateDTO.getPhoneNum()));
+                .orElseThrow(() -> new MyBadRequestException("오류 : " + sessionUser.getEmail()));
 
-        if (!(updateDTO.getEmail().equals(sessionUser.getEmail()))) {
-            throw new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 : " + updateDTO.getEmail());
+//        if (!(updateDTO.getEmail().equals(sessionUser.getEmail()))) {
+//            throw new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 : " + updateDTO.getEmail());
+//        }
+        if (updateDTO.getPhoneNum() == null || (updateDTO.getPhoneNum().isEmpty())){
+            throw  new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 ");
         }
 
-        user.setPassword(updateDTO.getPassword());
-        user.setPassword(updateDTO.getPhoneNum());
-
+        // 변경된 내용 업데이트
+        user.setPhoneNum(updateDTO.getPhoneNum());
 
         UserResponse.UpdateResponseDTO responseDTO = new UserResponse.UpdateResponseDTO(user);
-
         return responseDTO;
     }
 
@@ -143,11 +147,15 @@ public class UserService {
     // 연락처로 친구 추가
     public void phoneNumFriendAdd(UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto){
         String userPhoneNum = this.userMBRepository.findByPhoneNum(phoneNumFriendAddRequestDto.getPhoneNum());
+        UserResponse.PhoneNumFriendAddResponseDTO PhoneNumFriendAddResponseDTO = this.userMBRepository.findByPhoneNumFriendAdd(phoneNumFriendAddRequestDto);
         if(phoneNumFriendAddRequestDto.getPhoneNum() == null || phoneNumFriendAddRequestDto.getPhoneNum().isEmpty()){
             throw new MyBadRequestException("전화번호를 입력해 주세요.");
         }
         if(userPhoneNum == null){
             throw new MyBadRequestException("등록되지 않은 사용자입니다.");
+        }
+        if(PhoneNumFriendAddResponseDTO != null){
+            throw new MyBadRequestException("이미 친구등록된 전화번호입니다.");
         }
         this.userMBRepository.phoneNumFriendAdd(phoneNumFriendAddRequestDto);
     }
@@ -155,11 +163,15 @@ public class UserService {
     // 이메일로 친구 추가
     public void emailFriendAdd(UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto){
         String userEmail = this.userMBRepository.findByEmail(emailFriendAddRequestDto.getEmail());
+        UserResponse.EmailFriendAddResponseDTO emailFriendAddResponseDto = this.userMBRepository.findByEmailFriendAdd(emailFriendAddRequestDto);
         if(emailFriendAddRequestDto.getEmail() == null || emailFriendAddRequestDto.getEmail().isEmpty()){
             throw new MyBadRequestException("이메일을 입력하세요.");
         }
         if(userEmail == null){
             throw new MyBadRequestException("등록되지 않은 사용자입니다.");
+        }
+        if(emailFriendAddResponseDto != null){
+            throw new MyBadRequestException("이미 친구등록된 이메일입니다.");
         }
         this.userMBRepository.emailFriendAdd(emailFriendAddRequestDto);
     }

@@ -37,12 +37,11 @@ public class UserResponse {
     @Setter
     @ToString
     public static class UpdateResponseDTO {
-        private int id;
-        private String phoneNum;
+        //phoneNum만 필요!
+        private String newPhoneNum;
 
         public UpdateResponseDTO(User user) {
-            this.id = user.getId();
-            this.phoneNum = user.getPhoneNum();
+            this.newPhoneNum = user.getPhoneNum();
 
         }
     }
@@ -74,8 +73,6 @@ public class UserResponse {
         private String statusMessage;
         private String phoneNum;
         private String isBirthday;
-
-
     }
 
     // 나의 프로필 상세보기
@@ -124,6 +121,28 @@ public class UserResponse {
         private String backImage;
     }
 
+    // 연락처로 친구 추가
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PhoneNumFriendAddResponseDTO{
+        private Integer userId1;
+        private Integer userId2;
+        private String phoneNum;
+    }
+
+    // 이메일로 친구 추가
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EmailFriendAddResponseDTO{
+        private Integer userId1;
+        private Integer userId2;
+        private String email;
+    }
+
     @Data
     @ToString
     @NoArgsConstructor
@@ -139,6 +158,7 @@ public class UserResponse {
             this.userPhoneNum = user.getPhoneNum();
         }
     }
+
 
 
 }

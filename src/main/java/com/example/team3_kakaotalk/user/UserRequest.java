@@ -52,12 +52,9 @@ public class UserRequest {
     @Setter
     @ToString
     public static class UpdateDTO {
-
-        private String email;
-        private String PhoneNum;
-        @NotEmpty
-        @Size(min = 4, max = 20, message = "4에서 20자 이내여야 합니다.")
-        private String password;
+//id, email만 필요!
+        //가 아니고 서버의 회원이므로 세션에서 뺄 수 있다
+   private String phoneNum;
     }
 
     // 나의 프로필 수정

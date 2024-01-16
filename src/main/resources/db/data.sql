@@ -7,7 +7,7 @@ insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `cr
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('lej@nate.com','은지','1111','01065413987','1986-05-22', now(), 7);
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('pumpkin@nate.com','나무네','1111','01090153141','1986-05-22', now(), 8);
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('home@nate.com','집에가고싶다','1111','01047870123','1986-05-22', now(), 9);
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('red@nate.com','학원가고싶다','1111','01015208950','1999-12-22', now(), 10);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('red@nate.com','학원가고싶다','1111','01015208950','2024-01-15', now(), 10);
 
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','3');
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','2');
