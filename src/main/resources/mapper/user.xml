@@ -142,6 +142,15 @@
 		select * from friend_tb where is_blocked = false;
 	</select>
 
+	<!-- 친구 검색 -->
+	<select id="findByFriend">
+		select *
+		from user_tb as ut
+				 inner join friend_tb as ft on (ft.user_id1 = ut.id or ft.user_id2 = ut.id)
+		where ut.nickname like concat('%', '나는', '%') and (ft.user_id1 =1 or ft.user_id2 =1)
+		order by ut.created_at
+	</select>
+
 <!--	<insert id="insert" parameterType="com.example.teamprojectbringiton.user.User" useGeneratedKeys="true" keyProperty="id">-->
 <!--		insert into user_tb(username, password, user_email, user_phone_number, user_address, user_pic_url, nickName,-->
 <!--							user_division, created_at, gender_id, age_id, kakao_login, is_captain)-->
