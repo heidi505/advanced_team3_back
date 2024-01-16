@@ -2,6 +2,7 @@ package com.example.team3_kakaotalk.user;
 
 import java.util.List;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,9 @@ public class UserRestController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private HttpSession session;
 	
 	// 친구탭 메인 화면
 	@GetMapping("/friend-tep-main/{id}")
@@ -68,8 +72,13 @@ public class UserRestController {
 	// 나의 프로필 수정
 	@PostMapping("/my-profile-update")
 	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
-		this.userService.myProfileUpdate(myProfileUpdateRequestDto);
-		return ResponseEntity.ok().body(ApiUtils.success(null));
+		// User sessionUser = (User) session.getAttribute("sessionUser");
+		//System.out.println("세션 유저 정보 확인 : " + sessionUser.toString());
+		System.out.println("컨트롤러 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
+		UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userService.myProfileUpdate(myProfileUpdateRequestDto);
+
+		System.out.println("프론트로 보내기 전 : " + myProfileUpdateRequestDto.getNickname());
+		return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdateResponseDto));
 	}
 
 	// 나의 프로필 삭제(프로필 이미지)

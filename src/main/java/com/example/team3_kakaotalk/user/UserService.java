@@ -136,9 +136,19 @@ public class UserService {
     }
     
     // 나의 프로필 수정
-    public void myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+    public UserResponse.MyProfileUpdateResponseDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+        System.out.println("서비스 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
+        // 닉네임
         this.userMBRepository.myProfileNicknameUpdate(myProfileUpdateRequestDto);
+        // 상태 메세제, 프로필 이미지, 배경 이미지
         this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(myProfileUpdateRequestDto);
+
+        // DTO 안 Id 를 기준으로 조인 쿼리로 조회
+        UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userMBRepository.findByMyProfile(myProfileUpdateRequestDto.getId());
+        System.out.println("-------------------------------------------------------");
+        System.out.println("서비스에서 내보내기 : " + myProfileUpdateResponseDto.getNickname());
+        System.out.println("-------------------------------------------------------");
+        return myProfileUpdateResponseDto;
     }
 
     // 연락처로 친구 추가

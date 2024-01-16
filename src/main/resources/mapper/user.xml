@@ -54,7 +54,7 @@
 	<update id="myProfileNicknameUpdate">
 		update user_tb as ut
 		set ut.nickname=#{nickname}
-		where ut.id=#{id}
+		where ut.id=1
 	</update>
 
 	<!-- 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지) -->
@@ -63,8 +63,16 @@
 		set pt.status_message=#{statusMessage},
 			pt.profile_image=#{profileImage},
 			pt.back_image=#{backImage}
-		where pt.id=#{id}
+		where pt.id=1
 	</update>
+
+	<!-- 나의 프로필 수정 단일 조회 -->
+	<select id="findByMyProfile" resultType="com.example.team3_kakaotalk.user.UserResponse$MyProfileUpdateResponseDTO">
+		select ut.id, ut.nickname, pt.status_message, pt.profile_image, pt.back_image
+		from user_tb as ut
+				 inner join profile_tb as pt on ut.profile_id = pt.id
+		where ut.id=1
+	</select>
 
 	<!-- 나의 프로필 삭제(프로필 이미지) -->
 	<update id="myProfileImageDelete">
@@ -133,5 +141,12 @@
 	<select id="findByIsBlockedFalse">
 		select * from friend_tb where is_blocked = false;
 	</select>
+
+<!--	<insert id="insert" parameterType="com.example.teamprojectbringiton.user.User" useGeneratedKeys="true" keyProperty="id">-->
+<!--		insert into user_tb(username, password, user_email, user_phone_number, user_address, user_pic_url, nickName,-->
+<!--							user_division, created_at, gender_id, age_id, kakao_login, is_captain)-->
+<!--		values (#{username}, #{password}, #{userEmail}, #{userPhoneNumber}, #{userAddress}, #{userPicUrl}, #{nickName},-->
+<!--				#{userDivision}, now(), #{genderId}, #{ageId}, #{kakaoLogin}, #{isCaptain});-->
+<!--	</insert>-->
 
 </mapper>

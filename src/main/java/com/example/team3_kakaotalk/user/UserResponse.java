@@ -143,6 +143,19 @@ public class UserResponse {
         private String email;
     }
 
+    // 나의 프로필 수정
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyProfileUpdateResponseDTO{
+        private Integer id;
+        private String nickname;
+        private String statusMessage;
+        private String profileImage;
+        private String backImage;
+    }
+
     @Data
     @ToString
     @NoArgsConstructor
