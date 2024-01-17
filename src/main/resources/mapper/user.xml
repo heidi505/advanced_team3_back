@@ -54,7 +54,7 @@
 	<update id="myProfileNicknameUpdate">
 		update user_tb as ut
 		set ut.nickname=#{nickname}
-		where ut.id=1
+		where ut.id=#{sessionUserId}
 	</update>
 
 	<!-- 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지) -->
@@ -63,7 +63,7 @@
 		set pt.status_message=#{statusMessage},
 			pt.profile_image=#{profileImage},
 			pt.back_image=#{backImage}
-		where pt.id=1
+		where pt.id=#{sessionUserId}
 	</update>
 
 	<!-- 나의 프로필 수정 단일 조회 -->

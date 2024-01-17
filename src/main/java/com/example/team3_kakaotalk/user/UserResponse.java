@@ -175,6 +175,19 @@ public class UserResponse {
         private Date birthdate;
     }
 
+    // 친구 차단
+    @Data
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FriendDeleteResponseDTO{
+        private Integer id;
+
+
+    }
+
     @Data
     @ToString
     @NoArgsConstructor

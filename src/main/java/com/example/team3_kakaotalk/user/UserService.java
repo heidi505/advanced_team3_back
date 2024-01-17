@@ -136,12 +136,12 @@ public class UserService {
     }
 
     // 나의 프로필 수정
-    public UserResponse.MyProfileUpdateResponseDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+    public UserResponse.MyProfileUpdateResponseDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto, Integer sessionUserId){
         System.out.println("서비스 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
         // 닉네임
-        this.userMBRepository.myProfileNicknameUpdate(myProfileUpdateRequestDto);
+        this.userMBRepository.myProfileNicknameUpdate(myProfileUpdateRequestDto, sessionUserId);
         // 상태 메세제, 프로필 이미지, 배경 이미지
-        this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(myProfileUpdateRequestDto);
+        this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(myProfileUpdateRequestDto, sessionUserId);
 
         // DTO 안 Id 를 기준으로 조인 쿼리로 조회
         UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userMBRepository.findByMyProfile(myProfileUpdateRequestDto.getId());

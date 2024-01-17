@@ -41,10 +41,10 @@ public class UserRestController {
 	// 나의 프로필 수정
 	@PostMapping("/my-profile-update")
 	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
-		// User sessionUser = (User) session.getAttribute("sessionUser");
-		//System.out.println("세션 유저 정보 확인 : " + sessionUser.toString());
+		User sessionUser = (User) session.getAttribute("sessionUser");
+        System.out.println("세션 유저 정보 확인 : " + sessionUser.getId());
 		System.out.println("컨트롤러 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
-		UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userService.myProfileUpdate(myProfileUpdateRequestDto);
+		UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userService.myProfileUpdate(myProfileUpdateRequestDto, sessionUser.getId());
 		System.out.println("프론트로 보내기 전 : " + myProfileUpdateRequestDto.getNickname());
 		return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdateResponseDto));
 	}
@@ -77,7 +77,6 @@ public class UserRestController {
         this.userService.emailFriendAdd(emailFriendAddRequestDto);
         return ResponseEntity.ok().body(ApiUtils.success(null));
     }
-
 
     // 나의 프로필 삭제(프로필 이미지)
     @GetMapping("/my-profileImage-delete/{id}")

@@ -33,10 +33,12 @@ public interface UserMBRepository {
 	public String findByEmail(String email);
 
 	// 나의 프로필 수정(이름)
-	public void myProfileNicknameUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
+	public void myProfileNicknameUpdate(
+			UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto, @Param("sessionUserId") Integer sessionUserId);
 
 	// 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지)
-	public void myProfileSmessageAndPimageAndBimageUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
+	public void myProfileSmessageAndPimageAndBimageUpdate(
+			UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto, @Param("sessionUserId") Integer sessionUserId);
 
 	// 나의 프로필 단일 조회
 	public UserResponse.MyProfileUpdateResponseDTO findByMyProfile(Integer id);
