@@ -2,8 +2,10 @@ package com.example.team3_kakaotalk.user;
 
 import java.util.List;
 
+import com.example.team3_kakaotalk.friend.Friend;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Mapper
@@ -36,6 +38,9 @@ public interface UserMBRepository {
 	// 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지)
 	public void myProfileSmessageAndPimageAndBimageUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
 
+	// 나의 프로필 단일 조회
+	public UserResponse.MyProfileUpdateResponseDTO findByMyProfile(Integer id);
+
 	// 나의 프로필 삭제(프로필 이미지)
 	public void myProfileImageDelete(Integer id);
 
@@ -53,5 +58,11 @@ public interface UserMBRepository {
 	
 	// 차단 친구 찾기
 	public void findByIsBlockedFalse();
+
+	// 친구 검색
+	public List<UserResponse.SearchFriendResponseDTO> findByFriend(@Param("keyword") String keyword, @Param("sessionUserId") Integer sessionUserId);
+
+	// 친구 목록 조회
+	public Integer findByFriendCount(Integer id);
 
 }

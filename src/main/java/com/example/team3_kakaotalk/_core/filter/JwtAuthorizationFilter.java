@@ -55,7 +55,6 @@ public class JwtAuthorizationFilter implements Filter {
             Date birthdate = new java.sql.Date(decodedJWT.getClaim("birthdate").asDate().getTime());
             int profileId = decodedJWT.getClaim("profileId").asInt();
 
-
             User sessionUser = User.builder()
                     .id(userId)
                     .email(email)
@@ -67,7 +66,10 @@ public class JwtAuthorizationFilter implements Filter {
 
             HttpSession session = req.getSession();
             session.setAttribute("sessionUser", sessionUser);
+            System.out.println("세션유저입니당");
+            System.out.println(sessionUser.getId());
 
+            System.out.println("세션유저입니당");
             chain.doFilter(request, response);
         }catch (SignatureVerificationException | JWTDecodeException e1){
             onError(resp, "토큰 검증 실패");
