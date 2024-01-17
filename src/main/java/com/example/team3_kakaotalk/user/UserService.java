@@ -81,7 +81,6 @@ public class UserService {
 
     }
 
-
     // 친구탭 메인 화면
     public UserResponse.MainResponseDTO friendTepMain(Integer id) {
 
@@ -103,7 +102,6 @@ public class UserService {
 
         return mainDTO;
     }
-
 
     @Transactional
     public UserResponse.UpdateResponseDTO update(UserRequest.UpdateDTO updateDTO, User sessionUser) {
@@ -184,6 +182,11 @@ public class UserService {
     // 나의 프로필 삭제(배경 이미지)
     public void myProfileBackImageDelete(Integer id) {
         this.userMBRepository.myProfileBackImageDelete(id);
+    }
+
+    // 친구 차단
+    public void friendDelete(Integer id){
+        this.userMBRepository.friendDeleteUpdate(id);
     }
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {
