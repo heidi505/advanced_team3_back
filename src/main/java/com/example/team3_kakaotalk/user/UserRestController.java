@@ -94,13 +94,12 @@ public class UserRestController {
     }
 
 
-    // 친구 차단
-    @GetMapping("/friend-delete/{id}")
-    public ResponseEntity<?> friendDelete(@PathVariable Integer id) {
+	// 친구 차단
+	@GetMapping("/friend-delete/{id}")
+	public ResponseEntity<?> friendDelete(@PathVariable Integer id) {
         this.userService.friendDelete(id);
         return ResponseEntity.ok().body(ApiUtils.success(null));
     }
-
 
 	// 친구 검색
 	@GetMapping("/search-friend")
@@ -108,6 +107,7 @@ public class UserRestController {
 		User sessionUser = (User) session.getAttribute("sessionUser");
 		List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userService.searchFriend(keyword, sessionUser.getId());
 		return ResponseEntity.ok().body(ApiUtils.success(searchFriendResponseDto));
+
 	}
 
 
