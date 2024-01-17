@@ -59,11 +59,8 @@ public interface UserMBRepository {
 	// 차단 친구 찾기
 	public void findByIsBlockedFalse();
 
-//	// 친구 검색
-//	public UserResponse.SearchFriendResponseDTO findByFriend(UserRequest.SearchFriendRequestDTO searchFriendRequestDto, @Param("friendCount") Integer friendCount);
-
 	// 친구 검색
-	public UserResponse.SearchFriendResponseDTO findByFriend(@Param("keyword") String keyword, @Param("friendCount") Integer friendCount);
+	public List<UserResponse.SearchFriendResponseDTO> findByFriend(@Param("keyword") String keyword, @Param("sessionUserId") Integer sessionUserId);
 
 	// 친구 목록 조회
 	public Integer findByFriendCount(Integer id);

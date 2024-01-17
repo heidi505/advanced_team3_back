@@ -13,6 +13,8 @@ insert into friend_tb(`user_id1`, `user_id2`) values ('1','3');
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','2');
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','4');
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','5');
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','9');
+insert into friend_tb(`user_id1`, `user_id2`) values ('1','10');
 
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
 values(1, '이미지1', '안녕', '배경이미지1', '1234');

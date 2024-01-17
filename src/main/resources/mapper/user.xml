@@ -143,28 +143,15 @@
 	</select>
 
 	<!-- 친구 검색 -->
-<!--	<select id="findByFriend" resultType="com.example.team3_kakaotalk.user.UserResponse$SearchFriendResponseDTO">-->
-<!--		select ut.id, ut.nickname, ut.phone_num, ut.birthdate, pt.status_message, pt.profile_image, pt.back_image-->
-<!--		from user_tb as ut-->
-<!--				 inner join friend_tb as ft on (ft.user_id1 = ut.id or ft.user_id2 = ut.id)-->
-<!--				 inner join profile_tb as pt on ut.profile_id = pt.id-->
-<!--		where ft.is_blocked not in(true)-->
-<!--			and (ut.nickname like concat('%', #{keyword}, '%') or ut.phone_num like concat('%', #{keyword}, '%'))-->
-<!--			and ft.user_id1=#{id} or ft.user_id2=#{id}-->
-<!--		order by ut.nickname asc-->
-<!--		limit #{friendCount}-->
-<!--	</select>-->
-
-	<select id="findByFriend" parameterType="com.example.team3_kakaotalk.user.UserRequest$SearchFriendRequestDTO" resultType="com.example.team3_kakaotalk.user.UserResponse$SearchFriendResponseDTO">
+	<select id="findByFriend" resultType="com.example.team3_kakaotalk.user.UserResponse$SearchFriendResponseDTO">
 		select ut.id, ut.nickname, ut.phone_num, ut.birthdate, pt.status_message, pt.profile_image, pt.back_image
 		from user_tb as ut
 				 inner join friend_tb as ft on (ft.user_id1 = ut.id or ft.user_id2 = ut.id)
 				 inner join profile_tb as pt on ut.profile_id = pt.id
 		where ft.is_blocked not in(true)
-			and ut.nickname like concat('%', #{keyword}, '%')
-			and ft.user_id1=#{id} or ft.user_id2=#{id}
+			and ut.nickname like concat('%', #{keyword}, '%') or ut.phone_num like concat('%', #{keyword}, '%')
+			and ft.user_id1=#{sessionUserId} or ft.user_id2=#{sessionUserId}
 		order by ut.nickname asc
-			limit #{friendCount}
 	</select>
 
 	<!-- 친구 목록 조회 -->
