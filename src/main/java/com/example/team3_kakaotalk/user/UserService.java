@@ -1,5 +1,6 @@
 package com.example.team3_kakaotalk.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -219,4 +220,14 @@ public class UserService {
         return newList;
     }
 
+    public List<UserResponse.GetChatUsersDTO> getChatUsers(UserRequest.GetChatUsersDTO dto) {
+        List<User> users = userJPARepository.findAllById(dto.getUserIdList());
+
+        List<UserResponse.GetChatUsersDTO> respDTO = users.stream().map(e->new UserResponse.GetChatUsersDTO(e, profileJPARepository.findByUserId(e.getId()))).collect(Collectors.toList());
+
+
+        return respDTO;
+
+
+    }
 }

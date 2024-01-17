@@ -159,7 +159,24 @@ public class UserResponse {
         }
     }
 
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetChatUsersDTO{
+        int userId;
+        int profileId;
+        String userNickname;
+        String userProfileImage;
 
+
+        public GetChatUsersDTO(User user, Profile profile) {
+            this.userId = user.getId();
+            this.profileId = user.getProfileId();
+            this.userNickname = user.getNickname();
+            this.userProfileImage = profile.getProfileImage();
+        }
+    }
 
 }
 

@@ -110,5 +110,14 @@ public class UserRestController {
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
 
+    @PostMapping("/get-chat-users")
+    public ResponseEntity<?> getChatUsers(@RequestBody UserRequest.GetChatUsersDTO dto){
+        System.out.println("=======================");
+        System.out.println("컨트롤러 동작중");
+        List<UserResponse.GetChatUsersDTO> respDTO = userService.getChatUsers(dto);
+        return ResponseEntity.ok().body(ApiUtils.success(respDTO));
+
+    }
+
 
 }

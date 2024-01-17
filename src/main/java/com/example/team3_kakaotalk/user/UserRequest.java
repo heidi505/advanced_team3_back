@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class UserRequest {
     @Data
@@ -103,6 +104,13 @@ public class UserRequest {
         String nickname;
     }
 
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetChatUsersDTO{
+        List<Integer> userIdList;
+    }
 
 
 }
