@@ -2,17 +2,13 @@ package com.example.team3_kakaotalk.user;
 
 import java.util.List;
 
+import com.example.team3_kakaotalk._core.utils.Define;
 import com.example.team3_kakaotalk.friend.Friend;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.team3_kakaotalk._core.utils.ApiUtils;
 
@@ -103,15 +99,27 @@ public class UserRestController {
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
 
+//	// 친구 검색
+//	@PostMapping("/search-friend")
+//	public ResponseEntity<?> searchFriend(@RequestBody UserRequest.SearchFriendRequestDTO searchFriendRequestDto){
+//		System.out.println("여기 아이디------------------------"+searchFriendRequestDto.getId());
+//		System.out.println("여기 키워드------------------------"+searchFriendRequestDto.getKeyword());
+//		Integer friendCount = this.userService.friendCount(searchFriendRequestDto.getId());
+//		UserResponse.SearchFriendResponseDTO searchFriendResponseDto = this.userService.searchFriend(searchFriendRequestDto, friendCount);
+//		return ResponseEntity.ok().body(ApiUtils.success(searchFriendResponseDto));
+//	}
+
 	// 친구 검색
-	@PostMapping("/search-friend")
-	public ResponseEntity<?> searchFriend(@RequestBody UserRequest.SearchFriendRequestDTO searchFriendRequestDto){
-		System.out.println("여기 아이디------------------------"+searchFriendRequestDto.getId());
-		System.out.println("여기 키워드------------------------"+searchFriendRequestDto.getKeyword());
-		Integer friendCount = this.userService.friendCount(searchFriendRequestDto.getId());
-		UserResponse.SearchFriendResponseDTO searchFriendResponseDto = this.userService.searchFriend(searchFriendRequestDto, friendCount);
+	@GetMapping("/search-friend")
+	public ResponseEntity<?> searchFriend(@RequestParam String keyword){
+		User sessionUser = (User) session.getAttribute(Define.PRINCIPAL);
+		System.out.println("세션 정보 확인 : " + sessionUser.getId());
+		System.out.println("여기 키워드------------------------" + keyword);
+		Integer friendCount = this.userService.friendCount(sessionUser.getId());
+		UserResponse.SearchFriendResponseDTO searchFriendResponseDto = this.userService.searchFriend(keyword, friendCount);
 		return ResponseEntity.ok().body(ApiUtils.success(searchFriendResponseDto));
 	}
 
+	
 
 }

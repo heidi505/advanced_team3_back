@@ -199,11 +199,19 @@ public class UserService {
         this.userMBRepository.friendDeleteUpdate(id);
     }
 
+//    // 친구 검색
+//    public UserResponse.SearchFriendResponseDTO searchFriend(UserRequest.SearchFriendRequestDTO searchFriendRequestDto, Integer friendCount){
+//        System.out.println("서비스 진입 확인 : "+searchFriendRequestDto.getKeyword());
+//        UserResponse.SearchFriendResponseDTO searchFriendResponseDto = this.userMBRepository.findByFriend(searchFriendRequestDto, friendCount);
+//        System.out.println("서비스 탈출 확인 : "+searchFriendResponseDto.toString());
+//        return searchFriendResponseDto;
+//    }
+
     // 친구 검색
-    public UserResponse.SearchFriendResponseDTO searchFriend(UserRequest.SearchFriendRequestDTO searchFriendRequestDto, Integer friendCount){
-        System.out.println("서비스 진입 확인 : "+searchFriendRequestDto.getKeyword());
-        UserResponse.SearchFriendResponseDTO searchFriendResponseDto = this.userMBRepository.findByFriend(searchFriendRequestDto, friendCount);
-        System.out.println("서비스 탈출 확인 : "+searchFriendResponseDto.toString());
+    public UserResponse.SearchFriendResponseDTO searchFriend(String keyword, Integer friendCount){
+        System.out.println("서비스 진입 확인 : " + keyword);
+        UserResponse.SearchFriendResponseDTO searchFriendResponseDto = this.userMBRepository.findByFriend(keyword, friendCount);
+        System.out.println("서비스 탈출 확인 : " + searchFriendResponseDto.toString());
         return searchFriendResponseDto;
     }
 
