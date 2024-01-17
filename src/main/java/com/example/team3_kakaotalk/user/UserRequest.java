@@ -10,10 +10,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class UserRequest {
     @Data
     @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class JoinDTO {
         @Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
         private String email;
@@ -111,6 +114,13 @@ public class UserRequest {
         String nickname;
     }
 
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetChatUsersDTO{
+        List<Integer> userIdList;
+    }
 
 
 
