@@ -9,12 +9,14 @@ insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `cr
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('home@nate.com','집에가고싶다','1111','01047870123','1986-05-22', now(), 9);
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('red@nate.com','학원가고싶다','1111','01015208950','2024-01-16', now(), 10);
 
+
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','3');
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','2');
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','4');
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','5');
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','9');
 insert into friend_tb(`user_id1`, `user_id2`) values ('1','10');
+
 
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
 values(1, '이미지1', '안녕', '배경이미지1', '1234');

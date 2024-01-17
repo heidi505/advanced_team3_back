@@ -35,7 +35,6 @@ public class UserService {
     @Autowired
     private ProfileJPARepository profileJPARepository;
 
-
     @Autowired
     private HttpSession httpSession;
 
@@ -47,7 +46,7 @@ public class UserService {
             String encodedPassword = passwordEncoder.encode(joinDTO.getPassword());
             //해시화된 비밀번호 설정
             joinDTO.setPassword(encodedPassword);
-            System.out.println("++++++ 해시화된 비번 ++++++ : "+ encodedPassword);
+            System.out.println("++++++ 해시화된 비번 ++++++ : " + encodedPassword);
 
             User user = joinDTO.toEntity();
             userJPARepository.save(user);
@@ -75,14 +74,14 @@ public class UserService {
         }
     }
 
-    public void resetPassword(String email){
+    public void resetPassword(String email) {
         Optional<User> userOptional = userJPARepository.findByEmail(email);
-        User user = userOptional.orElseThrow(()-> new MyBadRequestException("해당 이메일을 찾을 수 없습니다."));
+        User user = userOptional.orElseThrow(() -> new MyBadRequestException("해당 이메일을 찾을 수 없습니다."));
 
     }
 
     // 친구탭 메인 화면
-    public UserResponse.MainResponseDTO friendTepMain(Integer id){
+    public UserResponse.MainResponseDTO friendTepMain(Integer id) {
 
         Profile profile = profileJPARepository.findByUserId(id);
 
@@ -90,22 +89,22 @@ public class UserService {
         mainDTO.setUserId(id);
         mainDTO.setUserProfile(profile);
 
-    	List<UserResponse.FriendTepMainResponseDTO> friendLists = this.userMBRepository.findByFriendTepMain(id);
+        List<UserResponse.FriendTepMainResponseDTO> friendLists = this.userMBRepository.findByFriendTepMain(id);
         mainDTO.setFriendList(friendLists);
 
         List<UserResponse.FriendTepMainResponseDTO> birthdayFriendLists = friendLists.stream()
-                        .filter(e->e.getIsBirthday().equals("오늘 생일 친구"))
-                        .collect(Collectors.toList());
+                .filter(e -> e.getIsBirthday().equals("오늘 생일 친구"))
+                .collect(Collectors.toList());
 
         mainDTO.setBirthdayFriendList(birthdayFriendLists);
         mainDTO.setBirthdayCount(birthdayFriendLists.size());
 
-    	return mainDTO;
+        return mainDTO;
     }
 
     @Transactional
     public UserResponse.UpdateResponseDTO update(UserRequest.UpdateDTO updateDTO, User sessionUser) {
-          userJPARepository.updatePhoneNumById(sessionUser.getEmail(), sessionUser.getPhoneNum());
+        userJPARepository.updatePhoneNumById(sessionUser.getEmail(), sessionUser.getPhoneNum());
 
         User user = userJPARepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new MyBadRequestException("오류 : " + sessionUser.getEmail()));
@@ -113,8 +112,8 @@ public class UserService {
 //        if (!(updateDTO.getEmail().equals(sessionUser.getEmail()))) {
 //            throw new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 : " + updateDTO.getEmail());
 //        }
-        if (updateDTO.getPhoneNum() == null || (updateDTO.getPhoneNum().isEmpty())){
-            throw  new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 ");
+        if (updateDTO.getPhoneNum() == null || (updateDTO.getPhoneNum().isEmpty())) {
+            throw new MyUnAuthorizedException("로그인 유저랑 변경하려는 유저가 다름 ");
         }
 
         // 변경된 내용 업데이트
@@ -125,17 +124,17 @@ public class UserService {
     }
 
     // 나의 프로필 상세보기
-    public UserResponse.MyProfileDetailResponseDTO myProfileDetail(Integer id){
-    	UserResponse.MyProfileDetailResponseDTO myProfileDetailResponseDto = this.userMBRepository.findByMyProfileDetail(id);
-    	return myProfileDetailResponseDto;
+    public UserResponse.MyProfileDetailResponseDTO myProfileDetail(Integer id) {
+        UserResponse.MyProfileDetailResponseDTO myProfileDetailResponseDto = this.userMBRepository.findByMyProfileDetail(id);
+        return myProfileDetailResponseDto;
     }
 
     // 친구 프로필 상세보기
-    public UserResponse.FriendProfileDetailResponseDTO friendProfileDetail(Integer id){
-    	UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userMBRepository.findByFriendProfileDetail(id);
-    	return friendProfileDetailResponseDto;
+    public UserResponse.FriendProfileDetailResponseDTO friendProfileDetail(Integer id) {
+        UserResponse.FriendProfileDetailResponseDTO friendProfileDetailResponseDto = this.userMBRepository.findByFriendProfileDetail(id);
+        return friendProfileDetailResponseDto;
     }
-    
+
     // 나의 프로필 수정
     public UserResponse.MyProfileUpdateResponseDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
         System.out.println("서비스 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
@@ -153,44 +152,44 @@ public class UserService {
     }
 
     // 연락처로 친구 추가
-    public void phoneNumFriendAdd(UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto){
+    public void phoneNumFriendAdd(UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto) {
         String userPhoneNum = this.userMBRepository.findByPhoneNum(phoneNumFriendAddRequestDto.getPhoneNum());
         UserResponse.PhoneNumFriendAddResponseDTO PhoneNumFriendAddResponseDTO = this.userMBRepository.findByPhoneNumFriendAdd(phoneNumFriendAddRequestDto);
-        if(phoneNumFriendAddRequestDto.getPhoneNum() == null || phoneNumFriendAddRequestDto.getPhoneNum().isEmpty()){
+        if (phoneNumFriendAddRequestDto.getPhoneNum() == null || phoneNumFriendAddRequestDto.getPhoneNum().isEmpty()) {
             throw new MyBadRequestException("전화번호를 입력해 주세요.");
         }
-        if(userPhoneNum == null){
+        if (userPhoneNum == null) {
             throw new MyBadRequestException("등록되지 않은 사용자입니다.");
         }
-        if(PhoneNumFriendAddResponseDTO != null){
+        if (PhoneNumFriendAddResponseDTO != null) {
             throw new MyBadRequestException("이미 친구등록된 전화번호입니다.");
         }
         this.userMBRepository.phoneNumFriendAdd(phoneNumFriendAddRequestDto);
     }
 
     // 이메일로 친구 추가
-    public void emailFriendAdd(UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto){
+    public void emailFriendAdd(UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto) {
         String userEmail = this.userMBRepository.findByEmail(emailFriendAddRequestDto.getEmail());
         UserResponse.EmailFriendAddResponseDTO emailFriendAddResponseDto = this.userMBRepository.findByEmailFriendAdd(emailFriendAddRequestDto);
-        if(emailFriendAddRequestDto.getEmail() == null || emailFriendAddRequestDto.getEmail().isEmpty()){
+        if (emailFriendAddRequestDto.getEmail() == null || emailFriendAddRequestDto.getEmail().isEmpty()) {
             throw new MyBadRequestException("이메일을 입력하세요.");
         }
-        if(userEmail == null){
+        if (userEmail == null) {
             throw new MyBadRequestException("등록되지 않은 사용자입니다.");
         }
-        if(emailFriendAddResponseDto != null){
+        if (emailFriendAddResponseDto != null) {
             throw new MyBadRequestException("이미 친구등록된 이메일입니다.");
         }
         this.userMBRepository.emailFriendAdd(emailFriendAddRequestDto);
     }
 
     // 나의 프로필 삭제(프로필 이미지)
-    public void myProfileImageDelete(Integer id){
+    public void myProfileImageDelete(Integer id) {
         this.userMBRepository.myProfileImageDelete(id);
     }
 
     // 나의 프로필 삭제(배경 이미지)
-    public void myProfileBackImageDelete(Integer id){
+    public void myProfileBackImageDelete(Integer id) {
         this.userMBRepository.myProfileBackImageDelete(id);
     }
 
@@ -219,7 +218,7 @@ public class UserService {
 
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {
-        User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(()->new MyBadRequestException("자동 로그인 오류"));
+        User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new MyBadRequestException("자동 로그인 오류"));
 
         String jwt = JwtTokenUtils.create(user);
 
@@ -243,8 +242,9 @@ public class UserService {
     public List<UserResponse.UserTestDTO> ListTest() {
         List<User> user = userJPARepository.findAll();
 
-        List<UserResponse.UserTestDTO> newList = user.stream().map(e->new UserResponse.UserTestDTO(e)).collect(Collectors.toList());
+        List<UserResponse.UserTestDTO> newList = user.stream().map(e -> new UserResponse.UserTestDTO(e)).collect(Collectors.toList());
 
         return newList;
     }
+
 }
