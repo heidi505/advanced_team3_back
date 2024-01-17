@@ -32,6 +32,7 @@ public class Friend {
     private Integer userId2;
     @ColumnDefault("false")
     private Boolean isBlocked;
+    // 즐겨찾기 기능
     @Column(name = "is_favorite")
     @ColumnDefault("false")
     private boolean isFavofite;
