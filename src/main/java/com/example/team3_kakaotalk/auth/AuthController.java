@@ -61,18 +61,19 @@ public class AuthController {
     //업데이트
     @PostMapping("/user/update")
     public ResponseEntity<?> update(@RequestBody @Valid  UserRequest.UpdateDTO requestDTO, Errors errors) {
+        System.out.println("++유저 업뎃 컨트롤러 진입 +++");
         User sessionUser = (User) session.getAttribute("sessionUser");
         //JWT가 session으로 변해서 그걸 꺼낼 수 있다
 
         UserResponse.UpdateResponseDTO responseDTO = userService.update(requestDTO, sessionUser);
 
+        System.out.println("응답 디티오!!!!!"+responseDTO.getNewPhoneNum());
         return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
     }
 
     @PostMapping("/autologin")
     public ResponseEntity<?> autologin () {
             User sessionUser = (User) session.getAttribute(Define.PRINCIPAL);
-
             UserResponse.loginDTO dto = userService.autoLogin(sessionUser);
             return ResponseEntity.ok().header("Authorization", "Bearer " + dto.getJwt()).body(ApiUtils.success(dto));
     }

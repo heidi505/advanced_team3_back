@@ -23,7 +23,7 @@ public class FilterConfig {
         FilterRegistrationBean<JwtAuthorizationFilter> bean =
                 new FilterRegistrationBean<>(new JwtAuthorizationFilter());
 
-//        bean.addUrlPatterns("/user/*");
+        bean.addUrlPatterns("/user/*");
         bean.addUrlPatterns("/chat/*");
         bean.setOrder(0);
 

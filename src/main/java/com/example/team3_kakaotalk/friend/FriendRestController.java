@@ -1,6 +1,9 @@
 package com.example.team3_kakaotalk.friend;
 
 import com.example.team3_kakaotalk._core.utils.ApiUtils;
+import com.example.team3_kakaotalk._core.utils.Define;
+import com.example.team3_kakaotalk.user.User;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,8 @@ public class FriendRestController {
 
     @Autowired
     private FriendService friendService;
+    @Autowired
+    private HttpSession session;
 
     // 친구 즐겨찾기 추가, 해제
     @PutMapping("/favorite/{id}")
