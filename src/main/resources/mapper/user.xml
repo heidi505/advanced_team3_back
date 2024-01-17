@@ -4,7 +4,6 @@
 
 <mapper namespace="com.example.team3_kakaotalk.user.UserMBRepository">
 
-
 	<!-- 친구 탭 메인 화면 -->
 	<select id = "findByFriendTepMain" resultType = "com.example.team3_kakaotalk.user.UserResponse$FriendTepMainResponseDTO">
 		select
@@ -55,7 +54,7 @@
 	<update id="myProfileNicknameUpdate">
 		update user_tb as ut
 		set ut.nickname=#{nickname}
-		where ut.id=#{sessionUserId}
+		where ut.id=#{id}
 	</update>
 
 	<!-- 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지) -->
@@ -64,7 +63,7 @@
 		set pt.status_message=#{statusMessage},
 			pt.profile_image=#{profileImage},
 			pt.back_image=#{backImage}
-		where pt.id=#{sessionUserId}
+		where pt.user_id=#{id}
 	</update>
 
 	<!-- 나의 프로필 수정 단일 조회 -->
@@ -72,7 +71,7 @@
 		select ut.id, ut.nickname, pt.status_message, pt.profile_image, pt.back_image
 		from user_tb as ut
 				 inner join profile_tb as pt on ut.profile_id = pt.id
-		where ut.id=1
+		where ut.id=#{id}
 	</select>
 
 	<!-- 나의 프로필 삭제(프로필 이미지) -->
