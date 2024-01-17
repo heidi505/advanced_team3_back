@@ -93,12 +93,14 @@ public class UserRestController {
         return ResponseEntity.ok().body(ApiUtils.success(null));
     }
 
-	// 친구 차단
-	@GetMapping("/friend-delete/{id}")
-	public ResponseEntity<?> friendDelete(@PathVariable Integer id){
-		this.userService.friendDelete(id);
-		return ResponseEntity.ok().body(ApiUtils.success(null));
-	}
+
+    // 친구 차단
+    @GetMapping("/friend-delete/{id}")
+    public ResponseEntity<?> friendDelete(@PathVariable Integer id) {
+        this.userService.friendDelete(id);
+        return ResponseEntity.ok().body(ApiUtils.success(null));
+    }
+
 
 	// 친구 검색
 	@GetMapping("/search-friend")
