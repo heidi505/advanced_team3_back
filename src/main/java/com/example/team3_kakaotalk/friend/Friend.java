@@ -35,14 +35,14 @@ public class Friend {
     // 즐겨찾기 기능
     @Column(name = "is_favorite")
     @ColumnDefault("false")
-    private boolean isFavofite;
+    private Boolean isFavorite;
 
     @Builder
-    public Friend(Integer id, Integer userId1, Integer userId2, Boolean isBlocked, Boolean isFavofite) {
+    public Friend(Integer id, Integer userId1, Integer userId2, Boolean isBlocked, Boolean isFavorite) {
         this.id = id;
         this.userId1 = userId1;
         this.userId2 = userId2;
         this.isBlocked = isBlocked;
-        this.isFavofite = isFavofite;
+        this.isFavorite = isFavorite;
     }
 }
