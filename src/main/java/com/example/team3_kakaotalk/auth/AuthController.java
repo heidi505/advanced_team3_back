@@ -72,7 +72,6 @@ public class AuthController {
     @PostMapping("/autologin")
     public ResponseEntity<?> autologin () {
             User sessionUser = (User) session.getAttribute(Define.PRINCIPAL);
-
             UserResponse.loginDTO dto = userService.autoLogin(sessionUser);
             return ResponseEntity.ok().header("Authorization", "Bearer " + dto.getJwt()).body(ApiUtils.success(dto));
     }

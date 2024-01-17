@@ -92,6 +92,16 @@ public class UserRequest {
         private String email;
     }
 
+    // 친구 검색
+    @Data
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SearchFriendRequestDTO{
+        private Integer id;
+        private String keyword;
+    }
+
     @Data
     @ToString
     @NoArgsConstructor
@@ -100,6 +110,8 @@ public class UserRequest {
         int userId;
         String nickname;
     }
+
+
 
 
 

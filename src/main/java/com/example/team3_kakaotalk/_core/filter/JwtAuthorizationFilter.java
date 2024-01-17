@@ -55,7 +55,6 @@ public class JwtAuthorizationFilter implements Filter {
             Date birthdate = new java.sql.Date(decodedJWT.getClaim("birthdate").asDate().getTime());
             int profileId = decodedJWT.getClaim("profileId").asInt();
 
-
             User sessionUser = User.builder()
                     .id(userId)
                     .email(email)

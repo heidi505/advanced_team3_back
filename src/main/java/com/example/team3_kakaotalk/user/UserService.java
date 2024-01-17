@@ -35,7 +35,6 @@ public class UserService {
     @Autowired
     private ProfileJPARepository profileJPARepository;
 
-
     @Autowired
     private HttpSession httpSession;
 
@@ -137,9 +136,19 @@ public class UserService {
     }
 
     // 나의 프로필 수정
-    public void myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto) {
+    public UserResponse.MyProfileUpdateResponseDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+        System.out.println("서비스 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
+        // 닉네임
         this.userMBRepository.myProfileNicknameUpdate(myProfileUpdateRequestDto);
+        // 상태 메세제, 프로필 이미지, 배경 이미지
         this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(myProfileUpdateRequestDto);
+
+        // DTO 안 Id 를 기준으로 조인 쿼리로 조회
+        UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userMBRepository.findByMyProfile(myProfileUpdateRequestDto.getId());
+        System.out.println("-------------------------------------------------------");
+        System.out.println("서비스에서 내보내기 : " + myProfileUpdateResponseDto.getNickname());
+        System.out.println("-------------------------------------------------------");
+        return myProfileUpdateResponseDto;
     }
 
     // 연락처로 친구 추가
@@ -188,6 +197,25 @@ public class UserService {
     public void friendDelete(Integer id){
         this.userMBRepository.friendDeleteUpdate(id);
     }
+
+    // 친구 검색
+    public List<UserResponse.SearchFriendResponseDTO> searchFriend(String keyword, Integer sessionUserId){
+        List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userMBRepository.findByFriend(keyword, sessionUserId);
+        if (keyword == null || keyword.isEmpty()){
+            throw new MyBadRequestException("검색어를 입력해주세요.");
+        }
+        if (searchFriendResponseDto.size() == 0){
+            throw new MyBadRequestException("추가된 친구가 없습니다.");
+        }
+        return searchFriendResponseDto;
+    }
+
+    // 친구 목록 조회
+    public Integer friendCount(Integer id){
+        Integer friendCount = this.userMBRepository.findByFriendCount(id);
+        return friendCount;
+    }
+
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new MyBadRequestException("자동 로그인 오류"));

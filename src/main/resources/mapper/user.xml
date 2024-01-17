@@ -54,7 +54,7 @@
 	<update id="myProfileNicknameUpdate">
 		update user_tb as ut
 		set ut.nickname=#{nickname}
-		where ut.id=#{id}
+		where ut.id=1
 	</update>
 
 	<!-- 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지) -->
@@ -63,8 +63,16 @@
 		set pt.status_message=#{statusMessage},
 			pt.profile_image=#{profileImage},
 			pt.back_image=#{backImage}
-		where pt.id=#{id}
+		where pt.id=1
 	</update>
+
+	<!-- 나의 프로필 수정 단일 조회 -->
+	<select id="findByMyProfile" resultType="com.example.team3_kakaotalk.user.UserResponse$MyProfileUpdateResponseDTO">
+		select ut.id, ut.nickname, pt.status_message, pt.profile_image, pt.back_image
+		from user_tb as ut
+				 inner join profile_tb as pt on ut.profile_id = pt.id
+		where ut.id=1
+	</select>
 
 	<!-- 나의 프로필 삭제(프로필 이미지) -->
 	<update id="myProfileImageDelete">
@@ -132,6 +140,26 @@
 	<!-- 차단 친구 찾기 -->
 	<select id="findByIsBlockedFalse">
 		select * from friend_tb where is_blocked = false;
+	</select>
+
+	<!-- 친구 검색 -->
+	<select id="findByFriend" resultType="com.example.team3_kakaotalk.user.UserResponse$SearchFriendResponseDTO">
+		select ut.id, ut.nickname, ut.phone_num, ut.birthdate, pt.status_message, pt.profile_image, pt.back_image
+		from user_tb as ut
+				 inner join friend_tb as ft on (ft.user_id1 = ut.id or ft.user_id2 = ut.id)
+				 inner join profile_tb as pt on ut.profile_id = pt.id
+		where ft.is_blocked not in(true)
+			and ut.nickname like concat('%', #{keyword}, '%') or ut.phone_num like concat('%', #{keyword}, '%')
+			and ft.user_id1=#{sessionUserId} or ft.user_id2=#{sessionUserId}
+		order by ut.nickname asc
+	</select>
+
+	<!-- 친구 목록 조회 -->
+	<select id="findByFriendCount" resultType="Integer">
+		select count(ft.id)
+		from friend_tb as ft
+				 join user_tb as ut on (ft.user_id1 = ut.id or ft.user_id2 = ut.id)
+		where ut.id=#{id}
 	</select>
 
 </mapper>
