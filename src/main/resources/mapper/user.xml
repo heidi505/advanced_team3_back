@@ -12,11 +12,14 @@
 			ut.*,
 			case
 				when day(ut.birthdate) = day(current_date()) then '오늘 생일 친구' else '일반 친구'
-			end as is_birthday
+			end as is_birthday,
+			ft.is_favorite
 		from
 			user_tb ut
 		inner join
 			profile_tb pt on pt.user_id = ut.id
+		inner join
+			friend_tb ft on (ut.id = ft.user_id1 or ut.id = ft.user_id2)
 		where ut.id in (
 			select
 				case

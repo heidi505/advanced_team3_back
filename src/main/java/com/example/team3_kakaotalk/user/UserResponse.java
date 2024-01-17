@@ -73,6 +73,7 @@ public class UserResponse {
         private String statusMessage;
         private String phoneNum;
         private String isBirthday;
+        private boolean isFavorite;
     }
 
     // 나의 프로필 상세보기
