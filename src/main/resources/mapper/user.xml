@@ -139,7 +139,7 @@
 
 	<!-- 차단 친구 찾기 -->
 	<select id="findByIsBlockedFalse">
-		select * from friend_tb where is_blocked = false;
+		select * from friend_tb where is_blocked = false
 	</select>
 
 	<!-- 친구 검색 -->
