@@ -2,6 +2,7 @@ package com.example.team3_kakaotalk.user;
 
 import java.util.List;
 
+import com.example.team3_kakaotalk.friend.Friend;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -101,5 +102,16 @@ public class UserRestController {
 		this.userService.friendDelete(id);
 		return ResponseEntity.ok().body(ApiUtils.success(null));
 	}
+
+	// 친구 검색
+	@PostMapping("/search-friend")
+	public ResponseEntity<?> searchFriend(@RequestBody UserRequest.SearchFriendRequestDTO searchFriendRequestDto){
+		System.out.println("여기 아이디------------------------"+searchFriendRequestDto.getId());
+		System.out.println("여기 키워드------------------------"+searchFriendRequestDto.getKeyword());
+		Integer friendCount = this.userService.friendCount(searchFriendRequestDto.getId());
+		UserResponse.SearchFriendResponseDTO searchFriendResponseDto = this.userService.searchFriend(searchFriendRequestDto, friendCount);
+		return ResponseEntity.ok().body(ApiUtils.success(searchFriendResponseDto));
+	}
+
 
 }

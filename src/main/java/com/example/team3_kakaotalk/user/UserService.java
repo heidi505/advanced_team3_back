@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.example.team3_kakaotalk.friend.Friend;
 import com.example.team3_kakaotalk.profile.Profile;
 import com.example.team3_kakaotalk.profile.ProfileJPARepository;
 import com.sun.tools.javac.Main;
@@ -197,6 +198,21 @@ public class UserService {
     public void friendDelete(Integer id){
         this.userMBRepository.friendDeleteUpdate(id);
     }
+
+    // 친구 검색
+    public UserResponse.SearchFriendResponseDTO searchFriend(UserRequest.SearchFriendRequestDTO searchFriendRequestDto, Integer friendCount){
+        System.out.println("서비스 진입 확인 : "+searchFriendRequestDto.getKeyword());
+        UserResponse.SearchFriendResponseDTO searchFriendResponseDto = this.userMBRepository.findByFriend(searchFriendRequestDto, friendCount);
+        System.out.println("서비스 탈출 확인 : "+searchFriendResponseDto.toString());
+        return searchFriendResponseDto;
+    }
+
+    // 친구 목록 조회
+    public Integer friendCount(Integer id){
+        Integer friendCount = this.userMBRepository.findByFriendCount(id);
+        return friendCount;
+    }
+
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(()->new MyBadRequestException("자동 로그인 오류"));

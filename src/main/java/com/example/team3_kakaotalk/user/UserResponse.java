@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class UserResponse {
     @Data
@@ -154,6 +155,24 @@ public class UserResponse {
         private String statusMessage;
         private String profileImage;
         private String backImage;
+    }
+
+    // 친구 검색
+    @Data
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SearchFriendResponseDTO{
+        private Integer id;
+        private String nickname;
+        private String phoneNum;
+        private String statusMessage;
+        private String profileImage;
+        private String backImage;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private Date birthdate;
     }
 
     @Data
