@@ -78,7 +78,6 @@ public class UserRestController {
         return ResponseEntity.ok().body(ApiUtils.success(null));
     }
 
-
     // 나의 프로필 삭제(프로필 이미지)
     @GetMapping("/my-profileImage-delete/{id}")
     public ResponseEntity<?> myProfileImageDelete(@PathVariable Integer id) {
@@ -92,6 +91,7 @@ public class UserRestController {
         this.userService.myProfileBackImageDelete(id);
         return ResponseEntity.ok().body(ApiUtils.success(null));
     }
+
 
 
 	// 친구 차단
@@ -109,6 +109,15 @@ public class UserRestController {
 		return ResponseEntity.ok().body(ApiUtils.success(searchFriendResponseDto));
 
 	}
+
+    @PostMapping("/get-chat-users")
+    public ResponseEntity<?> getChatUsers(@RequestBody UserRequest.GetChatUsersDTO dto){
+        System.out.println("=======================");
+        System.out.println("컨트롤러 동작중");
+        List<UserResponse.GetChatUsersDTO> respDTO = userService.getChatUsers(dto);
+        return ResponseEntity.ok().body(ApiUtils.success(respDTO));
+
+    }
 
 
 }
