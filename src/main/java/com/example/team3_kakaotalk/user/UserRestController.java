@@ -83,25 +83,25 @@ public class UserRestController {
 
 
 	// 나의 프로필 수정
-	@PostMapping("/my-profile-update")
-	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
-		this.userService.myProfileUpdate(myProfileUpdateRequestDto);
-		return ResponseEntity.ok().body(ApiUtils.success(null));
-	}
+//	@PostMapping("/my-profile-update")
+//	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+//		this.userService.myProfileUpdate(myProfileUpdateRequestDto);
+//		return ResponseEntity.ok().body(ApiUtils.success(null));
+//	}
 
 	// 나의 프로필 삭제(프로필 이미지)
-	@GetMapping("/my-profileImage-delete/{id}")
-	public ResponseEntity<?> myProfileImageDelete(@PathVariable Integer id){
-		this.userService.myProfileImageDelete(id);
-		return ResponseEntity.ok().body(ApiUtils.success(null));
-	}
+//	@GetMapping("/my-profileImage-delete/{id}")
+//	public ResponseEntity<?> myProfileImageDelete(@PathVariable Integer id){
+//		this.userService.myProfileImageDelete(id);
+//		return ResponseEntity.ok().body(ApiUtils.success(null));
+//	}
 
 	// 나의 프로필 삭제(배경 이미지)
-	@GetMapping("/my-profileBackImage-delete/{id}")
-	public ResponseEntity<?> myProfileBackImageDelete(@PathVariable Integer id){
-		this.userService.myProfileBackImageDelete(id);
-		return ResponseEntity.ok().body(ApiUtils.success(null));
-	}
+//	@GetMapping("/my-profileBackImage-delete/{id}")
+//	public ResponseEntity<?> myProfileBackImageDelete(@PathVariable Integer id){
+//		this.userService.myProfileBackImageDelete(id);
+//		return ResponseEntity.ok().body(ApiUtils.success(null));
+//	}
 
 	// 친구 차단
 	@GetMapping("/friend-delete/{id}")
