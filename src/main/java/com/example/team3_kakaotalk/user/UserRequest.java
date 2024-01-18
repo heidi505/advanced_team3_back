@@ -71,8 +71,6 @@ public class UserRequest {
         private Integer id;
         private String nickname;
         private String statusMessage;
-        private String profileImage;
-        private String backImage;
     }
 
     // 연락처로 친구 추가

@@ -36,10 +36,10 @@ public interface UserMBRepository {
 //	public void myProfileNicknameUpdate(
 //			UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto, @Param("userId") Integer userId);
 	// 나의 프로필 수정(이름)
-	public void myProfileNicknameUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
+	public int myProfileNicknameUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
 
 	// 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지)
-	public void myProfileSmessageAndPimageAndBimageUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
+	public int myProfileSmessageAndPimageAndBimageUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto);
 
 	// 나의 프로필 단일 조회
 	public UserResponse.MyProfileUpdateResponseDTO findByMyProfile(Integer id);

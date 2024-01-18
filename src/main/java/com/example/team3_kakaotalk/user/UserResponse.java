@@ -159,6 +159,8 @@ public class UserResponse {
         private String backImage;
     }
 
+
+
     // 친구 검색
     @Data
     @Getter
