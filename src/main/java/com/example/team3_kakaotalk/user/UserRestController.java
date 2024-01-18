@@ -66,36 +66,39 @@ public class UserRestController {
     // 연락처로 친구 추가
     @PostMapping("/phoneNum-friend-add")
     public ResponseEntity<?> phoneNumFriendAdd(@RequestBody UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto) {
+        //User sessionUser = (User) session.getAttribute("sessionUser");
         this.userService.phoneNumFriendAdd(phoneNumFriendAddRequestDto);
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        UserResponse.MainResponseDTO mainResponseDTO = this.userService.friendTepMain(phoneNumFriendAddRequestDto.getId());
+        return ResponseEntity.ok().body(ApiUtils.success(mainResponseDTO));
     }
 
     // 이메일로 친구 추가
     @PostMapping("/email-friend-add")
     public ResponseEntity<?> emailFriendAdd(@RequestBody UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto) {
         this.userService.emailFriendAdd(emailFriendAddRequestDto);
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        UserResponse.MainResponseDTO mainResponseDTO = this.userService.friendTepMain(emailFriendAddRequestDto.getId());
+        return ResponseEntity.ok().body(ApiUtils.success(mainResponseDTO));
     }
 
     // 나의 프로필 삭제(프로필 이미지)
     @GetMapping("/my-profileImage-delete/{id}")
     public ResponseEntity<?> myProfileImageDelete(@PathVariable Integer id) {
         this.userService.myProfileImageDelete(id);
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        return ResponseEntity.ok().body(ApiUtils.success("프로필 이미지 삭제 성공"));
     }
 
     // 나의 프로필 삭제(배경 이미지)
     @GetMapping("/my-profileBackImage-delete/{id}")
     public ResponseEntity<?> myProfileBackImageDelete(@PathVariable Integer id) {
         this.userService.myProfileBackImageDelete(id);
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        return ResponseEntity.ok().body(ApiUtils.success("배경 이미지 삭제 성공"));
     }
 
 	// 친구 차단
 	@GetMapping("/friend-delete/{id}")
 	public ResponseEntity<?> friendDelete(@PathVariable Integer id) {
         this.userService.friendDelete(id);
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        return ResponseEntity.ok().body(ApiUtils.success("친구 차단 성공"));
     }
 
 	// 친구 검색

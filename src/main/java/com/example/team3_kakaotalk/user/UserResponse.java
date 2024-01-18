@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class UserResponse {
@@ -185,8 +186,7 @@ public class UserResponse {
     @AllArgsConstructor
     public static class FriendDeleteResponseDTO{
         private Integer id;
-
-
+        private Boolean isBlocked;
     }
 
     @Data

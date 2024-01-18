@@ -213,12 +213,11 @@ public class UserService {
         return searchFriendResponseDto;
     }
 
-    // 친구 목록 조회
+    // 친구 목록 조회(카운트 하기)
     public Integer friendCount(Integer id){
         Integer friendCount = this.userMBRepository.findByFriendCount(id);
         return friendCount;
     }
-
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new MyBadRequestException("자동 로그인 오류"));

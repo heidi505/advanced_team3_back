@@ -78,14 +78,14 @@
 	<update id="myProfileImageDelete">
 		update profile_tb
 		set profile_image=null
-		where id=#{id}
+		where user_id=#{id}
 	</update>
 
 	<!-- 나의 프로필 삭제(배경 이미지) -->
 	<update id="myProfileBackImageDelete">
 		update profile_tb
 		set back_image=null
-		where id=#{id}
+		where user_id=#{id}
 	</update>
 
 	<!-- 연락처로 친구 추가 -->
@@ -116,7 +116,7 @@
 
 	<!-- 연락처로 친구 추가(이미 친구등록 되었는지 확인) -->
 	<select id="findByPhoneNumFriendAdd" resultType="com.example.team3_kakaotalk.user.UserResponse$PhoneNumFriendAddResponseDTO">
-		select ft.user_id1, ft.user_id2, ut.phoneNum
+		select ft.user_id1, ft.user_id2, ut.phone_num
 		from user_tb as ut
 				 join friend_tb as ft
 					  on ft.user_id2 = ut.id
@@ -134,7 +134,7 @@
 
 	<!-- 친구 차단 -->
 	<update id="friendDeleteUpdate">
-		update friend_tb set is_blocked=true where id=#{id}
+		update friend_tb set is_blocked=true where user_id2=#{id}
 	</update>
 
 	<!-- 차단 친구 찾기 -->
