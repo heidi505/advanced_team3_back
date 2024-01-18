@@ -16,7 +16,7 @@ public class FriendService {
     public String favoriteFriend(Integer id, boolean newStatus) {
         Friend friend = friendJPARepository.findById(id).orElseThrow(() -> new RuntimeException("친구아님!"));
 
-        friend.setFavofite(newStatus);
+        friend.setIsFavorite(newStatus);
         friendJPARepository.save(friend);
 
         if (newStatus) {
