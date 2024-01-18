@@ -42,7 +42,7 @@ public class UserRestController {
 	@PostMapping("/my-profile-update")
 	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
 		User sessionUser = (User) session.getAttribute("sessionUser");
-		System.out.println("컨트롤러 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
+		System.out.println("___________________컨트롤러 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
 		UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userService.myProfileUpdate(myProfileUpdateRequestDto);
 		System.out.println("프론트로 보내기 : " + myProfileUpdateRequestDto.getNickname());
 		return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdateResponseDto));
@@ -66,7 +66,6 @@ public class UserRestController {
     // 연락처로 친구 추가
     @PostMapping("/phoneNum-friend-add")
     public ResponseEntity<?> phoneNumFriendAdd(@RequestBody UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto) {
-        //User sessionUser = (User) session.getAttribute("sessionUser");
         this.userService.phoneNumFriendAdd(phoneNumFriendAddRequestDto);
         UserResponse.MainResponseDTO mainResponseDTO = this.userService.friendTepMain(phoneNumFriendAddRequestDto.getId());
         return ResponseEntity.ok().body(ApiUtils.success(mainResponseDTO));
@@ -107,7 +106,6 @@ public class UserRestController {
 		User sessionUser = (User) session.getAttribute("sessionUser");
 		List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userService.searchFriend(keyword, sessionUser.getId());
 		return ResponseEntity.ok().body(ApiUtils.success(searchFriendResponseDto));
-
 	}
 
     @PostMapping("/get-chat-users")
@@ -118,6 +116,5 @@ public class UserRestController {
         return ResponseEntity.ok().body(ApiUtils.success(respDTO));
 
     }
-
 
 }
