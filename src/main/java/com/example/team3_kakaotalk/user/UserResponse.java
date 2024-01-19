@@ -102,6 +102,7 @@ public class UserResponse {
         private String profileImage;
         private String backImage;
         private String statusMessage;
+        private boolean isSuccess;
 
         public FriendProfileDetailResponseDTO(User user, Profile profile) {
             this.id = user.getId();
@@ -109,6 +110,7 @@ public class UserResponse {
             this.profileImage = profile.getProfileImage();
             this.backImage = profile.getBackImage();
             this.statusMessage = profile.getStatusMessage();
+            this.isSuccess = false;
         }
     }
 
