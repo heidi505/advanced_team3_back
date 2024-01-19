@@ -25,6 +25,7 @@ public class FilterConfig {
 
         bean.addUrlPatterns("/user/*");
         bean.addUrlPatterns("/chat/*");
+        bean.addUrlPatterns("/friends/*");
         bean.setOrder(0);
 
         return bean;

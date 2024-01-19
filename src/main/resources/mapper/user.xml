@@ -4,7 +4,6 @@
 
 <mapper namespace="com.example.team3_kakaotalk.user.UserMBRepository">
 
-
 	<!-- 친구 탭 메인 화면 -->
 	<select id = "findByFriendTepMain" resultType = "com.example.team3_kakaotalk.user.UserResponse$FriendTepMainResponseDTO">
 		select
@@ -24,11 +23,11 @@
 		where ut.id in (
 			select
 				case
-					when user_id1 = 1 then user_id2 else user_id1
+					when user_id1 = #{id} then user_id2 else user_id1
 				end as 친구
 			from
 				friend_tb
-			where (user_id1 = 1 or user_id2 = 1))
+			where (user_id1 = #{id} or user_id2 = #{id}))
          group by ut.id
          having max(ft.is_blocked) = false
 	</select>
@@ -55,16 +54,14 @@
 	<update id="myProfileNicknameUpdate">
 		update user_tb as ut
 		set ut.nickname=#{nickname}
-		where ut.id=1
+		where ut.id=#{id}
 	</update>
 
 	<!-- 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지) -->
 	<update id="myProfileSmessageAndPimageAndBimageUpdate">
 		update profile_tb as pt
-		set pt.status_message=#{statusMessage},
-			pt.profile_image=#{profileImage},
-			pt.back_image=#{backImage}
-		where pt.id=1
+		set pt.status_message=#{statusMessage}
+		where pt.user_id=#{id}
 	</update>
 
 	<!-- 나의 프로필 수정 단일 조회 -->
@@ -72,21 +69,21 @@
 		select ut.id, ut.nickname, pt.status_message, pt.profile_image, pt.back_image
 		from user_tb as ut
 				 inner join profile_tb as pt on ut.profile_id = pt.id
-		where ut.id=1
+		where ut.id=#{id}
 	</select>
 
 	<!-- 나의 프로필 삭제(프로필 이미지) -->
 	<update id="myProfileImageDelete">
 		update profile_tb
 		set profile_image=null
-		where id=#{id}
+		where user_id=#{id}
 	</update>
 
 	<!-- 나의 프로필 삭제(배경 이미지) -->
 	<update id="myProfileBackImageDelete">
 		update profile_tb
 		set back_image=null
-		where id=#{id}
+		where user_id=#{id}
 	</update>
 
 	<!-- 연락처로 친구 추가 -->
@@ -117,7 +114,7 @@
 
 	<!-- 연락처로 친구 추가(이미 친구등록 되었는지 확인) -->
 	<select id="findByPhoneNumFriendAdd" resultType="com.example.team3_kakaotalk.user.UserResponse$PhoneNumFriendAddResponseDTO">
-		select ft.user_id1, ft.user_id2, ut.phoneNum
+		select ft.user_id1, ft.user_id2, ut.phone_num
 		from user_tb as ut
 				 join friend_tb as ft
 					  on ft.user_id2 = ut.id
@@ -135,12 +132,12 @@
 
 	<!-- 친구 차단 -->
 	<update id="friendDeleteUpdate">
-		update friend_tb set is_blocked=true where id=#{id}
+		update friend_tb set is_blocked=true where user_id2=#{id}
 	</update>
 
 	<!-- 차단 친구 찾기 -->
 	<select id="findByIsBlockedFalse">
-		select * from friend_tb where is_blocked = false;
+		select * from friend_tb where is_blocked = false
 	</select>
 
 	<!-- 친구 검색 -->

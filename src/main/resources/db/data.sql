@@ -1,25 +1,22 @@
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('ssar@nate.com','최죠','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01011112222','1986-05-22', now(), 1);
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('cos@nate.com','그노','1111','01022223333','2024-01-17', now(), 2);
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('love@nate.com','채비니','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01050186937','2024-01-17', now(), 3);
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('heidi@nate.com','기마얀','1111','01044541176','1986-01-11', now(), 4);
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('smk@nate.com','민경','1111','01063947520','1986-01-11', now(), 5);
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('pnk@nate.com','남뀨','1111','01065423114','1986-05-22', now(), 6);
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('lej@nate.com','은지','1111','01065413987','1986-05-22', now(), 7);
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('pumpkin@nate.com','나무네','1111','01090153141','1986-05-22', now(), 8);
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('home@nate.com','집에가고싶다','1111','01047870123','1986-05-22', now(), 9);
-insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('red@nate.com','학원가고싶다','1111','01015208950','2024-01-16', now(), 10);
 
-
-
-
-insert into friend_tb(`user_id1`, `user_id2`) values ('1','9');
-insert into friend_tb(`user_id1`, `user_id2`) values ('1','10');
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('cos@nate.com','그노','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01022223333','2024-01-16', now(), 2);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('love@nate.com','채비니','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01050186937','2024-01-16', now(), 3);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('heidi@nate.com','기마얀','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01044541176','1986-01-11', now(), 4);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('smk@nate.com','민경','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01063947520','1986-01-11', now(), 5);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('pnk@nate.com','남뀨','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01065423114','1986-05-22', now(), 6);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('lej@nate.com','은지','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01065413987','1986-05-22', now(), 7);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('pumpkin@nate.com','나무네','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01090153141','1986-05-22', now(), 8);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('home@nate.com','집에가고싶다','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01047870123','1986-05-22', now(), 9);
+insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('red@nate.com','학원가고싶다','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01015208950','2024-01-16', now(), 10);
 
 
 insert into friend_tb(`user_id1`, `user_id2`,`is_favorite`) values ('1','3',true);
 insert into friend_tb(`user_id1`, `user_id2`,`is_favorite`) values ('1','2',true);
 insert into friend_tb(`user_id1`, `user_id2`,`is_favorite`) values ('1','4',false);
 insert into friend_tb(`user_id1`, `user_id2`,`is_favorite`) values ('1','5',false);
+insert into friend_tb(`user_id1`, `user_id2`,`is_favorite`) values ('1','9',false);
+insert into friend_tb(`user_id1`, `user_id2`,`is_favorite`) values ('1','10',false);
 
 
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
