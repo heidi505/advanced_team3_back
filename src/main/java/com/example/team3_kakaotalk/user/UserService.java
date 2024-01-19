@@ -272,8 +272,13 @@ public class UserService {
 
     public UserResponse.FriendProfileDetailResponseDTO searchUserByCondition(String condition) {
         List<User> user = new ArrayList<>();
+
         if(condition.contains("@")){
              Optional<User> opUser = userJPARepository.findByEmail(condition);
+             if(opUser.isEmpty()){
+                 throw new MyNotFoundException("해당하는 유저가 없습니다");
+             }
+             user.add(opUser.get());
         }else{
             user = userJPARepository.findByPhoneNum(condition);
         }
@@ -286,7 +291,6 @@ public class UserService {
 
         UserResponse.FriendProfileDetailResponseDTO dto = new UserResponse.FriendProfileDetailResponseDTO(user.get(0), profile);
 
-        System.out.println("=========================");
         System.out.println(dto);
         return dto;
     }
