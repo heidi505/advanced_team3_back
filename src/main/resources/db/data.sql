@@ -1,4 +1,5 @@
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('ssar@nate.com','최죠','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01011112222','1986-05-22', now(), 1);
+
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('cos@nate.com','그노','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01022223333','2024-01-16', now(), 2);
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('love@nate.com','채비니','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01050186937','2024-01-16', now(), 3);
 insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `created_at`, `profile_id`)values('heidi@nate.com','기마얀','$2a$12$gVcNmoob10Ru9ZGiskuhS.pfL4lcLwoEXLT7SMsylgDyt.JI3XomK','01044541176','1986-01-11', now(), 4);
@@ -12,10 +13,9 @@ insert into user_tb(`email`,`nickname`,`password`, `phone_num`, `birthdate`, `cr
 
 
 
-insert into friend_tb(`user_id1`, `user_id2`) values ('1','9');
-insert into friend_tb(`user_id1`, `user_id2`) values ('1','10');
 
-
+-- insert into friend_tb(`user_id1`, `user_id2`) values ('1','9');
+-- insert into friend_tb(`user_id1`, `user_id2`) values ('1','10');
 insert into friend_tb(`user_id1`, `user_id2`,`is_favorite`) values ('1','3',true);
 insert into friend_tb(`user_id1`, `user_id2`,`is_favorite`) values ('1','2',true);
 insert into friend_tb(`user_id1`, `user_id2`,`is_favorite`) values ('1','4',false);

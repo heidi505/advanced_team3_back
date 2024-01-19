@@ -24,11 +24,11 @@
 		where ut.id in (
 			select
 				case
-					when user_id1 = 1 then user_id2 else user_id1
+					when user_id1 = #{id} then user_id2 else user_id1
 				end as 친구
 			from
 				friend_tb
-			where (user_id1 = 1 or user_id2 = 1))
+			where (user_id1 = #{id} or user_id2 = #{id}))
          group by ut.id
          having max(ft.is_blocked) = false
 	</select>
