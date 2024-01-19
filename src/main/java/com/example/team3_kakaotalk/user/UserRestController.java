@@ -41,9 +41,6 @@ public class UserRestController {
 	// 나의 프로필 수정
 	@PostMapping("/my-profile-update")
 	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
-		// User sessionUser = (User) session.getAttribute("sessionUser");
-		//System.out.println("세션 유저 정보 확인 : " + sessionUser.toString());
-		System.out.println("컨트롤러 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
 		UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userService.myProfileUpdate(myProfileUpdateRequestDto);
 		System.out.println("프론트로 보내기 전 : " + myProfileUpdateRequestDto.getNickname());
 		return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdateResponseDto));
