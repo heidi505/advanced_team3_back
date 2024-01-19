@@ -41,11 +41,13 @@ public class UserRestController {
 	// 나의 프로필 수정
 	@PostMapping("/my-profile-update")
 	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
-		// User sessionUser = (User) session.getAttribute("sessionUser");
-		//System.out.println("세션 유저 정보 확인 : " + sessionUser.toString());
-		System.out.println("컨트롤러 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
-		UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userService.myProfileUpdate(myProfileUpdateRequestDto);
-		System.out.println("프론트로 보내기 전 : " + myProfileUpdateRequestDto.getNickname());
+		User sessionUser = (User) session.getAttribute("sessionUser");
+        System.out.println("---------유저 정보 확인--------- : " + sessionUser);
+		System.out.println("___________________컨트롤러 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
+
+		UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userService.myProfileUpdate(myProfileUpdateRequestDto, sessionUser.getId());
+
+		System.out.println("프론트로 보내기 : " + myProfileUpdateRequestDto.getNickname());
 		return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdateResponseDto));
 	}
 
@@ -68,37 +70,37 @@ public class UserRestController {
     @PostMapping("/phoneNum-friend-add")
     public ResponseEntity<?> phoneNumFriendAdd(@RequestBody UserRequest.PhoneNumFriendAddRequestDTO phoneNumFriendAddRequestDto) {
         this.userService.phoneNumFriendAdd(phoneNumFriendAddRequestDto);
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        UserResponse.MainResponseDTO mainResponseDTO = this.userService.friendTepMain(phoneNumFriendAddRequestDto.getId());
+        return ResponseEntity.ok().body(ApiUtils.success(mainResponseDTO));
     }
 
     // 이메일로 친구 추가
     @PostMapping("/email-friend-add")
     public ResponseEntity<?> emailFriendAdd(@RequestBody UserRequest.EmailFriendAddRequestDTO emailFriendAddRequestDto) {
         this.userService.emailFriendAdd(emailFriendAddRequestDto);
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        UserResponse.MainResponseDTO mainResponseDTO = this.userService.friendTepMain(emailFriendAddRequestDto.getId());
+        return ResponseEntity.ok().body(ApiUtils.success(mainResponseDTO));
     }
 
     // 나의 프로필 삭제(프로필 이미지)
     @GetMapping("/my-profileImage-delete/{id}")
     public ResponseEntity<?> myProfileImageDelete(@PathVariable Integer id) {
         this.userService.myProfileImageDelete(id);
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        return ResponseEntity.ok().body(ApiUtils.success("프로필 이미지 삭제 성공"));
     }
 
     // 나의 프로필 삭제(배경 이미지)
     @GetMapping("/my-profileBackImage-delete/{id}")
     public ResponseEntity<?> myProfileBackImageDelete(@PathVariable Integer id) {
         this.userService.myProfileBackImageDelete(id);
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        return ResponseEntity.ok().body(ApiUtils.success("배경 이미지 삭제 성공"));
     }
-
-
 
 	// 친구 차단
 	@GetMapping("/friend-delete/{id}")
 	public ResponseEntity<?> friendDelete(@PathVariable Integer id) {
         this.userService.friendDelete(id);
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        return ResponseEntity.ok().body(ApiUtils.success("친구 차단 성공"));
     }
 
 	// 친구 검색
@@ -107,7 +109,6 @@ public class UserRestController {
 		User sessionUser = (User) session.getAttribute("sessionUser");
 		List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userService.searchFriend(keyword, sessionUser.getId());
 		return ResponseEntity.ok().body(ApiUtils.success(searchFriendResponseDto));
-
 	}
 
     @PostMapping("/get-chat-users")
@@ -116,8 +117,6 @@ public class UserRestController {
         System.out.println("컨트롤러 동작중");
         List<UserResponse.GetChatUsersDTO> respDTO = userService.getChatUsers(dto);
         return ResponseEntity.ok().body(ApiUtils.success(respDTO));
-
     }
-
 
 }

@@ -62,6 +62,8 @@ public class UserRequest {
 
     // 나의 프로필 수정
     @Data
+    @Getter
+    @Setter
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
@@ -69,8 +71,6 @@ public class UserRequest {
         private Integer id;
         private String nickname;
         private String statusMessage;
-        private String profileImage;
-        private String backImage;
     }
 
     // 연락처로 친구 추가

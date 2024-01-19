@@ -137,15 +137,27 @@ public class UserService {
     }
 
     // 나의 프로필 수정
-    public UserResponse.MyProfileUpdateResponseDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+    public UserResponse.MyProfileUpdateResponseDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto, Integer sessionId){
+        //System.out.println("서비스 진입 확인 : " + sessionUserId);
         System.out.println("서비스 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
+
+        UserResponse.MyProfileUpdateResponseDTO responseDTO =  new UserResponse.MyProfileUpdateResponseDTO();
+        myProfileUpdateRequestDto.setId(sessionId);
+
+        System.out.println("리퀘스트 값 바뀜? " + myProfileUpdateRequestDto.getId());
+
         // 닉네임
         this.userMBRepository.myProfileNicknameUpdate(myProfileUpdateRequestDto);
+        System.out.println("1번이 문제다");
         // 상태 메세제, 프로필 이미지, 배경 이미지
         this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(myProfileUpdateRequestDto);
+        System.out.println("2번이 문제다");
+
+         userJPARepository.findById(myProfileUpdateRequestDto.getId());
 
         // DTO 안 Id 를 기준으로 조인 쿼리로 조회
-        UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userMBRepository.findByMyProfile(myProfileUpdateRequestDto.getId());
+       UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userMBRepository.findByMyProfile(myProfileUpdateRequestDto.getId());
+        System.out.println("3번이 문제다");
         System.out.println("-------------------------------------------------------");
         System.out.println("서비스에서 내보내기 : " + myProfileUpdateResponseDto.getNickname());
         System.out.println("-------------------------------------------------------");
@@ -211,12 +223,11 @@ public class UserService {
         return searchFriendResponseDto;
     }
 
-    // 친구 목록 조회
+    // 친구 목록 조회(카운트 하기)
     public Integer friendCount(Integer id){
         Integer friendCount = this.userMBRepository.findByFriendCount(id);
         return friendCount;
     }
-
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new MyBadRequestException("자동 로그인 오류"));
@@ -255,7 +266,6 @@ public class UserService {
 
 
         return respDTO;
-
 
     }
 }

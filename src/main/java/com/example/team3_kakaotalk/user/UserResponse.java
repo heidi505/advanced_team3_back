@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class UserResponse {
@@ -158,6 +159,8 @@ public class UserResponse {
         private String backImage;
     }
 
+
+
     // 친구 검색
     @Data
     @Getter
@@ -174,6 +177,18 @@ public class UserResponse {
         private String backImage;
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private Date birthdate;
+    }
+
+    // 친구 차단
+    @Data
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FriendDeleteResponseDTO{
+        private Integer id;
+        private Boolean isBlocked;
     }
 
     @Data
