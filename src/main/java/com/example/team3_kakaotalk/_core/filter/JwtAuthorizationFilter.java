@@ -68,7 +68,6 @@ public class JwtAuthorizationFilter implements Filter {
             session.setAttribute("sessionUser", sessionUser);
             System.out.println("세션유저입니당");
             System.out.println(sessionUser.getId());
-
             System.out.println("세션유저입니당");
             chain.doFilter(request, response);
         }catch (SignatureVerificationException | JWTDecodeException e1){
