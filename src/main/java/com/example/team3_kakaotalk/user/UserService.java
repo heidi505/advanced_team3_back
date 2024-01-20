@@ -275,21 +275,25 @@ public class UserService {
 
         if(condition.contains("@")){
              Optional<User> opUser = userJPARepository.findByEmail(condition);
-             if(opUser.isEmpty()){
-                 throw new MyNotFoundException("해당하는 유저가 없습니다");
-             }
-             user.add(opUser.get());
         }else{
             user = userJPARepository.findByPhoneNum(condition);
         }
 
         if(user.isEmpty()){
-            throw new MyNotFoundException("해당하는 유저가 없습니다");
+            UserResponse.FriendProfileDetailResponseDTO dto = new UserResponse.FriendProfileDetailResponseDTO();
+            dto.setId(0);
+            dto.setNickname("");
+            dto.setBackImage("");
+            dto.setProfileImage("");
+            dto.setStatusMessage("");
+            dto.setSuccess(false);
+            return dto;
         }
 
         Profile profile = profileJPARepository.findByUserId(user.get(0).getId());
 
         UserResponse.FriendProfileDetailResponseDTO dto = new UserResponse.FriendProfileDetailResponseDTO(user.get(0), profile);
+        dto.setSuccess(true);
 
         System.out.println(dto);
         return dto;

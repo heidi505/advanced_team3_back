@@ -110,7 +110,7 @@ public class UserResponse {
             this.profileImage = profile.getProfileImage();
             this.backImage = profile.getBackImage();
             this.statusMessage = profile.getStatusMessage();
-            this.isSuccess = false;
+            this.isSuccess = true;
         }
     }
 
