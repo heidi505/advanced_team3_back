@@ -32,17 +32,12 @@ public class Friend {
     private Integer userId2;
     @ColumnDefault("false")
     private Boolean isBlocked;
-    // 즐겨찾기 기능
-    @Column(name = "is_favorite")
-    @ColumnDefault("false")
-    private Boolean isFavorite;
 
     @Builder
-    public Friend(Integer id, Integer userId1, Integer userId2, Boolean isBlocked, Boolean isFavorite) {
+    public Friend(Integer id, Integer userId1, Integer userId2, Boolean isBlocked) {
         this.id = id;
         this.userId1 = userId1;
         this.userId2 = userId2;
         this.isBlocked = isBlocked;
-        this.isFavorite = isFavorite;
     }
 }

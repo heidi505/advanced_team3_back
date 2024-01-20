@@ -17,10 +17,10 @@ public interface FriendJPARepository extends JpaRepository<Friend, Integer> {
     //    @Query("select ft from Friend ft where ft.userId1=:userId1 and ft.userId2=:userId2")
 //    @Query("update Friend ft set ft.isFavorite = :newStatus where ft.userId1 = :userId1 and ft.userId2 = :userId2")
 //    int updateByUserId(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2, @Param("newStatus") boolean newStatus);
-    @Transactional
-    @Modifying
-    @Query("update Friend f SET f.isFavorite = :newStatus WHERE f.userId1 = :userId1 AND f.userId2 = :userId2")
-    int updateByUserId(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2, @Param("newStatus") boolean newStatus);
+//    @Transactional
+//    @Modifying
+//    @Query("update Friend f SET f.isFavorite = :newStatus WHERE f.userId1 = :userId1 AND f.userId2 = :userId2")
+//    int updateByUserId(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2, @Param("newStatus") boolean newStatus);
 }
 //update friend_tb ft set ft.is_favorite = true where ft.user_id1 = 1 and ft.user_id2 = 5
 //int updateByUserId(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2, @Param("newStatus") boolean newStatus);
