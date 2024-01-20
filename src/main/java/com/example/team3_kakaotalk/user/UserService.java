@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.example.team3_kakaotalk._core.handler.exception.MyNotFoundException;
 import com.example.team3_kakaotalk.friend.Friend;
 import com.example.team3_kakaotalk.profile.Profile;
 import com.example.team3_kakaotalk.profile.ProfileJPARepository;
@@ -274,5 +275,34 @@ public class UserService {
 
         return respDTO;
 
+    }
+
+    public UserResponse.FriendProfileDetailResponseDTO searchUserByCondition(String condition) {
+        List<User> user = new ArrayList<>();
+
+        if(condition.contains("@")){
+             Optional<User> opUser = userJPARepository.findByEmail(condition);
+        }else{
+            user = userJPARepository.findByPhoneNum(condition);
+        }
+
+        if(user.isEmpty()){
+            UserResponse.FriendProfileDetailResponseDTO dto = new UserResponse.FriendProfileDetailResponseDTO();
+            dto.setId(0);
+            dto.setNickname("");
+            dto.setBackImage("");
+            dto.setProfileImage("");
+            dto.setStatusMessage("");
+            dto.setSuccess(false);
+            return dto;
+        }
+
+        Profile profile = profileJPARepository.findByUserId(user.get(0).getId());
+
+        UserResponse.FriendProfileDetailResponseDTO dto = new UserResponse.FriendProfileDetailResponseDTO(user.get(0), profile);
+        dto.setSuccess(true);
+
+        System.out.println(dto);
+        return dto;
     }
 }

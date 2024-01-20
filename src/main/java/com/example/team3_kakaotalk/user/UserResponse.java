@@ -102,6 +102,16 @@ public class UserResponse {
         private String profileImage;
         private String backImage;
         private String statusMessage;
+        private boolean isSuccess;
+
+        public FriendProfileDetailResponseDTO(User user, Profile profile) {
+            this.id = user.getId();
+            this.nickname = user.getNickname();
+            this.profileImage = profile.getProfileImage();
+            this.backImage = profile.getBackImage();
+            this.statusMessage = profile.getStatusMessage();
+            this.isSuccess = true;
+        }
     }
 
     // 나의 프로필 삭제(프로필 이미지)
