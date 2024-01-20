@@ -51,6 +51,7 @@ public class UserService {
             System.out.println("++++++ 해시화된 비번 ++++++ : " + encodedPassword);
 
             User user = joinDTO.toEntity();
+            System.out.println("회원가입 오지?");
             userJPARepository.save(user);
         } catch (Exception e) {
             throw new MyServerErrorException("서버 에러");
@@ -59,16 +60,21 @@ public class UserService {
 
 
     public UserResponse.loginDTO login(UserRequest.LoginDTO loginDTO) {
+        System.out.println("로그인 서비스 진입");
         //이메일, 비번으로 조회
         Optional<User> userOptional = userJPARepository.findByEmail(loginDTO.getEmail());
         User user = userOptional.get();
+        System.out.println("로그인 이메일 조회 : " + user.getNickname());
 
         // 사용자 정보가 존재하고, 입력된 비밀번호와 저장된 해시된 비밀번호가 일치하는지 확인
         if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             // 비밀번호가 일치하면 JWT 생성 및 응답 DTO 생성
             String jwt = JwtTokenUtils.create(user);
+
+
             UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);
             responseDTO.setJwt(jwt);
+            System.out.println("나가기 전 " + responseDTO.getNickname());
             return responseDTO;
         } else {
             // 사용자 정보가 없거나 비밀번호가 일치하지 않으면 예외 발생
@@ -228,6 +234,7 @@ public class UserService {
         if (searchFriendResponseDto.size() == 0){
             throw new MyBadRequestException("추가된 친구가 없습니다.");
         }
+
         return searchFriendResponseDto;
     }
 
