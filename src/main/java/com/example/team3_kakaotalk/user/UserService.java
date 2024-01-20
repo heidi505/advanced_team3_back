@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.example.team3_kakaotalk._core.utils.PhotoToStringUtil;
 import com.example.team3_kakaotalk.friend.Friend;
 import com.example.team3_kakaotalk.profile.Profile;
 import com.example.team3_kakaotalk.profile.ProfileJPARepository;
@@ -141,7 +142,14 @@ public class UserService {
         //System.out.println("서비스 진입 확인 : " + sessionUserId);
         System.out.println("서비스 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
 
+        String decodeImage = PhotoToStringUtil.picToString(myProfileUpdateRequestDto.getProfileImage(), myProfileUpdateRequestDto.getNickname());
+        myProfileUpdateRequestDto.setProfileImage(decodeImage);
+
+        System.out.println("이미지 dto에 잘 담김? " + myProfileUpdateRequestDto.getProfileImage());
+
         UserResponse.MyProfileUpdateResponseDTO responseDTO =  new UserResponse.MyProfileUpdateResponseDTO();
+        responseDTO.setProfileImage("images/"+ decodeImage);
+
         myProfileUpdateRequestDto.setId(sessionId);
 
         System.out.println("리퀘스트 값 바뀜? " + myProfileUpdateRequestDto.getId());
@@ -153,7 +161,7 @@ public class UserService {
         this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(myProfileUpdateRequestDto);
         System.out.println("2번이 문제다");
 
-         userJPARepository.findById(myProfileUpdateRequestDto.getId());
+//         userJPARepository.findById(myProfileUpdateRequestDto.getId());
 
         // DTO 안 Id 를 기준으로 조인 쿼리로 조회
        UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userMBRepository.findByMyProfile(myProfileUpdateRequestDto.getId());

@@ -57,12 +57,15 @@
 		where ut.id=#{id}
 	</update>
 
+	<!-- TODO 은지누나 : 백이미지 추가하기 -->
 	<!-- 나의 프로필 수정(상태 메세지, 프로필 이미지, 배경 이미지) -->
 	<update id="myProfileSmessageAndPimageAndBimageUpdate">
 		update profile_tb as pt
-		set pt.status_message=#{statusMessage}
+		set pt.status_message=#{statusMessage},
+		pt.profile_image=#{profileImage}
 		where pt.user_id=#{id}
 	</update>
+
 
 	<!-- 나의 프로필 수정 단일 조회 -->
 	<select id="findByMyProfile" resultType="com.example.team3_kakaotalk.user.UserResponse$MyProfileUpdateResponseDTO">
