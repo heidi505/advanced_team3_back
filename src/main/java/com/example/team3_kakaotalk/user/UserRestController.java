@@ -106,8 +106,10 @@ public class UserRestController {
 	// 친구 검색
 	@GetMapping("/search-friend")
 	public ResponseEntity<?> searchFriend(@RequestParam String keyword){
+        System.out.println("검색 컨트롤러 진입 " + keyword);
 		User sessionUser = (User) session.getAttribute("sessionUser");
 		List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userService.searchFriend(keyword, sessionUser.getId());
+        System.out.println("나 이제 나간다.");
 		return ResponseEntity.ok().body(ApiUtils.success(searchFriendResponseDto));
 	}
 
