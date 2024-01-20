@@ -55,6 +55,7 @@ public class UserService {
             int profileId = userJPARepository.save(user).getId();
 
             Profile profile = Profile.builder().userId(profileId).id(profileId).profileImage("이미지"+profileId).backImage(null).statusMessage(null).build();
+            profileJPARepository.save(profile);
         } catch (Exception e) {
             throw new MyServerErrorException("서버 에러");
         }

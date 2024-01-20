@@ -26,7 +26,6 @@ insert into friend_tb(`user_id1`, `user_id2`) values ('3','7');
 insert into friend_tb(`user_id1`, `user_id2`) values ('3','6');
 insert into friend_tb(`user_id1`, `user_id2`) values ('3','9');
 insert into friend_tb(`user_id1`, `user_id2`) values ('3','10');
-insert into friend_tb(`user_id1`, `user_id2`) values ('3','10');
 insert into friend_tb(`user_id1`, `user_id2`) values ('4','9');
 insert into friend_tb(`user_id1`, `user_id2`) values ('4','7');
 insert into friend_tb(`user_id1`, `user_id2`) values ('4','8');
