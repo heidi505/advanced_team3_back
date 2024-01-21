@@ -71,9 +71,10 @@ public class UserService {
             // 비밀번호가 일치하면 JWT 생성 및 응답 DTO 생성
             String jwt = JwtTokenUtils.create(user);
 
-
+            Profile profile = profileJPARepository.findByUserId(user.getId());
             UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);
             responseDTO.setJwt(jwt);
+            responseDTO.setStatusMessage(profile.getStatusMessage());
             System.out.println("나가기 전 " + responseDTO.getNickname());
             return responseDTO;
         } else {
