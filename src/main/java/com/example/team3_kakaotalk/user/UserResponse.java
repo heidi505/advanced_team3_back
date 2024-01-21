@@ -26,6 +26,7 @@ public class UserResponse {
         private String phoneNum;
         private String email;
         private String jwt;
+        private String statusMessage;
 
         public loginDTO(User user) {
             this.id = user.getId();
