@@ -153,14 +153,16 @@ public class UserService {
         //System.out.println("서비스 진입 확인 : " + sessionUserId);
         System.out.println("서비스 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
 
-        String decodeImage = PhotoToStringUtil.picToString(myProfileUpdateRequestDto.getProfileImage(), myProfileUpdateRequestDto.getNickname());
-        myProfileUpdateRequestDto.setProfileImage(decodeImage);
+        String profileDecodeImage = PhotoToStringUtil.picToString(myProfileUpdateRequestDto.getProfileImage(), myProfileUpdateRequestDto.getNickname());
+        String backDecodeImage = PhotoToStringUtil.picToString(myProfileUpdateRequestDto.getBackImage(), myProfileUpdateRequestDto.getNickname());
+        myProfileUpdateRequestDto.setProfileImage(profileDecodeImage);
+        myProfileUpdateRequestDto.setBackImage(backDecodeImage);
 
         System.out.println("이미지 dto에 잘 담김? " + myProfileUpdateRequestDto.getProfileImage());
 
         UserResponse.MyProfileUpdateResponseDTO responseDTO =  new UserResponse.MyProfileUpdateResponseDTO();
-        responseDTO.setProfileImage("images/"+ decodeImage);
-        responseDTO.setBackImage("images/"+ decodeImage);
+        responseDTO.setProfileImage("images/"+ profileDecodeImage);
+        responseDTO.setBackImage("images/"+ backDecodeImage);
 
         myProfileUpdateRequestDto.setId(sessionId);
 

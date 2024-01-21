@@ -50,6 +50,7 @@ public class UserRestController {
 
         System.out.println("프론트로 보내기 : " + myProfileUpdateRequestDto.getNickname());
         System.out.println("프로필 이미지 보내기 : " + myProfileUpdateRequestDto.getProfileImage());
+        System.out.println("프로필 이미지 보내기 : " + myProfileUpdateRequestDto.getBackImage());
 
         return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdateResponseDto));
     }
