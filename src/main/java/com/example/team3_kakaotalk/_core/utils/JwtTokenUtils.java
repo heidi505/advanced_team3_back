@@ -18,7 +18,7 @@ public class JwtTokenUtils {
                 .withClaim("phoneNum", user.getPhoneNum())
                 .withClaim("birthdate", user.getBirthdate())
                 .withClaim("createdAt", user.getCreatedAt())
-                .withClaim("profileId", user.getProfileId())
+                .withClaim("profileId", user.getId())
                 .withExpiresAt(Instant.now().plusMillis(1000 * 60 * 60 * 24 * 7L))
                 .sign(Algorithm.HMAC512("meta"));
 

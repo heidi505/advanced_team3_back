@@ -52,7 +52,10 @@ public class UserService {
 
             User user = joinDTO.toEntity();
             System.out.println("회원가입 오지?");
-            userJPARepository.save(user);
+            int profileId = userJPARepository.save(user).getId();
+
+            Profile profile = Profile.builder().userId(profileId).id(profileId).profileImage("이미지"+profileId).backImage(null).statusMessage(null).build();
+            profileJPARepository.save(profile);
         } catch (Exception e) {
             throw new MyServerErrorException("서버 에러");
         }
