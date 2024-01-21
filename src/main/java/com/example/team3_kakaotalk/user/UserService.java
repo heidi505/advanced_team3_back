@@ -221,7 +221,7 @@ public class UserService {
 
     // 친구 검색
     public List<UserResponse.SearchFriendResponseDTO> searchFriend(String keyword, Integer sessionUserId){
-        List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userMBRepository.findByFriend(keyword, sessionUserId);
+        List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userMBRepository.findByFriend(keyword, sessionUserId).stream().filter(e->e.getId() != sessionUserId).distinct().toList();
         if (keyword == null || keyword.isEmpty()){
             throw new MyBadRequestException("검색어를 입력해주세요.");
         }
