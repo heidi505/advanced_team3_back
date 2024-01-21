@@ -33,9 +33,9 @@ insert into friend_tb(`user_id1`, `user_id2`) values ('4','10');
 
 
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(1, '1.jpg', '안녕', '배경이미지1', '1234');
+values(1, '1.jpg', '안녕', '2.jpg', '1234');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(2, '2.jpg', '윤채빈 남은혜 이력서 빨리 써라', '배경이미지2', '2345');
+values(2, '2.jpg', '윤채빈 남은혜 이력서 빨리 써라', '3.jpg', '2345');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
 values(3, '3.jpg', '집에 가고 싶다', '배경이미지3', '6547');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)

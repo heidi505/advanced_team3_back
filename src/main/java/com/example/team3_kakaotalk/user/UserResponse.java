@@ -26,15 +26,16 @@ public class UserResponse {
         private String phoneNum;
         private String email;
         private String profileImage;
+        private String backImage;
         private String statusMessage;
         private String jwt;
-        private String statusMessage;
 
         public loginDTO(User user, Profile profile) {
             this.id = user.getId();
             this.nickname = user.getNickname();
             this.phoneNum = user.getPhoneNum();
             this.email = user.getEmail();
+            this.backImage = profile.getBackImage();
             this.profileImage = profile.getProfileImage();
             this.statusMessage = profile.getStatusMessage();
         }

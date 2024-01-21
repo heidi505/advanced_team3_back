@@ -160,6 +160,7 @@ public class UserService {
 
         UserResponse.MyProfileUpdateResponseDTO responseDTO =  new UserResponse.MyProfileUpdateResponseDTO();
         responseDTO.setProfileImage("images/"+ decodeImage);
+        responseDTO.setBackImage("images/"+ decodeImage);
 
         myProfileUpdateRequestDto.setId(sessionId);
 
