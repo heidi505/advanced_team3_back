@@ -125,4 +125,11 @@ public class UserRestController {
         return ResponseEntity.ok().body(ApiUtils.success(respDTO));
     }
 
+
+    @GetMapping("/search-user/{condition}")
+    public ResponseEntity<?> searchUser(@PathVariable String condition){
+        UserResponse.FriendProfileDetailResponseDTO dto = userService.searchUserByCondition(condition);
+        return ResponseEntity.ok().body(ApiUtils.success(dto));
+    }
+
 }

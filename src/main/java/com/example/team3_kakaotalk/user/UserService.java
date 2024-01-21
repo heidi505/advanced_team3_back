@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import com.example.team3_kakaotalk._core.utils.PhotoToStringUtil;
+import com.example.team3_kakaotalk._core.handler.exception.MyNotFoundException;
 import com.example.team3_kakaotalk.friend.Friend;
 import com.example.team3_kakaotalk.profile.Profile;
 import com.example.team3_kakaotalk.profile.ProfileJPARepository;
@@ -52,7 +52,10 @@ public class UserService {
 
             User user = joinDTO.toEntity();
             System.out.println("회원가입 오지?");
-            userJPARepository.save(user);
+            int profileId = userJPARepository.save(user).getId();
+
+            Profile profile = Profile.builder().userId(profileId).id(profileId).profileImage("이미지"+profileId).backImage(null).statusMessage(null).build();
+            profileJPARepository.save(profile);
         } catch (Exception e) {
             throw new MyServerErrorException("서버 에러");
         }
@@ -72,10 +75,10 @@ public class UserService {
         if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             // 비밀번호가 일치하면 JWT 생성 및 응답 DTO 생성
             String jwt = JwtTokenUtils.create(user);
-
             UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user,profile);
 
             responseDTO.setJwt(jwt);
+            responseDTO.setStatusMessage(profile.getStatusMessage());
             System.out.println("나가기 전 " + responseDTO.getNickname());
             return responseDTO;
         } else {
@@ -229,7 +232,7 @@ public class UserService {
 
     // 친구 검색
     public List<UserResponse.SearchFriendResponseDTO> searchFriend(String keyword, Integer sessionUserId){
-        List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userMBRepository.findByFriend(keyword, sessionUserId);
+        List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userMBRepository.findByFriend(keyword, sessionUserId).stream().filter(e->e.getId() != sessionUserId).distinct().toList();
         if (keyword == null || keyword.isEmpty()){
             throw new MyBadRequestException("검색어를 입력해주세요.");
         }
@@ -285,5 +288,34 @@ public class UserService {
 
         return respDTO;
 
+    }
+
+    public UserResponse.FriendProfileDetailResponseDTO searchUserByCondition(String condition) {
+        List<User> user = new ArrayList<>();
+
+        if(condition.contains("@")){
+             Optional<User> opUser = userJPARepository.findByEmail(condition);
+        }else{
+            user = userJPARepository.findByPhoneNum(condition);
+        }
+
+        if(user.isEmpty()){
+            UserResponse.FriendProfileDetailResponseDTO dto = new UserResponse.FriendProfileDetailResponseDTO();
+            dto.setId(0);
+            dto.setNickname("");
+            dto.setBackImage("");
+            dto.setProfileImage("");
+            dto.setStatusMessage("");
+            dto.setSuccess(false);
+            return dto;
+        }
+
+        Profile profile = profileJPARepository.findByUserId(user.get(0).getId());
+
+        UserResponse.FriendProfileDetailResponseDTO dto = new UserResponse.FriendProfileDetailResponseDTO(user.get(0), profile);
+        dto.setSuccess(true);
+
+        System.out.println(dto);
+        return dto;
     }
 }

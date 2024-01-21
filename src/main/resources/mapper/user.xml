@@ -12,8 +12,7 @@
 			case
 				when day(ut.birthdate) = day(current_date()) then '오늘 생일 친구' else '일반 친구'
 		end as is_birthday,
-			max(ft.is_blocked) as is_blocked,
-		    ft.is_favorite
+			max(ft.is_blocked) as is_blocked
 		from
 			user_tb ut
 		inner join
