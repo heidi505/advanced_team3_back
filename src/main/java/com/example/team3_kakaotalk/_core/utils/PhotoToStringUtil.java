@@ -19,7 +19,7 @@ public class PhotoToStringUtil {
         try {
             byte[] image = Base64.getDecoder().decode(pic);
             UUID uuid = UUID.randomUUID();
-            String fileName = startFileName + "_" + uuid + ".png";
+            String fileName = startFileName + "_" + uuid + ".jpg";
             Path filePath = Paths.get(MyPath.IMG_PATH, fileName);
             Files.write(filePath, image);
             return fileName;

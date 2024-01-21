@@ -20,22 +20,22 @@ insert into friend_tb(`user_id1`, `user_id2`,`is_favorite`) values ('1','10',fal
 
 
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(1, '이미지1', '안녕', '배경이미지1', '1234');
+values(1, '1.jpg', '안녕', '배경이미지1', '1234');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(2, '이미지2', '윤채빈 남은혜 이력서 빨리 써라', '배경이미지2', '2345');
+values(2, '2.jpg', '윤채빈 남은혜 이력서 빨리 써라', '배경이미지2', '2345');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(3, '이미지3', '집에 가고 싶다', '배경이미지3', '6547');
+values(3, '3.jpg', '집에 가고 싶다', '배경이미지3', '6547');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(4, '이미지4', '그만 하고 싶어요.........', '배경이미지4', '9822');
+values(4, '4.jpg', '그만 하고 싶어요.........', '배경이미지4', '9822');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(5, '이미지5', '흐흐', '배경이미지5', '0021');
+values(5, '5.jpg', '흐흐', '배경이미지5', '0021');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(6, '이미지6', '먼데', '배경이미지6', '5612');
+values(6, '6.jpg', '먼데', '배경이미지6', '5612');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(7, '이미지7', '키야', '배경이미지7', '7513');
+values(7, '7.jpg', '키야', '배경이미지7', '7513');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(8, '이미지8', '창원 가고 싶다', '배경이미지8', '1235');
+values(8, '8.jpg', '창원 가고 싶다', '배경이미지8', '1235');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(9, '이미지9', '힝힝', '배경이미지9', '7852');
+values(9, '9.jpg', '힝힝', '배경이미지9', '7852');
 insert into profile_tb(user_id, profile_image, status_message, back_image, qr_code)
-values(10, '이미지10', '응응', '배경이미지10', '6540');
+values(10, '10.jpg', '응응', '배경이미지10', '6540');

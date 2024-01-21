@@ -65,14 +65,16 @@ public class UserService {
         Optional<User> userOptional = userJPARepository.findByEmail(loginDTO.getEmail());
         User user = userOptional.get();
         System.out.println("로그인 이메일 조회 : " + user.getNickname());
+        Profile profile = profileJPARepository.findByUserId(user.getId());
+
 
         // 사용자 정보가 존재하고, 입력된 비밀번호와 저장된 해시된 비밀번호가 일치하는지 확인
         if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             // 비밀번호가 일치하면 JWT 생성 및 응답 DTO 생성
             String jwt = JwtTokenUtils.create(user);
 
+            UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user,profile);
 
-            UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);
             responseDTO.setJwt(jwt);
             System.out.println("나가기 전 " + responseDTO.getNickname());
             return responseDTO;
@@ -246,10 +248,11 @@ public class UserService {
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new MyBadRequestException("자동 로그인 오류"));
+        Profile profile = profileJPARepository.findByUserId(sessionUser.getId());
 
         String jwt = JwtTokenUtils.create(user);
 
-        UserResponse.loginDTO dto = new UserResponse.loginDTO(user);
+        UserResponse.loginDTO dto = new UserResponse.loginDTO(user, profile);
         dto.setJwt(jwt);
 
         return dto;
