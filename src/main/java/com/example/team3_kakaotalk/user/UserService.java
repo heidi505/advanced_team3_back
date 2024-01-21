@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+import com.example.team3_kakaotalk._core.utils.PhotoToStringUtil;
 import com.example.team3_kakaotalk._core.handler.exception.MyNotFoundException;
 import com.example.team3_kakaotalk.friend.Friend;
 import com.example.team3_kakaotalk.profile.Profile;
@@ -68,14 +68,15 @@ public class UserService {
         Optional<User> userOptional = userJPARepository.findByEmail(loginDTO.getEmail());
         User user = userOptional.get();
         System.out.println("로그인 이메일 조회 : " + user.getNickname());
+        Profile profile = profileJPARepository.findByUserId(user.getId());
+
 
         // 사용자 정보가 존재하고, 입력된 비밀번호와 저장된 해시된 비밀번호가 일치하는지 확인
         if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             // 비밀번호가 일치하면 JWT 생성 및 응답 DTO 생성
             String jwt = JwtTokenUtils.create(user);
+            UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user,profile);
 
-            Profile profile = profileJPARepository.findByUserId(user.getId());
-            UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);
             responseDTO.setJwt(jwt);
             responseDTO.setStatusMessage(profile.getStatusMessage());
             System.out.println("나가기 전 " + responseDTO.getNickname());
@@ -152,7 +153,17 @@ public class UserService {
         //System.out.println("서비스 진입 확인 : " + sessionUserId);
         System.out.println("서비스 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
 
+        String profileDecodeImage = PhotoToStringUtil.picToString(myProfileUpdateRequestDto.getProfileImage(), myProfileUpdateRequestDto.getNickname());
+        String backDecodeImage = PhotoToStringUtil.picToString(myProfileUpdateRequestDto.getBackImage(), myProfileUpdateRequestDto.getNickname());
+        myProfileUpdateRequestDto.setProfileImage(profileDecodeImage);
+        myProfileUpdateRequestDto.setBackImage(backDecodeImage);
+
+        System.out.println("이미지 dto에 잘 담김? " + myProfileUpdateRequestDto.getProfileImage());
+
         UserResponse.MyProfileUpdateResponseDTO responseDTO =  new UserResponse.MyProfileUpdateResponseDTO();
+        responseDTO.setProfileImage("images/"+ profileDecodeImage);
+        responseDTO.setBackImage("images/"+ backDecodeImage);
+
         myProfileUpdateRequestDto.setId(sessionId);
 
         System.out.println("리퀘스트 값 바뀜? " + myProfileUpdateRequestDto.getId());
@@ -164,7 +175,7 @@ public class UserService {
         this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(myProfileUpdateRequestDto);
         System.out.println("2번이 문제다");
 
-         userJPARepository.findById(myProfileUpdateRequestDto.getId());
+//         userJPARepository.findById(myProfileUpdateRequestDto.getId());
 
         // DTO 안 Id 를 기준으로 조인 쿼리로 조회
        UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userMBRepository.findByMyProfile(myProfileUpdateRequestDto.getId());
@@ -243,10 +254,11 @@ public class UserService {
 
     public UserResponse.loginDTO autoLogin(User sessionUser) {
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new MyBadRequestException("자동 로그인 오류"));
+        Profile profile = profileJPARepository.findByUserId(sessionUser.getId());
 
         String jwt = JwtTokenUtils.create(user);
 
-        UserResponse.loginDTO dto = new UserResponse.loginDTO(user);
+        UserResponse.loginDTO dto = new UserResponse.loginDTO(user, profile);
         dto.setJwt(jwt);
 
         return dto;

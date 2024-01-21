@@ -47,7 +47,7 @@ public class AuthController {
         System.out.println("=======================");
         System.out.println("컨트롤러 호출" + loginDTO.getEmail());
         UserResponse.loginDTO responseDTO = userService.login(loginDTO);
-        System.out.println();
+        System.out.println("로그인 페이지 응답 : " + responseDTO);
 
         return ResponseEntity.ok().header("Authorization", "Bearer " + responseDTO.getJwt()).body(ApiUtils.success(responseDTO));
     }

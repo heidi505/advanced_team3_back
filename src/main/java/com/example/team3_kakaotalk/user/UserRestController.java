@@ -3,6 +3,7 @@ package com.example.team3_kakaotalk.user;
 import java.util.List;
 
 import com.example.team3_kakaotalk._core.utils.Define;
+import com.example.team3_kakaotalk._core.utils.PhotoToStringUtil;
 import com.example.team3_kakaotalk.friend.Friend;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,23 +40,27 @@ public class UserRestController {
     }
 
 	// 나의 프로필 수정
-	@PostMapping("/my-profile-update")
-	public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
-		User sessionUser = (User) session.getAttribute("sessionUser");
+    @PostMapping("/my-profile-update")
+    public ResponseEntity<?> myProfileUpdate(@RequestBody UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+        User sessionUser = (User) session.getAttribute("sessionUser");
         System.out.println("---------유저 정보 확인--------- : " + sessionUser);
-		System.out.println("___________________컨트롤러 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
+        System.out.println("___________________컨트롤러 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
 
-		UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userService.myProfileUpdate(myProfileUpdateRequestDto, sessionUser.getId());
+        UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userService.myProfileUpdate(myProfileUpdateRequestDto, sessionUser.getId());
 
-		System.out.println("프론트로 보내기 : " + myProfileUpdateRequestDto.getNickname());
-		return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdateResponseDto));
-	}
+        System.out.println("프론트로 보내기 : " + myProfileUpdateRequestDto.getNickname());
+        System.out.println("프로필 이미지 보내기 : " + myProfileUpdateRequestDto.getProfileImage());
+        System.out.println("프로필 이미지 보내기 : " + myProfileUpdateRequestDto.getBackImage());
+
+        return ResponseEntity.ok().body(ApiUtils.success(myProfileUpdateResponseDto));
+    }
 
     // 나의 프로필 상세보기
     @GetMapping("/my-profile-detail/{id}")
     public ResponseEntity<?> myProfileDetail(@PathVariable Integer id) {
         System.out.println("디테일 컨트롤러 진입 : " + id);
         UserResponse.MyProfileDetailResponseDTO myProfileDetail = this.userService.myProfileDetail(id);
+        System.out.println("디테일 페이지 응답" + myProfileDetail);
         return ResponseEntity.ok().body(ApiUtils.success(myProfileDetail));
     }
 

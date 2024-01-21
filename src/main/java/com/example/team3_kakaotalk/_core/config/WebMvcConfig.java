@@ -4,11 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Properties;
 
 @Configuration
-public class WebMvcConfig {
+public class WebMvcConfig implements WebMvcConfigurer{
     @Bean
     public JavaMailSender javaMailSender(){
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -29,5 +31,16 @@ public class WebMvcConfig {
 
         mailSender.setJavaMailProperties(javaMailProperties);//mailSender에 우리가 만든 properties 넣고
         return mailSender;//빈으로 등록한다.
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        WebMvcConfigurer.super.addResourceHandlers(registry);
+
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file:" + "./images/")
+                .setCachePeriod(10)
+                .resourceChain(true);
+
     }
 }
