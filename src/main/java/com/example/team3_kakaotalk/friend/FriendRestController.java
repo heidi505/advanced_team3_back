@@ -35,7 +35,4 @@ public class FriendRestController {
         String response = friendService.favoriteFriend(sessionUser.getId(), favoriteFriendDTO);
         return ResponseEntity.ok().body(ApiUtils.success(response));
     }
-
-
-
 }
