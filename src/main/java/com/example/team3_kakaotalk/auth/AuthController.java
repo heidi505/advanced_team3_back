@@ -24,12 +24,13 @@ public class AuthController {
     @Autowired
     private HttpSession session;
 
-    //    @PostMapping("/login")
+//    @PostMapping("/login")
 //    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO reqDTO, Errors errors) {
+//            System.out.println("로그인 통신줃");
 //        UserResponse.loginDTO responseDTO = userService.login(reqDTO);
 //        return ResponseEntity.ok(ApiUtils.success(responseDTO));
 //    }
-//
+
     //회원가입
     @PostMapping("/sign-up")
     public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO) {
@@ -46,7 +47,7 @@ public class AuthController {
         System.out.println("=======================");
         System.out.println("컨트롤러 호출" + loginDTO.getEmail());
         UserResponse.loginDTO responseDTO = userService.login(loginDTO);
-        System.out.println();
+        System.out.println("로그인 페이지 응답 : " + responseDTO);
 
         return ResponseEntity.ok().header("Authorization", "Bearer " + responseDTO.getJwt()).body(ApiUtils.success(responseDTO));
     }

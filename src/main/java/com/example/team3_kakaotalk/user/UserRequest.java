@@ -62,6 +62,8 @@ public class UserRequest {
 
     // 나의 프로필 수정
     @Data
+    @Getter
+    @Setter
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor

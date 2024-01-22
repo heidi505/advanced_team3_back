@@ -18,7 +18,6 @@ public interface UserJPARepository extends JpaRepository<User, Integer> {
 
 	List<FriendTepMainResponseDTO> findAllById(int id);
 
-    Optional<User> findByPhoneNum(String phoneNum);
 
     Optional<User> findById(Integer userId);
 
@@ -29,6 +28,8 @@ public interface UserJPARepository extends JpaRepository<User, Integer> {
     @Transactional
     @Query("UPDATE User u SET u.phoneNum = :newPhoneNum WHERE u.email = :email")
     void updatePhoneNumById(@Param("newPhoneNum") String newPhoneNum, @Param("email") String email);
+    List<User> findByPhoneNum(String condition);
+
 }
 
 

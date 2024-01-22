@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+import com.example.team3_kakaotalk._core.utils.PhotoToStringUtil;
+import com.example.team3_kakaotalk._core.handler.exception.MyNotFoundException;
 import com.example.team3_kakaotalk.friend.Friend;
 import com.example.team3_kakaotalk.profile.Profile;
 import com.example.team3_kakaotalk.profile.ProfileJPARepository;
@@ -50,7 +51,11 @@ public class UserService {
             System.out.println("++++++ 해시화된 비번 ++++++ : " + encodedPassword);
 
             User user = joinDTO.toEntity();
-            userJPARepository.save(user);
+            System.out.println("회원가입 오지?");
+            int profileId = userJPARepository.save(user).getId();
+
+            Profile profile = Profile.builder().userId(profileId).id(profileId).profileImage("이미지"+profileId).backImage(null).statusMessage(null).build();
+            profileJPARepository.save(profile);
         } catch (Exception e) {
             throw new MyServerErrorException("서버 에러");
         }
@@ -58,16 +63,23 @@ public class UserService {
 
 
     public UserResponse.loginDTO login(UserRequest.LoginDTO loginDTO) {
+        System.out.println("로그인 서비스 진입");
         //이메일, 비번으로 조회
         Optional<User> userOptional = userJPARepository.findByEmail(loginDTO.getEmail());
         User user = userOptional.get();
+        System.out.println("로그인 이메일 조회 : " + user.getNickname());
+        Profile profile = profileJPARepository.findByUserId(user.getId());
+
 
         // 사용자 정보가 존재하고, 입력된 비밀번호와 저장된 해시된 비밀번호가 일치하는지 확인
         if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             // 비밀번호가 일치하면 JWT 생성 및 응답 DTO 생성
             String jwt = JwtTokenUtils.create(user);
-            UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user);
+            UserResponse.loginDTO responseDTO = new UserResponse.loginDTO(user,profile);
+
             responseDTO.setJwt(jwt);
+            responseDTO.setStatusMessage(profile.getStatusMessage());
+            System.out.println("나가기 전 " + responseDTO.getNickname());
             return responseDTO;
         } else {
             // 사용자 정보가 없거나 비밀번호가 일치하지 않으면 예외 발생
@@ -137,15 +149,37 @@ public class UserService {
     }
 
     // 나의 프로필 수정
-    public UserResponse.MyProfileUpdateResponseDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto){
+    public UserResponse.MyProfileUpdateResponseDTO myProfileUpdate(UserRequest.MyProfileUpdateRequestDTO myProfileUpdateRequestDto, Integer sessionId){
+        //System.out.println("서비스 진입 확인 : " + sessionUserId);
         System.out.println("서비스 진입 확인 : " + myProfileUpdateRequestDto.getNickname());
+
+        String profileDecodeImage = PhotoToStringUtil.picToString(myProfileUpdateRequestDto.getProfileImage(), myProfileUpdateRequestDto.getNickname());
+        String backDecodeImage = PhotoToStringUtil.picToString(myProfileUpdateRequestDto.getBackImage(), myProfileUpdateRequestDto.getNickname());
+        myProfileUpdateRequestDto.setProfileImage(profileDecodeImage);
+        myProfileUpdateRequestDto.setBackImage(backDecodeImage);
+
+        System.out.println("이미지 dto에 잘 담김? " + myProfileUpdateRequestDto.getProfileImage());
+
+        UserResponse.MyProfileUpdateResponseDTO responseDTO =  new UserResponse.MyProfileUpdateResponseDTO();
+        responseDTO.setProfileImage("images/"+ profileDecodeImage);
+        responseDTO.setBackImage("images/"+ backDecodeImage);
+
+        myProfileUpdateRequestDto.setId(sessionId);
+
+        System.out.println("리퀘스트 값 바뀜? " + myProfileUpdateRequestDto.getId());
+
         // 닉네임
         this.userMBRepository.myProfileNicknameUpdate(myProfileUpdateRequestDto);
+        System.out.println("1번이 문제다");
         // 상태 메세제, 프로필 이미지, 배경 이미지
         this.userMBRepository.myProfileSmessageAndPimageAndBimageUpdate(myProfileUpdateRequestDto);
+        System.out.println("2번이 문제다");
+
+//         userJPARepository.findById(myProfileUpdateRequestDto.getId());
 
         // DTO 안 Id 를 기준으로 조인 쿼리로 조회
-        UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userMBRepository.findByMyProfile(myProfileUpdateRequestDto.getId());
+       UserResponse.MyProfileUpdateResponseDTO myProfileUpdateResponseDto = this.userMBRepository.findByMyProfile(myProfileUpdateRequestDto.getId());
+        System.out.println("3번이 문제다");
         System.out.println("-------------------------------------------------------");
         System.out.println("서비스에서 내보내기 : " + myProfileUpdateResponseDto.getNickname());
         System.out.println("-------------------------------------------------------");
@@ -201,29 +235,30 @@ public class UserService {
 
     // 친구 검색
     public List<UserResponse.SearchFriendResponseDTO> searchFriend(String keyword, Integer sessionUserId){
-        List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userMBRepository.findByFriend(keyword, sessionUserId);
+        List<UserResponse.SearchFriendResponseDTO> searchFriendResponseDto = this.userMBRepository.findByFriend(keyword, sessionUserId).stream().filter(e->e.getId() != sessionUserId).distinct().toList();
         if (keyword == null || keyword.isEmpty()){
             throw new MyBadRequestException("검색어를 입력해주세요.");
         }
         if (searchFriendResponseDto.size() == 0){
             throw new MyBadRequestException("추가된 친구가 없습니다.");
         }
+
         return searchFriendResponseDto;
     }
 
-    // 친구 목록 조회
+    // 친구 목록 조회(카운트 하기)
     public Integer friendCount(Integer id){
         Integer friendCount = this.userMBRepository.findByFriendCount(id);
         return friendCount;
     }
 
-
     public UserResponse.loginDTO autoLogin(User sessionUser) {
         User user = userJPARepository.findById(sessionUser.getId()).orElseThrow(() -> new MyBadRequestException("자동 로그인 오류"));
+        Profile profile = profileJPARepository.findByUserId(sessionUser.getId());
 
         String jwt = JwtTokenUtils.create(user);
 
-        UserResponse.loginDTO dto = new UserResponse.loginDTO(user);
+        UserResponse.loginDTO dto = new UserResponse.loginDTO(user, profile);
         dto.setJwt(jwt);
 
         return dto;
@@ -256,6 +291,34 @@ public class UserService {
 
         return respDTO;
 
+    }
 
+    public UserResponse.FriendProfileDetailResponseDTO searchUserByCondition(String condition) {
+        List<User> user = new ArrayList<>();
+
+        if(condition.contains("@")){
+             Optional<User> opUser = userJPARepository.findByEmail(condition);
+        }else{
+            user = userJPARepository.findByPhoneNum(condition);
+        }
+
+        if(user.isEmpty()){
+            UserResponse.FriendProfileDetailResponseDTO dto = new UserResponse.FriendProfileDetailResponseDTO();
+            dto.setId(0);
+            dto.setNickname("");
+            dto.setBackImage("");
+            dto.setProfileImage("");
+            dto.setStatusMessage("");
+            dto.setSuccess(false);
+            return dto;
+        }
+
+        Profile profile = profileJPARepository.findByUserId(user.get(0).getId());
+
+        UserResponse.FriendProfileDetailResponseDTO dto = new UserResponse.FriendProfileDetailResponseDTO(user.get(0), profile);
+        dto.setSuccess(true);
+
+        System.out.println(dto);
+        return dto;
     }
 }

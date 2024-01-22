@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class UserResponse {
@@ -24,13 +25,19 @@ public class UserResponse {
         private String nickname;
         private String phoneNum;
         private String email;
+        private String profileImage;
+        private String backImage;
+        private String statusMessage;
         private String jwt;
 
-        public loginDTO(User user) {
+        public loginDTO(User user, Profile profile) {
             this.id = user.getId();
             this.nickname = user.getNickname();
             this.phoneNum = user.getPhoneNum();
             this.email = user.getEmail();
+            this.backImage = profile.getBackImage();
+            this.profileImage = profile.getProfileImage();
+            this.statusMessage = profile.getStatusMessage();
         }
     }
 
@@ -101,6 +108,16 @@ public class UserResponse {
         private String profileImage;
         private String backImage;
         private String statusMessage;
+        private boolean isSuccess;
+
+        public FriendProfileDetailResponseDTO(User user, Profile profile) {
+            this.id = user.getId();
+            this.nickname = user.getNickname();
+            this.profileImage = profile.getProfileImage();
+            this.backImage = profile.getBackImage();
+            this.statusMessage = profile.getStatusMessage();
+            this.isSuccess = true;
+        }
     }
 
     // 나의 프로필 삭제(프로필 이미지)
@@ -158,6 +175,8 @@ public class UserResponse {
         private String backImage;
     }
 
+
+
     // 친구 검색
     @Data
     @Getter
@@ -174,6 +193,18 @@ public class UserResponse {
         private String backImage;
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private Date birthdate;
+    }
+
+    // 친구 차단
+    @Data
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FriendDeleteResponseDTO{
+        private Integer id;
+        private Boolean isBlocked;
     }
 
     @Data

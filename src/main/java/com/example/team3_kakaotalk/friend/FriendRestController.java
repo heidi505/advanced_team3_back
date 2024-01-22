@@ -22,6 +22,7 @@ public class FriendRestController {
     private HttpSession session;
 
     // 친구 즐겨찾기 추가, 해제
+//<<<<<<< HEAD
     @PutMapping("/favorite/{id}")
     public ResponseEntity<?> favoriteFriend(@PathVariable Integer id, @RequestBody FriendRequest.FavoriteFriendDTO favoriteFriendDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -35,4 +36,22 @@ public class FriendRestController {
         String response = friendService.favoriteFriend(sessionUser.getId(), favoriteFriendDTO);
         return ResponseEntity.ok().body(ApiUtils.success(response));
     }
+//=======
+//    @PutMapping("/favorite/{id}")
+//    public ResponseEntity<?> favoriteFriend(@PathVariable Integer id, @RequestBody FriendRequest.FavoriteFriendDTO favoriteFriendDTO) {
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//        System.out.println("================================");
+//        System.out.println("session: " + sessionUser.getId());
+//        System.out.println("Received userId: " + id);
+//        System.out.println("Received isFavorite: " + favoriteFriendDTO.isFavorite);
+//        System.out.println("Received favoriteFriendDTO: " + favoriteFriendDTO);
+//        System.out.println("================================");
+//
+//        String response = friendService.favoriteFriend(sessionUser.getId(), favoriteFriendDTO);
+//        return ResponseEntity.ok().body(ApiUtils.success(response));
+//    }
+
+
+
+//>>>>>>> bb2b3310708bc738194c39b291b3e6b3d70d1c7c
 }
